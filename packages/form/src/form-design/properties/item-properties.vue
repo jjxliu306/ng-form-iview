@@ -1,0 +1,943 @@
+<!--
+表单控件属性设置组件,因为配置数据是引用关系，所以可以直接修改
+-->
+<template>
+  <div class="properties-centent">
+   
+    <div class="properties-body"> 
+      <p class="hint-box" v-show="!selectItem.key">未选择控件</p>
+      <Form v-show="selectItem.key" size="mini" :disabled="disabled">
+ 
+
+        <!-- 公共部分 标签 字段key 数据key start -->
+        <FormItem  label="标签" v-if="!hideModel">
+          <Input v-model="selectItem.label" placeholder="请输入" />
+        </FormItem>
+       
+        <FormItem  label="数据字段" v-if="!hideModel && !noModel.includes(selectItem.type)" >
+          <Input v-model="selectItem.model" placeholder="请输入" :disabled="(selectItem.item != undefined && selectItem.item.id != undefined) "/>
+        </FormItem>
+         <Divider ></Divider>
+        <!-- 公共部分 标签 字段key 数据key end -->
+
+        <!-- input textarea start -->
+        <template v-if="selectItem.type == 'input' || selectItem.type == 'textarea'">
+          <FormItem  label="占位内容"  >
+            <Input placeholder="请输入" v-model="options.placeholder" />
+          </FormItem>
+          
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+           
+          <FormItem label="默认值" >
+            <Input  v-model="options.defaultValue"
+              :placeholder=" typeof options.format === 'undefined' ? '请输入' : options.format"
+            />
+          </FormItem>  
+            
+          <FormItem  label="最大长度"  >
+            <Input-number  v-model="options.maxLength" placeholder="最大长度,为0表示不限制"  :min="0"/>  
+           
+          </FormItem>
+          
+          <FormItem  label="前后缀"  v-if="selectItem.type === 'input'">
+            <Input placeholder="前缀标签" v-model="options.prepend">
+              <template slot="prepend">前缀</template>
+            </Input>
+            <Input placeholder="后缀标签" v-model="options.append"  >
+               <template slot="append">后缀</template>
+            </Input> 
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem  v-if="selectItem.type === 'textarea'" label="输入框行数" >
+            <Input-number  style="width:100%" v-model="options.rows" placeholder="输入框行数"  /> 
+          </FormItem>
+          
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.clearable" label="可清除" /> 
+          </FormItem>
+        </template>
+        <!-- input textarea end -->
+
+        <!-- number start -->
+        <template v-if="selectItem.type == 'number'">
+          <FormItem  label="占位内容"  >
+            <Input placeholder="请输入" v-model="options.placeholder" />
+          </FormItem>
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+
+          <FormItem  label="步长">
+            <Input-number v-model="options.step" placeholder="请输入" />
+          </FormItem>
+          <FormItem  label="最小值">
+            <Input-number v-model="options.min" placeholder="请输入" />
+          </FormItem>
+          <FormItem  label="最大值">
+            <Input-number v-model="options.max" placeholder="请输入"/>
+          </FormItem>
+          <FormItem  label="数值精度" >
+            <Input-number :min="0"  :max="5"  v-model="options.precision"  placeholder="请输入" />
+          </FormItem> 
+          <FormItem  label="默认值" >
+            <Input-number
+              :step="options.step"
+              :min="options.min || -Infinity"
+              :max="options.max || Infinity"
+              v-model="options.defaultValue" 
+            />
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem  label="后缀">
+          <!--   <Input placeholder="前缀标签" v-model="options.prepend">
+              <template slot="prepend">前缀</template>
+            </Input> -->
+            <Input placeholder="后缀标签" v-model="options.append"  >
+               <template slot="append">后缀</template>
+            </Input>
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />  
+          </FormItem>
+        </template>
+        <!-- number end -->
+
+        <!-- select start -->
+        <template v-if="selectItem.type == 'select'">
+          <FormItem  label="占位内容"  >
+            <Input placeholder="请输入" v-model="options.placeholder" />
+          </FormItem>
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem  label="选项配置" >
+            <RadioGroup  type="button" v-model="options.dynamic">
+              <Radio :label="0">静态数据</Radio>
+              <Radio :label="1">动态数据</Radio>
+            
+            </RadioGroup>
+   
+            <!-- 远程赋值配置 --> 
+            <div v-if="options.dynamic == 1">
+                <Input size="mini" v-model="options.remoteFunc">
+                  <template slot="prepend">远端方法</template>
+                </Input>
+                <Input size="mini" v-model="options.dataPath"  title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
+                  <template slot="prepend">列表数据dataPath</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteValue">
+                  <template slot="prepend">值字段</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteLabel">
+                  <template slot="prepend">标签字段</template>
+                </Input> 
+            </div>  
+            <!-- 本地赋值 -->
+            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+          </FormItem>
+          <Divider ></Divider>
+          <!-- 联动配置 2021-03-12 lyf -->
+          <FormItem label="联动关联">
+            <Switch
+              v-model="options.linkage"
+              active-text="是"
+              inactive-text="否">
+            </Switch> 
+          </FormItem>
+          <template v-if="options.linkage">
+            <!-- 联动关联中如果事本地数据则只有脚本关联,如果是远程数据则包含远程搜索 -->
+            <Linkage v-model="options.linkData" />
+          </template>
+          <Divider ></Divider>
+          <!-- select 本地配置才有默认值 -->
+          <FormItem v-if="options.dynamic == 0" label="默认值">
+            <Select v-model="options.defaultValue"  :clearable="true">
+              <Option
+                v-for="item in options.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </Option>
+            </Select>
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.clearable" label="可清除" />
+            <Checkbox v-model="options.multiple" label="多选" />
+            <Checkbox v-model="options.showSearch" label="可搜索" @change="(v)=>{
+              if(!v){
+                options.onlineSearch = false
+              }
+            }"/>
+            <Checkbox v-model="options.onlineSearch" v-if="options.showSearch" label="实时搜索"  />
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem   label="实时搜索回调" v-if="options.showSearch && options.onlineSearch"> 
+             <Input type="textarea" placeholder="搜索带参,eg: name=$, $表示当前输入关键字" v-model="options.onlineParams" />
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem   label="选择后回调"  > 
+             <Input type="textarea" placeholder="选择后回调方法,eg: $.A004=$select.name, $表示当前表单数据,$select标示当前选择元素实体" v-model="options.selectCb" />
+          </FormItem> 
+          <FormItem  v-if="selectItem.options.clearable" label="清除后回调"  > 
+             <Input type="textarea" placeholder="清除后回调方法,eg: $.A004= '', $表示当前表单数据" v-model="selectItem.options.clearCb" />
+          </FormItem> 
+        </template>
+         <!-- select end -->
+
+        <!-- checkbox start -->
+        <template v-if="selectItem.type == 'checkbox'">
+          <FormItem  label="选项配置" >
+            <RadioGroup type="button"  v-model="options.dynamic">
+              <Radio :label="0">静态数据</Radio>
+              <Radio :label="1">动态数据</Radio>
+             
+            </RadioGroup>
+   
+            <!-- 远程赋值配置 --> 
+            <div v-if="options.dynamic == 1">
+                <Input size="mini" v-model="options.remoteFunc">
+                  <template slot="prepend">远端方法</template>
+                </Input>
+                <Input size="mini" v-model="options.dataPath"  title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
+                  <template slot="prepend">列表数据dataPath</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteValue">
+                  <template slot="prepend">值字段</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteLabel">
+                  <template slot="prepend">标签字段</template>
+                </Input> 
+            </div> 
+           
+
+            <!-- 本地赋值 -->
+            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+          </FormItem>
+
+           <Divider ></Divider>
+          <!-- 联动配置 2021-03-12 lyf -->
+          <FormItem label="联动关联">
+            <Switch
+              v-model="options.linkage"
+              active-text="是"
+              inactive-text="否">
+            </Switch> 
+          </FormItem>
+          <template v-if="options.linkage">
+            <!-- 联动关联中如果事本地数据则只有脚本关联,如果是远程数据则包含远程搜索 -->
+            <Linkage v-model="options.linkData" />
+          </template>
+          <Divider ></Divider>
+
+          <!-- select 本地配置才有默认值 -->
+          <FormItem v-if="options.dynamic == 0" label="默认值">
+            <CheckboxGroup
+              :options="options.options"
+              v-model="options.defaultValue"
+            >
+              <Checkbox  v-for="checkitem in  [].concat(options.options)" :label="checkitem.value" :key="checkitem.value"> 
+                {{checkitem.label}}
+              </Checkbox>
+          </CheckboxGroup>
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />    
+          </FormItem> 
+        </template>
+        <!-- checkbox end -->
+
+         <!-- radio start -->
+        <template v-if="selectItem.type == 'radio'">
+          <FormItem  label="选项配置" >
+            <RadioGroup   v-model="options.dynamic">
+              <Radio :label="0">静态数据</Radio>
+              <Radio :label="1">动态数据</Radio> 
+            </RadioGroup>
+   
+            <!-- 远程赋值配置 --> 
+            <div v-if="options.dynamic == 1">
+                <Input size="mini" v-model="options.remoteFunc">
+                  <template slot="prepend">远端方法</template>
+                </Input>
+                <Input size="mini" v-model="options.dataPath" title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
+                  <template slot="prepend">列表数据dataPath</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteValue">
+                  <template slot="prepend">值字段</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteLabel">
+                  <template slot="prepend">标签字段</template>
+                </Input> 
+            </div> 
+           
+
+            <!-- 本地赋值 -->
+            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+          </FormItem>
+
+           <Divider ></Divider>
+          <!-- 联动配置 2021-03-12 lyf -->
+          <FormItem label="联动关联">
+            <Switch
+              v-model="options.linkage"
+              active-text="是"
+              inactive-text="否">
+            </Switch> 
+          </FormItem>
+          <template v-if="options.linkage">
+            <!-- 联动关联中如果事本地数据则只有脚本关联,如果是远程数据则包含远程搜索 -->
+            <Linkage v-model="options.linkData" />
+          </template>
+          <Divider ></Divider>
+
+          <!-- select 本地配置才有默认值 -->
+          <FormItem v-if="options.dynamic == 0" label="默认值">
+            <RadioGroup
+              :options="options.options"
+              v-model="options.defaultValue"
+            >
+              <Radio  v-for="checkitem in  [].concat(options.options)" :label="checkitem.value" :key="checkitem.value"> 
+                {{checkitem.label}}
+              </Radio>
+          </RadioGroup>
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />    
+          </FormItem> 
+        </template>
+        <!-- radio end -->
+
+         <!-- date start -->
+        <template v-if="selectItem.type == 'date' || selectItem.type == 'time' || selectItem.type == 'datePicker'">
+          
+          <FormItem  v-if=" (selectItem.type == 'date' || selectItem.type == 'datePicker' ) && options.range " label="占位内容" >
+          <Input placeholder="请输入" v-model="options.rangeStartPlaceholder" />
+          <Input placeholder="请输入" v-model="options.rangeEndPlaceholder" />
+          </FormItem>
+          <FormItem v-else label="占位内容"  >
+            <Input placeholder="请输入" v-model="options.placeholder" />
+          </FormItem>
+
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem> 
+           <Divider ></Divider>
+          <FormItem label="默认值" >
+            <Input
+              v-if="selectItem.type == 'time' || !options.range"
+              v-model="options.defaultValue"
+              :placeholder="
+                typeof options.format === 'undefined' ? '' : options.format
+              "
+            />
+            <Input
+              v-if="(selectItem.type == 'date' || selectItem.type == 'datePicker' ) && options.range"
+              v-model="options.rangeDefaultValue[0]"
+              :placeholder="
+                '起始时间' + (typeof options.format === 'undefined' ? '' : options.format)
+              "
+            />
+            <Input
+              v-if="(selectItem.type == 'date' || selectItem.type == 'datePicker' ) && options.range"
+              v-model="options.rangeDefaultValue[1]"
+              :placeholder="
+                '结束时间' + ( typeof options.format === 'undefined' ? '' : options.format)
+              "
+            /> 
+            <!-- <Input  v-model="options.defaultValue"
+              :placeholder=" typeof options.format === 'undefined' ? '请输入' : options.format"
+            /> -->
+          </FormItem> 
+          <FormItem  label="时间格式" >
+            <Input  v-model="options.format"  :placeholder="selectItem.type == 'date' ? 'YYYY-MM-DD' : (selectItem.type == 'datePicker' ? 'YYYY-MM-DD HH:mm:ss' : 'HH:mm:ss' )" />
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.clearable" label="可清除" /> 
+            <Checkbox v-if="selectItem.type == 'date' || selectItem.type == 'datePicker'" v-model="options.range" label="范围选择" />
+          </FormItem>
+        </template>
+        <!-- date end -->
+
+        <!-- rate start -->
+        <template v-if="selectItem.type == 'rate'">
+          <FormItem v-if="typeof options.max !== 'undefined'" label="最大值">
+          <Input-number v-model="options.max" placeholder="请输入" @change="(v)=>{  
+                if(options.defaultValue > v){
+                  options.defaultValue = v
+                } 
+            }"/>
+          </FormItem>
+          <FormItem label="默认值">
+            <el-rate  v-model="options.defaultValue"  :allowHalf="options.allowHalf" :max="options.max"  />
+          </FormItem>
+        
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.allowHalf" label="允许半选" />
+          </FormItem>
+        </template>
+        <!-- date end -->
+
+        <!--  rate start -->
+        <template v-if="selectItem.type == 'slider'">
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+           <FormItem  label="步长">
+            <Input-number v-model="options.step" placeholder="请输入" />
+          </FormItem>
+          <FormItem  label="最小值">
+            <Input-number v-model="options.min" placeholder="请输入" />
+          </FormItem>
+          <FormItem  label="最大值">
+            <Input-number v-model="options.max" placeholder="请输入"/>
+          </FormItem>
+          <FormItem label="默认值"  >
+            <Input-number
+              :step="options.step"
+              :min="options.min || -Infinity"
+              :max="options.max || Infinity"
+              v-model="options.defaultValue"  />
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem   label="标记marks">
+            <br>
+            <Option style="width: 100%;" :keyNumber="true" type="keyvalue" v-model="options.marks" />
+          </FormItem> 
+            
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.showInput"  label="显示输入框" />
+          </FormItem>
+        </template>
+        <!-- date end -->
+
+        <!-- 上传文件 start -->
+        <template v-if="selectItem.type == 'uploadFile'">
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          <!-- 上传数量 -->
+          <FormItem  label="最大上传数量" >
+            <Input-number :min="1" v-model="options.limit" />
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.multiple"  label="多选" />
+          </FormItem> 
+        </template> 
+        <!-- 上传文件 end -->
+
+
+        <!-- 上传图片 start -->
+        <template v-if="selectItem.type == 'uploadImg'">
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          <!-- 上传数量 -->
+          <FormItem  label="最大上传数量" >
+            <Input-number :min="1" v-model="options.limit" />
+          </FormItem>
+           <Divider ></Divider>
+          <!-- 上传图片样式 -->
+          <FormItem  label="样式">
+            <RadioGroup type="button" v-model="options.listType">
+              <Radio label="text">text</Radio>
+              <Radio label="picture">picture</Radio>
+              <Radio label="picture-card">card</Radio>
+            </RadioGroup>
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.multiple"  label="多选" />
+          </FormItem> 
+        </template> 
+        <!-- 上传图片 end -->
+
+        <!-- 级联选择器 start -->
+        <template v-if="selectItem.type == 'cascader'">
+          <FormItem  label="选项配置" >
+            <RadioGroup  type="button" v-model="options.dynamic">
+              <Radio :label="0">静态数据</Radio>
+              <Radio :label="1">动态数据</Radio> 
+            </RadioGroup>
+   
+            <!-- 远程赋值配置 --> 
+            <div v-if="options.dynamic == 1">
+                <Input size="mini" v-model="options.remoteFunc">
+                  <template slot="prepend">远端方法</template>
+                </Input>
+                <Input size="mini" v-model="options.dataPath">
+                  <template slot="prepend">列表数据jsonPath</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteValue">
+                  <template slot="prepend">值字段</template>
+                </Input>
+                <Input size="mini" v-model="options.remoteLabel">
+                  <template slot="prepend">标签字段</template>
+                </Input> 
+                <Input size="mini" v-model="options.remoteChildren" >
+                  <template slot="prepend">下级字段</template>
+                </Input>
+            </div>  
+
+            <!-- 本地赋值 -->
+            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+          </FormItem>
+             <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />   
+            <Checkbox v-model="options.clearable" label="可清除" />
+            <Checkbox v-model="options.multiple" label="多选" />
+            <Checkbox v-model="options.showSearch" label="可搜索" /> 
+          </FormItem> 
+        </template>
+        <!-- 级联选择器 end -->
+
+
+        <!-- 动态表格 start -->
+        <template v-if="selectItem.type == 'batch'">
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          <FormItem  label="对话框标签宽度">
+            <Input placeholder="请输入" v-model="options.labelWidth" />
+          </FormItem>
+           <Divider ></Divider>
+          <FormItem label="标签对齐方式">
+            <RadioGroup type="button" v-model="options.labelPosition">
+              <Radio label="left">左对齐</Radio>
+              <Radio label="right">右对齐</Radio>
+              <Radio label="top">顶部对齐</Radio>
+            </RadioGroup>
+          </FormItem>
+
+           <Divider ></Divider>
+          <!-- 上传数量 -->
+          <FormItem  label="滚动高度" >
+            <InputNumber :min="0" v-model="options.scrollY" />
+          </FormItem>
+           <!-- 表格 -->
+          <FormItem  label="表格样式Class名称">
+            <Input v-model="selectItem.options.customClass" />
+          </FormItem>
+            
+          <FormItem  label="表格样式CSS">
+            <Input type="textarea" v-model="selectItem.options.customStyle" />
+          </FormItem>
+          <Divider ></Divider>
+            <FormItem  label="新增行方式">
+             <RadioGroup v-model="options.addType">
+              <Radio  label="line">增加行</Radio>
+              <Radio  label="dialog">弹出框</Radio> 
+            </RadioGroup>
+          </FormItem>
+         
+         
+          <Divider class="divider-center" > {{options.addType == 'dialog' ? '外部展示字段' : '字段宽度'}} </Divider>
+          <FormItem  >
+              <CheckboxGroup v-model="selectItem.options.showItem" >
+                <!-- 获取当前内部已经包含的要素 -->
+                <el-row  v-for="item in selectItem.list" :key="item.model">
+                  <el-col :span="12">
+                     <Checkbox :label="item.model" v-if="options.addType == 'dialog'">{{item.label}}</Checkbox>
+                     <span v-else> {{item.label}} </span>
+                  </el-col>
+                   <el-col :span="12">
+                     <Input   placeholder="宽度" v-model="selectItem.options.colWidth[item.model]" />
+                  </el-col> 
+                </el-row> 
+
+              </CheckboxGroup>
+          </FormItem> 
+           
+          <Divider ></Divider>
+
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" /> 
+            <Checkbox v-model="options.showLabel" label="显示Label" />
+             <Checkbox v-model="options.showBorder" label="显示边框" />
+            <Checkbox v-model="options.hideSequence" label="隐藏序号" />
+            <Checkbox v-model="options.copyRow" label="行复制" />
+             
+          </FormItem> 
+        </template> 
+        <!-- 动态表格 end -->
+
+
+         <!-- 开关 switch start-->
+        <template v-if="selectItem.type == 'switch'"> 
+          <!-- 开关的label -->
+          <FormItem   label="打开标签值">
+            <Input placeholder="请输入" v-model="options.activeText" /> 
+          </FormItem>
+           <FormItem   label="关闭标签值" >
+            <Input placeholder="请输入" v-model="options.inactiveText" /> 
+          </FormItem>
+          <FormItem  label="默认值">
+            <Switch v-model="options.defaultValue" />
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />  
+          </FormItem> 
+        </template> 
+        <!-- 开关 switch  end -->
+
+
+         <!-- 按钮 start-->
+        <template v-if="selectItem.type == 'button'"> 
+          <!-- 按钮类型 -->
+          <FormItem label="类型">
+            <RadioGroup v-model="options.type">
+              <Radio label="primary">Primary</Radio>
+              <Radio label="default">Default</Radio>
+              <Radio label="dashed">Dashed</Radio>
+              <Radio label="danger">Danger</Radio>
+            </RadioGroup>
+          </FormItem>
+            <Divider ></Divider>
+          <FormItem  label="按钮对齐方式">
+            <RadioGroup type="button" v-model="selectItem.options.textAlign">
+              <Radio label="left">左</Radio>
+              <Radio label="center">居中</Radio>
+              <Radio label="right">右</Radio>
+            </RadioGroup>
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem  label="按钮操作"> 
+            <Input type="textarea" v-model="options.dynamicFun" placeholder="动态JS,表单数据绑定值符号$" ></Input>
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />   
+          </FormItem> 
+        </template> 
+        <!-- 按钮  end -->
+
+        <!-- 标签 start-->
+        <template v-if="selectItem.type == 'text'"> 
+          <!-- 按钮类型 -->
+          <FormItem  label="文字对齐方式">
+            <RadioGroup v-model="options.textAlign">
+              <Radio label="left">左</Radio>
+              <Radio label="center">居中</Radio>
+              <Radio label="right">右</Radio>
+            </RadioGroup>
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" /> 
+            <Checkbox v-model="options.showRequiredMark" label="显示必选标记" />
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem   label="动态必选" >
+           <Input type="textarea" v-model="options.showRequiredMarkScript" :rows="4" placeholder="请输入表达式或者动态函数,数据实体以$标识"/>
+          </FormItem> 
+        </template> 
+        <!-- 标签  end -->
+
+         <!-- 标签 start-->
+        <template v-if="selectItem.type == 'alert'"> 
+          <!-- 按钮类型 -->
+          <FormItem  label="内容">
+             <Input type="textarea" v-model="options.title" :rows="4" placeholder="提示内容"/>
+          </FormItem> 
+          <FormItem  label="辅助文字">
+             <Input type="textarea" v-model="options.description" :rows="4" placeholder="辅助文字"/>
+          </FormItem> 
+          <FormItem  label="类型">
+            <RadioGroup type="button" v-model="options.type">
+              <Radio label="success">success</Radio>
+              <Radio label="warning">warning</Radio> 
+              <Radio label="info">info</Radio>
+              <Radio label="error">error</Radio> 
+            </RadioGroup>
+          </FormItem> 
+          <FormItem  label="主题">
+            <RadioGroup type="button" v-model="options.effect">
+              <Radio label="light">light</Radio>
+              <Radio label="dark">dark</Radio> 
+            </RadioGroup>
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.closable"  label="可关闭" /> 
+            <Checkbox v-model="options.center" label="居中" />
+             <Checkbox v-model="options.showIcon" label="显示图标" />
+          </FormItem> 
+           <FormItem v-if="options.closable" label="关闭按钮文本">
+            <Input  v-model="options.closeText"  placeholder="不需要则不填"/>
+          </FormItem> 
+          <Divider ></Divider>
+          <FormItem   label="动态必选" >
+           <Input type="textarea" v-model="options.showRequiredMarkScript" :rows="4" placeholder="请输入表达式或者动态函数,数据实体以$标识"/>
+          </FormItem> 
+        </template> 
+        <!-- 标签  end -->
+
+        <!-- html start-->
+        <template v-if="selectItem.type == 'html'">  
+          <FormItem label="默认值">
+            <Input type="textarea" v-model="options.defaultValue" :rows="4" />
+          </FormItem>
+          <Divider ></Divider>
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />  
+          </FormItem> 
+        </template> 
+        <!-- html  end -->
+
+
+        <!-- ################### 布局  start ################################  -->
+        <!-- 分割线 start-->
+        <template v-if="selectItem.type == 'divider'">  
+          
+
+          <FormItem  label="方向" >
+            <RadioGroup type="button" v-model="options.direction">
+              <Radio label="horizontal">横向</Radio>
+              <Radio label="vertical">竖向</Radio> 
+            </RadioGroup>
+          </FormItem>  
+          <Divider ></Divider>
+          <FormItem  label="标签位置" v-if="options.direction && options.direction == 'horizontal'">
+            <RadioGroup type="button" v-model="options.orientation">
+              <Radio label="left">左</Radio>
+              <Radio label="center">居中</Radio>
+              <Radio label="right">右</Radio>
+            </RadioGroup>
+          </FormItem> 
+        </template> 
+        <!-- 分割线  end -->
+
+        <!-- 栅格布局 start-->
+        <template v-if="selectItem.type == 'grid'">   
+          <FormItem  label="栅格间距">
+            <Input-number  v-model="selectItem.options.gutter"  placeholder="请输入" />
+          </FormItem>
+          <FormItem label="列配置项">
+            <Option v-model="selectItem.columns" type="colspan" />
+          </FormItem>
+        </template> 
+        <!-- 栅格布局  end -->
+
+        <!-- 表格布局 start-->
+        <template v-if="selectItem.type == 'table'">   
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          <!-- 表格 -->
+          <FormItem  label="表格样式Class名称">
+            <Input v-model="selectItem.options.customClass" />
+          </FormItem>
+          <FormItem  label="表格样式CSS">
+            <Input type="textarea" v-model="selectItem.options.customStyle" />
+          </FormItem>
+         <Divider ></Divider>
+          <FormItem label="操作属性">
+            <Checkbox v-model="options.bordered" label="显示边框" />
+            <Checkbox v-model="options.bright" label="鼠标经过点亮" />
+            <Checkbox v-model="options.small" label="紧凑型" />
+          </FormItem>
+        </template> 
+        <!-- 表格布局  end -->
+
+         <!-- 容器 start -->
+        <template v-if="selectItem.type == 'control'">
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          
+
+           <Divider ></Divider> 
+           <!-- 表格 -->
+          <FormItem  label="样式Class名称">
+            <Input v-model="selectItem.options.customClass" />
+          </FormItem>
+            
+          <FormItem  label="样式CSS">
+            <Input type="textarea" v-model="selectItem.options.customStyle" />
+          </FormItem>
+           
+           
+          <Divider ></Divider>
+
+          <FormItem   label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" />
+            <Checkbox v-model="options.disabled"  label="禁用" />  
+            <Checkbox v-model="options.bordered" label="显示边框" /> 
+            <Checkbox v-model="options.noAdd" label="无新增" />
+            <Checkbox v-model="options.noRemove" label="无删除" />  
+            <Checkbox v-model="options.noCopy" label="无复制" />  
+          </FormItem> 
+        </template> 
+        <!-- 容器 end -->
+ 
+        <!-- ############# 为自定义组件预备的插槽 start ############### -->
+
+        <slot name="custom-properties"></slot>
+
+
+         <!-- ############# 为自定义组件预备的插槽 end ############### -->
+
+        <!-- ################### 布局  end ################################  -->
+
+         <!-- tooptip 提示 -->
+        <FormItem  v-if="[
+          'input',
+          'textarea',
+          'number',
+          'select',
+          'checkbox',
+          'radio',
+          'date',
+          'time',
+          'datePicker',
+          'rate',
+          'slider',
+          'uploadFile',
+          'uploadImg',
+          'cascader',
+          'switch',
+          'button',
+          'text',
+          'html',
+          'divider' 
+        ].includes(selectItem.type)" label="tooptip提示" > 
+          <Input type="textarea" v-model="options.tooptip"  placeholder="鼠标移动到组件上的提示信息" /> 
+        </FormItem> 
+        <Divider ></Divider>
+
+        <!-- ################### 校验   start ############################## -->
+        <FormItem  v-if="selectItem.rules  && selectItem.rules.length > 0 " label="校验" >
+          <Checkbox v-model="selectItem.rules[0].required" label="必填" />
+          <Input v-model="selectItem.rules[0].message"  placeholder="必填校验提示信息" />
+          <Option v-model="selectItem.rules" type="rules" :disabled="disabled" />
+
+          <Divider ></Divider>
+        </FormItem>
+        <!-- ################### 校验   end ############################## -->
+
+       
+
+        <template v-if="!hideModel && selectItem && selectItem.options">
+           <FormItem label="动态显示">
+            <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 --> 
+            <Switch
+              v-model="selectItem.options.dynamicVisible"
+              active-text="打开"
+              inactive-text="关闭">
+            </Switch>
+          </FormItem>
+          <FormItem label="显示条件" v-if="selectItem.options.dynamicVisible">
+            <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 -->
+            <Input
+              type="textarea"
+              :rows="3"
+              placeholder="请输入显示条件,$标识当前整个表单的绑定数据"
+              v-model="selectItem.options.dynamicVisibleValue">
+            </Input>
+          </FormItem>
+          <Divider ></Divider>
+        </template>
+        <!-- 条件禁用 lyf 2021-05-06-->
+        <template v-if="!hideModel && selectItem && selectItem.options && selectItem.options.disabled">
+           <FormItem label="动态禁用">
+            <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 --> 
+            <Switch
+              v-model="selectItem.options.dynamicDisabled"
+              active-text="打开"
+              inactive-text="关闭">
+            </Switch>
+          </FormItem>
+          <FormItem label="禁用条件" v-if="selectItem.options.dynamicDisabled">
+            <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 -->
+            <Input
+              type="textarea"
+              :rows="3"
+              placeholder="请输入禁用条件,$标识当前整个表单的绑定数据,data标识当前事项实体数据"
+              v-model="selectItem.options.dynamicDisabledValue">
+            </Input>
+          </FormItem>
+
+        </template>
+       
+
+
+        <FormItem v-if="selectItem.type === 'table'" label="提示">
+          <p style="line-height: 26px;">
+            请点击右键增加行列，或者合并单元格
+          </p>
+        </FormItem>
+
+      </Form>
+    </div> 
+  </div>
+</template>
+<script> 
+import Option from "./option";
+import Linkage from './linkage'
+import {noModelList} from '../config'
+export default {
+  name: "formItemProperties",
+  data() {
+    return {
+      options: {},
+      noModel : noModelList
+    };
+  },
+  watch: {
+    selectItem(val) { 
+      this.options = val.options || {}; 
+    }
+  },
+  props: {
+    selectItem: {
+      type: Object,
+      required: true
+    },
+
+    hideModel: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  components: {
+    Option , Linkage
+  }
+};
+</script>

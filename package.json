@@ -1,0 +1,77 @@
+{
+  "name": "form-design-iview",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name form-design-iview --dest lib packages/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "core-js": "^3.6.5",
+    "default-passive-events": "^1.0.10",
+    "object-path": "^0.11.5",
+    "vuedraggable": "^2.23.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11",
+    "vuex-persistedstate": "^3.0.1",
+    "webpack-bundle-analyzer": "^4.4.2" 
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-unused-vars": "off",
+      "vue/no-unused-components": "off",
+      "no-mixed-spaces-and-tabs": "off",
+      "no-tabs": "off",
+      "no-irregular-whitespace": "off"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "private": false,
+  "description": "form-design-element",
+  "main": "lib/form-design-element.umd.min.js",
+  "directories": {
+    "example": "example",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitee.com/jjxliu306/form-design-iview.git"
+  },
+  "author": "liuyufeng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitee.com/jjxliu306/form-design-iview/issues"
+  },
+  "homepage": "https://gitee.com/jjxliu306/form-design-iview#readme",
+  "keywords": [
+    "vue-form-design",
+    "form-design-iview",
+    "formdesign",
+    "动态表单",
+    "表单"
+  ]
+}
