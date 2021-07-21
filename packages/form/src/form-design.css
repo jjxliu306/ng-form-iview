@@ -3,6 +3,10 @@
   text-align: left ;
 }
 
+.form-design .drag-panel .ivu-collapse-content{
+  padding: 0px;
+}
+
 .form-design .form-label .is-required:before {
   content: "*";
   color: #F56C6C;
@@ -21,10 +25,10 @@
 .form-design .el-main {
   padding: 10px;
 }
-.form-design .el-card__header {
+.form-design .ivu-card-header {
   text-align: center;
 }
-.form-design .el-card__body {
+.form-design .ivu-card-body {
   overflow: auto;
   height: 90%;
   padding: 5px;
@@ -41,8 +45,7 @@
 }
 .form-design .components-list ul {
   position: relative;
-  overflow: hidden;
-  padding: 0 10px 10px;
+  overflow: hidden; 
   margin: 0;
 }
 .form-design .components-list .form-edit-widget-label {
@@ -255,17 +258,17 @@
   padding: 8px 16px;
 }
 
-.form-design .properties-centent .properties-body .el-form .el-form-item {
+.form-design .properties-centent .properties-body .ivu-form .ivu-form-item {
   margin-bottom: 0;
   padding: 5px 0;
 }
-.form-design .properties-centent .properties-body .el-form .el-form-item .el-form-item__label, .form-design .properties-centent .properties-body .el-form .el-form-item .el-radio__label, .form-design .properties-centent .properties-body .el-form .el-form-item .el-switch__label, .form-design .properties-centent .properties-body .el-form .el-form-item * {
+.form-design .properties-centent .properties-body .ivu-form .ivu-form-item .ivu-form-item__label, .form-design .properties-centent .properties-body .ivu-form .ivu-form-item .el-radio__label, .form-design .properties-centent .properties-body .ivu-form .ivu-form-item .el-switch__label, .form-design .properties-centent .properties-body .ivu-form .ivu-form-item * {
   font-size: 13px; 
 }
-.form-design .properties-centent .properties-body .el-form .el-form-item .el-checkbox {
+.form-design .properties-centent .properties-body .ivu-form .ivu-form-item .ivu-checkbox {
   font-size: 13px;
 }
-.form-design .properties-centent .properties-body .el-form .el-form-item .el-checkbox .el-checkbox__label {
+.form-design .properties-centent .properties-body .ivu-form .ivu-form-item .ivu-checkbox .ivu-checkbox__label {
   font-size: 13px;
 }
 
@@ -458,7 +461,7 @@
   transition: all 0.3s;
   border-collapse: collapse;
 }
-.form-design .form-table tr .el-form-item {
+.form-design .form-table tr .ivu-form-item {
   margin-bottom: 0 !important;
 }
 .form-design .form-table tr td {
@@ -475,7 +478,7 @@
  padding-left: 2px;
 }
 
-.form-design .form-table tr td .el-form-item {
+.form-design .form-table tr td .ivu-form-item {
   margin-bottom: 0 !important;
 }
 .form-design .form-table.bordered tr td {
@@ -487,7 +490,7 @@
 .form-design .form-table.small tr td {
   /*padding: 8px 8px;*/
 }
-.form-design .form-table .el-row .el-form-item {
+.form-design .form-table .el-row .ivu-form-item {
   margin: 0 !important;
 }
 

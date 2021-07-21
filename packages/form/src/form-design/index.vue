@@ -1,6 +1,6 @@
 <template> 
     <Row class="form-design layout" :gutter="20">
-      <i-col :span="4"  >
+      <i-col :span="4" class="drag-panel" >
           <slot name="drag"></slot>
           <DragPanel > </DragPanel> 
       </i-col>
@@ -115,7 +115,7 @@ export default {
         config: {
           labelPosition: "left",
           labelWidth: 100, 
-          size: 'mini',
+          size: 'small',
           outputHidden: true ,//  是否输出隐藏字段的值 默认打开,所有字段都输出
           hideRequiredMark: true ,
           customStyle: ""

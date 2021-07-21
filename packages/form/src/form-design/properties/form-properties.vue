@@ -15,15 +15,17 @@
         <Divider></Divider>
 
         <FormItem label="标签宽度">
-          <el-input-number v-model="config.labelWidth" :min="0" :max="200" :step="10"></el-input-number>
+          <InputNumber v-model="config.labelWidth" :min="0" :max="200" :step="10"/>
         </FormItem>
         <Divider></Divider>
 
         <FormItem label="组件尺寸">
+          
           <RadioGroup type="button" v-model="config.size">
-            <Radio label="medium">medium</Radio>
+            <Radio label="large">large</Radio>
+            <Radio label="default">default</Radio>
             <Radio label="small">small</Radio>
-            <Radio label="mini">mini</Radio>
+           
           </RadioGroup>
         </FormItem>
         <Divider></Divider>

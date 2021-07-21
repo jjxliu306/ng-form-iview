@@ -8,30 +8,39 @@
 		<p slot="title"> 
             组件列表
         </p>
-		<Collapse v-model="actives"  >
-		  	<CollapseItem title="基础组件" name="1">
-		  		<DragItem 
+		<Collapse v-model="actives" accordion  >
+		  	<Panel  name="1">
+		  		基础组件
+	            <p slot="content">
+	            	<DragItem 
 	                :list="basicsArray"
 	                @generateKey="generateKey"
 	                @handleListPush="handleListPush"
-	                @start="handleStart"/>
-		  	</CollapseItem>
+	                @start="handleStart"/> 
+	            </p> 
+		  	</Panel >
 		  	 <!-- 自定义控件 -->
-            <CollapseItem v-if="customComponents.length > 0" title="自定义组件" name="2" >
-              <DragItem
-                :list="customComponents"
-                @generateKey="generateKey"
-                @handleListPush="handleListPush"
-                @start="handleStart"
-              />
-            </CollapseItem>
-		  	<CollapseItem title="布局组件" name="3">
-		  		<DragItem 
+            <Panel  v-if="customComponents.length > 0" name="2" >
+            	自定义组件
+	            <p slot="content">
+	            	<DragItem
+	                :list="customComponents"
+	                @generateKey="generateKey"
+	                @handleListPush="handleListPush"
+	                @start="handleStart"
+	              />
+	            </p>  
+            </Panel >
+		  	<Panel    name="3">
+		  		布局组件
+		  		<p slot="content">
+		  			<DragItem 
 	                :list="layoutArray"
 	                @generateKey="generateKey"
 	                @handleListPush="handleListPush"
 	                @start="handleStart"/>
-		  	</CollapseItem>
+	            </p>
+		  	</Panel >
 
 		</Collapse> 
 	</Card>

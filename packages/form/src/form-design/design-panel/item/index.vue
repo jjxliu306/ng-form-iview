@@ -9,10 +9,10 @@
       从左侧选择组件添加
     </p>
     <Form 
-      :label-width="data.config.labelWidth + 'px'" 
+      :label-width="data.config.labelWidth " 
       class="a-form-box form-build"
       :label-position="data.config.labelPosition"
-      :hide-required-asterisk="data.config.hideRequiredMark" 
+      :hide-required-mark="data.config.hideRequiredMark" 
       ref="form" 
       :style="data.config.customStyle" 
       :size="data.config.size"

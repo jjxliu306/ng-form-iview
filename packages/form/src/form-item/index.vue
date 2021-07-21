@@ -76,6 +76,7 @@
       :type="record.options.type" 
       @click="buttonClick"
       v-text="record.label"
+      :size="formConfig.size"
     ></Button>
   </FormItem>
   
@@ -96,6 +97,7 @@
         :closable="record.options.closable"
         :center="record.options.center"
          :close-text="record.options.closeText"
+        :size="formConfig.size"
         :show-icon="record.options.showIcon">
       </Alert>
   </div>
@@ -110,13 +112,20 @@
     <!-- 分割线 --> 
     <Divider
       v-if=" record.type === 'divider' && record.label !== '' && record.options.orientation "
-      :content-position="record.options.orientation" :direction="record.options.direction ? record.options.direction : 'horizontal'">
+      :content-position="record.options.orientation" 
+      :direction="record.options.direction ? record.options.direction : 'horizontal'"
+      :size="formConfig.size"
+      >
       {{ record.label }}
     </Divider>
-    <Divider v-else-if="record.type === 'divider' && record.label !== ''" :direction="record.options.direction ? record.options.direction : 'horizontal'" >
+    <Divider v-else-if="record.type === 'divider' && record.label !== ''" 
+    :direction="record.options.direction ? record.options.direction : 'horizontal'" 
+       :size="formConfig.size">
       {{record.label}}
     </Divider>
-    <Divider v-else-if="record.type === 'divider' && record.label === ''" :direction="record.options.direction ? record.options.direction : 'horizontal'" />
+    <Divider v-else-if="record.type === 'divider' && record.label === ''" 
+    :direction="record.options.direction ? record.options.direction : 'horizontal'" 
+       :size="formConfig.size"/>
   </div>
 </template>
 <script> 

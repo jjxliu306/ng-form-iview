@@ -6,8 +6,8 @@
       "
       class="form-build form-design"
       :label-position="formTemplate.config.labelPosition"
-      :hide-required-asterisk="formTemplate.config.hideRequiredMark" 
-      :label-width="formTemplate.config.labelWidth + 'px'" 
+      :hide-required-mark="formTemplate.config.hideRequiredMark" 
+      :label-width="formTemplate.config.labelWidth" 
       ref="form"
       :rules="rules"
       :model="models" 
@@ -16,6 +16,7 @@
       :id="randomId"
       :key="randomId"
     > 
+    {{formTemplate.config}}
     <template >
       <buildBlocks
         ref="buildBlocks"
