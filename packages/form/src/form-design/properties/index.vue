@@ -1,14 +1,14 @@
 <template>
 	 
-	<Tabs type="card" v-model="active" >
-	    <TabPane  label="控件属性" name="item">
+	<Tabs type="card" name="properties" v-model="active" >
+	    <TabPane  label="控件属性" name="item" tab="properties">
 	    	<ItemProperties :selectItem="selectItem" ref="itemProperties" >
 	    		<template slot="custom-properties" :selectItem="selectItem">
                         <slot name="custom-properties" :selectItem="selectItem"></slot>
                 </template>
 	    	</ItemProperties>
 	    </TabPane> 
-	    <TabPane label="表单属性" name="form"> 
+	    <TabPane label="表单属性" name="form" tab="properties"> 
 	    	<FormProperties ref="formProperties"  
 	    	 	:config="data.config"
 	            :previewOptions="previewOptions"

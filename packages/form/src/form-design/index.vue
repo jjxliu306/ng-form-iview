@@ -1,15 +1,16 @@
 <template> 
-    <Layout class="form-design">
-      <Sider  width="260px">
+    <Row class="form-design layout" :gutter="20">
+      <i-col :span="4"  >
           <slot name="drag"></slot>
           <DragPanel > </DragPanel> 
-      </Sider>
-      <Content>
+      </i-col>
+      <i-col :span="20">
         <Row class="form-design" :gutter="20"> 
             <Col :span="18" class="height-all">
               <Card   header="表单面板"  class="box-card form-contains"> 
-                <div slot="header" class="clearfix">
-                    <span class="el-card__header">
+
+                <div slot="title" class="clearfix">
+                    <span  >
                       <slot name="formName">表单面板</slot>
                     </span>
                     <span style="float: right;">
@@ -44,7 +45,7 @@
             </Col>
         </Row>
  
-      </Content>
+      </i-col>
 
       <Preview  v-if="previewVisible" ref="preview" />
        
@@ -80,7 +81,7 @@
         </span>
       </Modal>    
       
-    </Layout> 
+    </Row> 
 </template>
 
 <script> 

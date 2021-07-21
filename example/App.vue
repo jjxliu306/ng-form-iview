@@ -1,13 +1,13 @@
 <template>
   <div id="app">
 
-    <el-tabs v-model="activeName" style="padding: 20px;" @tab-click="changeTab">
-        <el-tab-pane label="表单绘制" name="first">
+    <Tabs v-model="activeName"  name="app" style="padding: 20px;" @tab-click="changeTab">
+        <TabPane label="表单绘制" name="first" tab="app">
             <form-design ref="formDesign" :custom-components="customComponents" :config="formConfig">
                 <template slot="controlButton" >
-                    <el-button   type="text" size="medium"  @click="initDemo(1)">示例1</el-button>
-                    <el-button   type="text" size="medium"  @click="initDemo(2)">示例2</el-button>
-                    <el-button   type="text" size="medium"  @click="initDemo(3)">示例3</el-button>
+                    <Button   type="text" size="medium"  @click="initDemo(1)">示例1</Button>
+                    <Button   type="text" size="medium"  @click="initDemo(2)">示例2</Button>
+                    <Button   type="text" size="medium"  @click="initDemo(3)">示例3</Button>
                 </template>
                 <!-- 自定义属性配置 -->
                 <template slot="custom-properties" slot-scope="{selectItem}"> 
@@ -16,28 +16,28 @@
                 <template  slot="formName">
                     <span> form-design 示例 </span>
                 </template>
-                <template slot="extend-tab" slot-scope="{data }"> 
-                  <el-tab-pane label="扩展属性" name="select"> 
+                <template slot="extend-tab" slot-scope="{data }" > 
+                  <TabPane label="扩展属性" name="select" tab="properties"> 
                     扩展测试插槽-加tab::  (组件数量):: {{data.list.length}}
-                  </el-tab-pane>  
+                  </TabPane>  
                 </template> 
                 <template slot="form-extend-properties" slot-scope="{ data}">  
                     扩展测试插槽(组件数量):: {{data.list.length}}
                 </template> 
 
             </form-design> 
-        </el-tab-pane>
-        <el-tab-pane label="表单查看" name="second">
-            <el-alert
+        </TabPane>
+        <TabPane label="表单查看" name="second" tab="app">
+            <Alert
             title="测试表单预览"
             type="warning">
-          </el-alert>
+          </Alert>
             <form-build ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
 
-             <el-button   type="primary" size="mini"  @click="validator()">验证</el-button>
-             <el-button   type="primary" size="mini"  @click="getData()">获取数据</el-button>
-        </el-tab-pane> 
-      </el-tabs>
+             <Button   type="primary" size="mini"  @click="validator()">验证</Button>
+             <Button   type="primary" size="mini"  @click="getData()">获取数据</Button>
+        </TabPane> 
+      </Tabs>
 
   
   </div>

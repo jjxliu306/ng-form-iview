@@ -4,7 +4,10 @@
  * description 可拖拽元素的列表 包含基础组件和布局组件
  --> 
 <template>
-	<Card header="组件列表" class="box-card form-item ">
+	<Card class="box-card form-item ">
+		<p slot="title"> 
+            组件列表
+        </p>
 		<Collapse v-model="actives"  >
 		  	<CollapseItem title="基础组件" name="1">
 		  		<DragItem 
