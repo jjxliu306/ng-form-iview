@@ -5,14 +5,14 @@
 <template>
   <div class="option-change-container">
    
-    <Row  
+    <div  
       v-if="[ 
         'radio',
         'checkbox',
         'select',
         'keyvalue'
-        ].includes(type)" :gutter="8">
-      <div class="option-change-box" v-for="(val, index) in value" :key="index">
+        ].includes(type)"  >
+      <Row class="option-change-box" v-for="(val, index) in value" :key="index" :gutter="8">
         <Col span="9">
           <Input v-if="keyNumber" v-model="val.value"  type="number" placeholder="值"/>
           <Input v-else v-model="val.label" type="text" placeholder="名称"/>
@@ -21,15 +21,18 @@
           <Input v-if="keyNumber" v-model="val.label" placeholder="名称"/>
           <Input v-else v-model="val.value" placeholder="值"/>
         </Col>
-        <Col span="6"
-          ><div @click="handleDelete(index)" class="option-delete-box">
-            <i class="el-icon-delete" /></div
-        ></Col>
+        <Col span="6">
+          <div @click="handleDelete(index)" class="option-delete-box">
+            删除
+          </div>
+        </Col>
+      </Row>
+      <div v-if="!disabled" :span="24">
+        <Button type="primary" @click="handleAdd">添加</Button>
       </div>
-      <Col v-if="!disabled" :span="24"><Button type="primary" @click="handleAdd">添加</Button></Col>
-    </Row>
+    </div>
     <!-- 级联 树状数据 lyf 2020-07-06 -->
-    <Row v-if="type === 'cascader'" :gutter="8">
+    <div v-if="type === 'cascader'"  >
       <div  >
         <Tree 
           :data="value ? value : []"
@@ -69,7 +72,7 @@
       <Col v-if="!disabled" :span="24">
         <Button type="primary" @click="handleAdd">添加</Button>
       </Col>
-    </Row>
+    </div>
 
     <div v-if="type === 'rules'" > 
       <span v-for="(val, index) in value" :key="index" >
@@ -81,10 +84,7 @@
                   <Radio label="2">表达式</Radio> 
               </radio-group> 
             </Col>
-            <Col span="6" >  
-             <!--  <Button @click="handleDelete(index)" type="error" shape="circle" icon="ios-search-strong"></Button>
-              <Icon type="close-circled"></Icon>
-             -->
+            <Col span="6" >   
                <div @click="handleDelete(index)" class="option-delete-box"> 
                  删除
               </div> 
@@ -103,22 +103,25 @@
         <Button type="primary"  @click="handleAddRules">增加校验</Button>
       </Row>
     </div>
-    <Row v-else-if="type === 'colspan'" :gutter="8">
-      <div class="option-change-box" v-for="(val, index) in value" :key="index">
-        <Col :span="18"
-          ><InputNumber
+    <div v-else-if="type === 'colspan'" >
+      <Row class="option-change-box" v-for="(val, index) in value" :key="index" :gutter="8">
+        <Col :span="18">
+          <InputNumber
             style="width:100%"
             :max="24"
             v-model="val.span"
-            placeholder="名称"
-        /></Col>
-        <Col :span="6"
-          ><div @click="handleDelete(index)" class="option-delete-box">
-             <i class="el-icon-delete" /></div
-        ></Col>
+            placeholder="名称"/>
+        </Col>
+        <Col :span="6">
+          <div @click="handleDelete(index)" class="option-delete-box">
+             删除
+          </div>
+        </Col>
+      </Row>
+      <div v-if="!disabled" :span="24">
+        <Button type="primary" @click="handleAddCol">添加</Button>
       </div>
-      <Col v-if="!disabled" :span="24"><Button type="primary" @click="handleAddCol">添加</Button></Col>
-    </Row> 
+    </div> 
   </div>
 </template>
 <script>
