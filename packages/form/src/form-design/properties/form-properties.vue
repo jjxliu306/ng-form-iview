@@ -30,20 +30,17 @@
         </FormItem>
         <Divider></Divider>
         <FormItem label="校验字段提示"> 
-          <Switch
-            v-model="config.hideRequiredMark"
-            active-text="打开"
-            :inactive-value="true"
-            :active-value="false"
-            inactive-text="关闭">
-          </Switch> 
+            <i-switch    v-model="config.hideRequiredMark">
+                <span slot="open">打开</span>
+                <span slot="close">关闭</span>
+            </i-switch> 
         </FormItem> 
           <FormItem label="输出隐藏组件值"> 
-          <Switch
-            v-model="config.outputHidden"
-            active-text="打开" 
-            inactive-text="关闭">
-          </Switch> 
+            <i-switch    v-model="config.outputHidden">
+                <span slot="open">打开</span>
+                <span slot="close">关闭</span>
+            </i-switch> 
+          
         </FormItem>
         <Divider></Divider>
 
