@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-
+      <Select v-model="model1" style="width:200px">
+        <Option v-for="item in cityList" :value="item.value" :key="item">{{ item.label }}</Option>
+    </Select>
     <Tabs v-model="activeName"  name="app" style="padding: 20px;" @tab-click="changeTab">
         <TabPane label="表单绘制" name="first" tab="app">
             <form-design ref="formDesign" :custom-components="customComponents" :config="formConfig">
@@ -42,6 +44,22 @@ export default {
   components: {CustomT , Properties},
   data(){
     return {
+      model1: '' ,
+       cityList: [
+                    {
+                        value: 'beijing',
+                        label: '北京市'
+                    },
+                    {
+                        value: 'shanghai',
+                        label: '上海市'
+                    },
+                    {
+                        value: 'shenzhen',
+                        label: '深圳市'
+                    }
+                    ],
+
       activeName: 'first',
       models: {} ,
       formTemplate: {} ,

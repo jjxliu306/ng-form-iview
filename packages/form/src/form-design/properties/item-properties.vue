@@ -7,8 +7,8 @@
     <div class="properties-body"> 
       <p class="hint-box" v-show="!selectItem.key">未选择控件</p>
       <Form v-show="selectItem.key" size="mini" :disabled="disabled">
- 
 
+       
         <!-- 公共部分 标签 字段key 数据key start -->
         <FormItem  label="标签" v-if="!hideModel">
           <Input v-model="selectItem.label" placeholder="请输入" />
@@ -138,7 +138,7 @@
                 </Input> 
             </div>  
             <!-- 本地赋值 -->
-            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+            <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
           <Divider ></Divider>
           <!-- 联动配置 2021-03-12 lyf -->
@@ -154,14 +154,12 @@
           </template>
           <Divider ></Divider>
           <!-- select 本地配置才有默认值 -->
-          <FormItem v-if="options.dynamic == 0" label="默认值"> 
-
-
-            <Select v-model="options.defaultValue"  :clearable="true">
+          <FormItem v-if="options.dynamic == 0" :key="options.options" label="默认值"> 
+ 
+            <Select  v-model="options.defaultValue"  >
               <Option
-                v-for="item in options.options"
-                :key="item.value"
-                :label="item.label"
+                v-for="(item,oidx) in options.options"
+                :key="item.value + oidx" 
                 :value="item.value">
                 {{item.label}}
               </Option>
@@ -199,8 +197,7 @@
           <FormItem  label="选项配置" >
             <RadioGroup type="button"  v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
-              <Radio :label="1">动态数据</Radio>
-             
+              <Radio :label="1">动态数据</Radio> 
             </RadioGroup>
    
             <!-- 远程赋值配置 --> 
@@ -221,17 +218,14 @@
            
 
             <!-- 本地赋值 -->
-            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+            <ValOption v-if="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
 
            <Divider ></Divider>
           <!-- 联动配置 2021-03-12 lyf -->
           <FormItem label="联动关联">
-            <Switch
-              v-model="options.linkage"
-              active-text="是"
-              inactive-text="否">
-            </Switch> 
+            <i-switch  v-model="options.linkage" >
+            </i-switch> 
           </FormItem>
           <template v-if="options.linkage">
             <!-- 联动关联中如果事本地数据则只有脚本关联,如果是远程数据则包含远程搜索 -->
@@ -252,8 +246,8 @@
           </FormItem>
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />    
+            <Checkbox v-model="options.hidden"  >隐藏 </Checkbox>
+            <Checkbox v-model="options.disabled"  >禁用 </Checkbox>    
           </FormItem> 
         </template>
         <!-- checkbox end -->
@@ -261,7 +255,7 @@
          <!-- radio start -->
         <template v-if="selectItem.type == 'radio'">
           <FormItem  label="选项配置" >
-            <RadioGroup   v-model="options.dynamic">
+            <RadioGroup type="button"  v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
             </RadioGroup>
@@ -284,17 +278,14 @@
            
 
             <!-- 本地赋值 -->
-            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+            <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
 
            <Divider ></Divider>
           <!-- 联动配置 2021-03-12 lyf -->
           <FormItem label="联动关联">
-            <Switch
-              v-model="options.linkage"
-              active-text="是"
-              inactive-text="否">
-            </Switch> 
+            <i-switch  v-model="options.linkage" >
+            </i-switch> 
           </FormItem>
           <template v-if="options.linkage">
             <!-- 联动关联中如果事本地数据则只有脚本关联,如果是远程数据则包含远程搜索 -->
@@ -315,8 +306,8 @@
           </FormItem>
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />    
+            <Checkbox v-model="options.hidden"  >隐藏 </Checkbox>
+            <Checkbox v-model="options.disabled"  >  禁用</Checkbox>  
           </FormItem> 
         </template>
         <!-- radio end -->
@@ -367,10 +358,10 @@
           </FormItem>
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.clearable" label="可清除" /> 
-            <Checkbox v-if="selectItem.type == 'date' || selectItem.type == 'datePicker'" v-model="options.range" label="范围选择" />
+            <Checkbox v-model="options.hidden"  >隐藏</Checkbox>
+            <Checkbox v-model="options.disabled"   > 禁用</Checkbox>
+            <Checkbox v-model="options.clearable" > 可清除</Checkbox>
+            <Checkbox v-if="selectItem.type == 'date' || selectItem.type == 'datePicker'" v-model="options.range" >范围选择 </Checkbox>
           </FormItem>
         </template>
         <!-- date end -->
@@ -842,7 +833,7 @@
         <FormItem  v-if="selectItem.rules  && selectItem.rules.length > 0 " label="校验" >
           <Checkbox v-model="selectItem.rules[0].required" label="必填" />
           <Input v-model="selectItem.rules[0].message"  placeholder="必填校验提示信息" />
-          <Option v-model="selectItem.rules" type="rules" :disabled="disabled" />
+          <ValOption v-model="selectItem.rules" type="rules" :disabled="disabled" />
 
           <Divider ></Divider>
         </FormItem>
@@ -905,7 +896,7 @@
   </div>
 </template>
 <script> 
-import Option from "./option";
+import ValOption from "./option";
 import Linkage from './linkage'
 import {noModelList} from '../config'
 export default {
@@ -913,7 +904,22 @@ export default {
   data() {
     return {
       options: {},
-      noModel : noModelList
+      noModel : noModelList,
+      model1:'',
+         cityList: [
+                    {
+                        value: 'beijing',
+                        label: '北京市'
+                    },
+                    {
+                        value: 'shanghai',
+                        label: '上海市'
+                    },
+                    {
+                        value: 'shenzhen',
+                        label: '深圳市'
+                    }
+                    ],
     };
   },
   watch: {
@@ -937,7 +943,7 @@ export default {
     }
   },
   components: {
-    Option , Linkage
+    ValOption , Linkage
   }
 };
 </script>

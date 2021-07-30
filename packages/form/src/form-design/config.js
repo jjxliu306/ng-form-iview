@@ -105,7 +105,7 @@ export const basicsList = [
     label: "下拉选择器", // 标题文字  
     options: {
       width: "100%", // 宽度
-      defaultValue: undefined, // 下拉选框请使用undefined为默认值
+      defaultValue: '', // 下拉选框默认值
       multiple: false, // 是否允许多选
       disabled: false, // 是否禁用
       clearable: false, // 是否显示清除按钮
