@@ -1,11 +1,11 @@
 {
-  "name": "form-design-iview",
+  "name": "ng-form-iview",
   "version": "0.0.1",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name form-design-iview --dest lib packages/index.js"
+    "lib": "vue-cli-service build --target lib --name ng-form-iview --dest lib packages/index.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -51,23 +51,24 @@
     "not dead"
   ],
   "private": false,
-  "description": "form-design-element",
-  "main": "lib/form-design-element.umd.min.js",
+  "description": "ng-form-iview",
+  "main": "lib/ng-form-iview.umd.min.js",
   "directories": {
     "example": "example",
     "lib": "lib"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitee.com/jjxliu306/form-design-iview.git"
+    "url": "git+https://gitee.com/jjxliu306/ng-form-iview.git"
   },
   "author": "liuyufeng",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitee.com/jjxliu306/form-design-iview/issues"
+    "url": "https://gitee.com/jjxliu306/ng-form-iview/issues"
   },
-  "homepage": "https://gitee.com/jjxliu306/form-design-iview#readme",
+  "homepage": "https://gitee.com/jjxliu306/ng-form-iview#readme",
   "keywords": [
+    "ng-form-iview",
     "vue-form-design",
     "form-design-iview",
     "formdesign",
