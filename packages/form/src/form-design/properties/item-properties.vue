@@ -853,11 +853,11 @@
         <template v-if="!hideModel && selectItem && selectItem.options">
            <FormItem label="动态显示">
             <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 --> 
-            <Switch
-              v-model="selectItem.options.dynamicVisible"
-              active-text="打开"
-              inactive-text="关闭">
-            </Switch>
+            <i-switch    v-model="selectItem.options.dynamicVisible">
+                <span slot="open">打开</span>
+                <span slot="close">关闭</span>
+            </i-switch>
+           
           </FormItem>
           <FormItem label="显示条件" v-if="selectItem.options.dynamicVisible">
             <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 -->
