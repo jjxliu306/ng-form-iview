@@ -37,10 +37,11 @@
           </FormItem>  
             
           <FormItem  label="最大长度"  >
-            <Input-number  v-model="options.maxLength" placeholder="最大长度,为0表示不限制"  :min="0"/>  
-           
+            <InputNumber  style="width:100%"  v-model="options.maxLength" placeholder="最大长度,为0表示不限制"  :min="0"/>   
           </FormItem>
-          
+            <FormItem  v-if="selectItem.type === 'textarea'" label="输入框行数" >
+            <InputNumber  style="width:100%" v-model="options.rows" placeholder="输入框行数"  /> 
+          </FormItem>
           <FormItem  label="前后缀"  v-if="selectItem.type === 'input'">
             <Input placeholder="前缀标签" v-model="options.prepend">
               <template slot="prepend">前缀</template>
@@ -50,14 +51,12 @@
             </Input> 
           </FormItem>
            <Divider ></Divider>
-          <FormItem  v-if="selectItem.type === 'textarea'" label="输入框行数" >
-            <Input-number  style="width:100%" v-model="options.rows" placeholder="输入框行数"  /> 
-          </FormItem>
+        
           
-          <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.clearable" label="可清除" /> 
+          <FormItem   label="操作属性" > 
+            <Checkbox v-model="options.hidden"   >隐藏</Checkbox>
+            <Checkbox v-model="options.disabled"  >禁用</Checkbox> 
+            <Checkbox v-model="options.clearable" >可清除</Checkbox> 
           </FormItem>
         </template>
         <!-- input textarea end -->
@@ -84,7 +83,7 @@
             <Input-number :min="0"  :max="5"  v-model="options.precision"  placeholder="请输入" />
           </FormItem> 
           <FormItem  label="默认值" >
-            <Input-number
+            <InputNumber
               :step="options.step"
               :min="options.min || -Infinity"
               :max="options.max || Infinity"
@@ -102,8 +101,8 @@
           </FormItem>
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />  
+            <Checkbox v-model="options.hidden"   >隐藏</Checkbox>
+            <Checkbox v-model="options.disabled"  >禁用 </Checkbox>
           </FormItem>
         </template>
         <!-- number end -->
@@ -120,8 +119,7 @@
           <FormItem  label="选项配置" >
             <RadioGroup  type="button" v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
-              <Radio :label="1">动态数据</Radio>
-            
+              <Radio :label="1">动态数据</Radio> 
             </RadioGroup>
    
             <!-- 远程赋值配置 --> 
@@ -145,11 +143,10 @@
           <Divider ></Divider>
           <!-- 联动配置 2021-03-12 lyf -->
           <FormItem label="联动关联">
-            <Switch
-              v-model="options.linkage"
-              active-text="是"
-              inactive-text="否">
-            </Switch> 
+            <i-switch v-model="options.linkage">
+              <span slot="open">打开</span>
+              <span slot="close">关闭</span>
+            </i-switch> 
           </FormItem>
           <template v-if="options.linkage">
             <!-- 联动关联中如果事本地数据则只有脚本关联,如果是远程数据则包含远程搜索 -->
@@ -157,28 +154,31 @@
           </template>
           <Divider ></Divider>
           <!-- select 本地配置才有默认值 -->
-          <FormItem v-if="options.dynamic == 0" label="默认值">
+          <FormItem v-if="options.dynamic == 0" label="默认值"> 
+
+
             <Select v-model="options.defaultValue"  :clearable="true">
               <Option
                 v-for="item in options.options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
+                {{item.label}}
               </Option>
             </Select>
           </FormItem>
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.clearable" label="可清除" />
-            <Checkbox v-model="options.multiple" label="多选" />
-            <Checkbox v-model="options.showSearch" label="可搜索" @change="(v)=>{
+            <Checkbox v-model="options.hidden"    >隐藏 </Checkbox>
+            <Checkbox v-model="options.disabled"   > 禁用 </Checkbox>
+            <Checkbox v-model="options.clearable"   >可清除</Checkbox>
+            <Checkbox v-model="options.multiple"   >多选</Checkbox>
+            <Checkbox v-model="options.showSearch"   @change="(v)=>{
               if(!v){
                 options.onlineSearch = false
               }
-            }"/>
-            <Checkbox v-model="options.onlineSearch" v-if="options.showSearch" label="实时搜索"  />
+            }" > 可搜索</Checkbox>
+            <Checkbox v-model="options.onlineSearch" v-if="options.showSearch" > 实时搜索</Checkbox>
           </FormItem> 
           <Divider ></Divider>
           <FormItem   label="实时搜索回调" v-if="options.showSearch && options.onlineSearch"> 

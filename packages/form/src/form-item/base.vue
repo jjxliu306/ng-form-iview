@@ -90,7 +90,7 @@
       @on-change="handleChange($event, record.model)"
       v-model="models[record.model]" 
       :size="formConfig.size"
-    >
+    >   
       <span v-if="record.options.prepend"  slot="prepend" v-html="transformAppend(record.options.prepend)">
        
       </span>

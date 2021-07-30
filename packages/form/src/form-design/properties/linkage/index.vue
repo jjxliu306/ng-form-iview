@@ -4,22 +4,30 @@
 
 <template>
   <div class="option-change-container"> 
-    <Row  :gutter="8">
-      <span v-for="(val, index) in value" :key="index">
-        <div class="option-change-box"  >
-          <Col :span="21" >
-            <template>
-              {{index+1}}、
-              <Radio v-model="val.vtype" :label="1">本地</Radio>
-              <Radio v-model="val.vtype" :label="2">远程</Radio>
-            </template>
-          </Col>
-          <Col :span="21" >
+    
+      <div   v-for="(val, index) in value"  :key="index"> 
+          <Row  :gutter="8" class="option-change-box"  > 
+            <Col span="17" > 
+              <template>
+                {{index+1}}、
+                <radio-group v-model="val.vtype"> 
+                    <Radio  label="1">本地</Radio>
+                    <Radio   label="2">远程</Radio>
+                </radio-group>  
+              </template>
+            </Col>
+            <Col span="6" >   
+               <div @click="handleDelete(index)" class="option-delete-box"> 
+                 删除
+              </div> 
+            </Col>  
+          </Row>
+          <Row   >
             <Input size="mini" v-model="val.model" placeholder="关联字段">
               <template slot="prepend">关联字段</template>
             </Input>
-          </Col>
-          <Col :span="21">
+          </Row>
+          <Row :span="21">
             <template v-if="val.vtype == 1">
                表达式:
               <Input size="mini"   type="textarea" v-model="val.script" placeholder="表达式,eg: $item.value>$.age . 其中$item表示当前数据中具体一条数据,$表示当前整个表单数据" />
@@ -33,19 +41,15 @@
                <Col :span="12">
                 <Input size="mini" v-model="val.queryValue" placeholder="query value" />
               </Col>
-            </Row>
-
-          <!--   <Input size="mini"  v-else-if="val.vtype == 2" type="textarea" v-model="val.query" placeholder="远程搜索添加查询条件,eg:key=$.sex" /> -->
-          </Col>
-          <Col :span="3" >
-            <div @click="handleDelete(index)" class="option-delete-box">
-              <i class="el-icon-delete" />
-            </div>
-          </Col>
-        </div>
-      </span>
-      <Col v-if="!disabled" :span="24"><Button type="primary" size="mini" @click="handleAdd">添加</Button></Col>
-    </Row>
+            </Row> 
+          </Row>
+          
+        
+      </div>
+      <div v-if="!disabled" :span="24">
+        <Button type="primary" size="mini" @click="handleAdd">添加</Button>
+      </div>
+    
      
   </div>
 </template>
