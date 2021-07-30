@@ -13,15 +13,15 @@
         'keyvalue'
         ].includes(type)" :gutter="8">
       <div class="option-change-box" v-for="(val, index) in value" :key="index">
-        <Col :span="9">
+        <Col span="9">
           <Input v-if="keyNumber" v-model="val.value"  type="number" placeholder="值"/>
           <Input v-else v-model="val.label" type="text" placeholder="名称"/>
         </Col>
-        <Col :span="9"> 
+        <Col span="9"> 
           <Input v-if="keyNumber" v-model="val.label" placeholder="名称"/>
           <Input v-else v-model="val.value" placeholder="值"/>
         </Col>
-        <Col :span="6"
+        <Col span="6"
           ><div @click="handleDelete(index)" class="option-delete-box">
             <i class="el-icon-delete" /></div
         ></Col>
@@ -66,34 +66,43 @@
           </span>
         </Tree>
       </div>
-      <Col v-if="!disabled" :span="24"><Button type="primary" @click="handleAdd">添加</Button></Col>
+      <Col v-if="!disabled" :span="24">
+        <Button type="primary" @click="handleAdd">添加</Button>
+      </Col>
     </Row>
 
-    <Row v-if="type === 'rules'" :gutter="8">
-      <span v-for="(val, index) in value" :key="index">
-        <div class="option-change-box" v-if="index !== 0">
-          <Col :span="18" >
-            <template>
-              <Radio v-model="val.vtype" :label="1">正则</Radio>
-              <Radio v-model="val.vtype" :label="2">表达式</Radio>
-            </template>
-          </Col>
-          <Col :span="18" >
+    <div v-if="type === 'rules'" > 
+      <span v-for="(val, index) in value" :key="index" >
+        <template v-if="index !== 0">
+           <Row :gutter="8" class="option-change-box" > 
+            <Col span="17" >
+              <radio-group v-model="val.vtype">
+                  <Radio label="1"  >正则</Radio>
+                  <Radio label="2">表达式</Radio> 
+              </radio-group> 
+            </Col>
+            <Col span="6" >  
+             <!--  <Button @click="handleDelete(index)" type="error" shape="circle" icon="ios-search-strong"></Button>
+              <Icon type="close-circled"></Icon>
+             -->
+               <div @click="handleDelete(index)" class="option-delete-box"> 
+                 删除
+              </div> 
+            </Col> 
+          </Row>
+          <Row>  
             <Input v-model="val.message" placeholder="提示信息"/>
-          </Col>
-          <Col :span="18">
-            <Input  v-if="val.vtype == 1" v-model="val.pattern" placeholder="正则表达式pattern" />
-            <Input  v-else-if="val.vtype == 2" type="textarea" v-model="val.script" placeholder="条件表达式" />
-          </Col>
-          <Col :span="6" >
-            <div @click="handleDelete(index)" class="option-delete-box">
-              <i class="el-icon-delete" />
-            </div>
-          </Col>
-        </div>
+          </Row>
+          <Row>    
+              <Input  v-if="val.vtype == 1" v-model="val.pattern" placeholder="正则表达式pattern" />
+              <Input  v-else-if="val.vtype == 2" type="textarea" v-model="val.script" placeholder="条件表达式" />
+          </Row>
+        </template> 
       </span>
-      <Col v-if="!disabled" :span="24"><Button type="primary" @click="handleAddRules">增加校验</Button></Col>
-    </Row>
+      <Row v-if="!disabled" > 
+        <Button type="primary"  @click="handleAddRules">增加校验</Button>
+      </Row>
+    </div>
     <Row v-else-if="type === 'colspan'" :gutter="8">
       <div class="option-change-box" v-for="(val, index) in value" :key="index">
         <Col :span="18"

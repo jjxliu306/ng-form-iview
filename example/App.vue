@@ -15,16 +15,7 @@
                 </template> 
                 <template  slot="formName">
                     <span> form-design 示例 </span>
-                </template>
-                <template slot="extend-tab" slot-scope="{data }" > 
-                  <TabPane label="扩展属性" name="select" tab="properties"> 
-                    扩展测试插槽-加tab::  (组件数量):: {{data.list.length}}
-                  </TabPane>  
                 </template> 
-                <template slot="form-extend-properties" slot-scope="{ data}">  
-                    扩展测试插槽(组件数量):: {{data.list.length}}
-                </template> 
-
             </form-design> 
         </TabPane>
         <TabPane label="表单查看" name="second" tab="app">
