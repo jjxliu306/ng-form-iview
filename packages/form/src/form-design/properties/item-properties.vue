@@ -71,16 +71,16 @@
           </FormItem>
 
           <FormItem  label="步长">
-            <Input-number v-model="options.step" placeholder="请输入" />
+            <InputNumber v-model="options.step" placeholder="请输入" />
           </FormItem>
           <FormItem  label="最小值">
-            <Input-number v-model="options.min" placeholder="请输入" />
+            <InputNumber v-model="options.min" placeholder="请输入" />
           </FormItem>
           <FormItem  label="最大值">
-            <Input-number v-model="options.max" placeholder="请输入"/>
+            <InputNumber v-model="options.max" placeholder="请输入"/>
           </FormItem>
           <FormItem  label="数值精度" >
-            <Input-number :min="0"  :max="5"  v-model="options.precision"  placeholder="请输入" />
+            <InputNumber :min="0"  :max="5"  v-model="options.precision"  placeholder="请输入" />
           </FormItem> 
           <FormItem  label="默认值" >
             <InputNumber
@@ -369,7 +369,7 @@
         <!-- rate start -->
         <template v-if="selectItem.type == 'rate'">
           <FormItem v-if="typeof options.max !== 'undefined'" label="最大值">
-          <Input-number v-model="options.max" placeholder="请输入" @change="(v)=>{  
+          <InputNumber v-model="options.max" placeholder="请输入" @change="(v)=>{  
                 if(options.defaultValue > v){
                   options.defaultValue = v
                 } 
@@ -381,9 +381,9 @@
         
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.allowHalf" label="允许半选" />
+            <Checkbox v-model="options.hidden">隐藏</Checkbox> 
+            <Checkbox v-model="options.disabled">禁用</Checkbox>
+            <Checkbox v-model="options.allowHalf">允许半选</Checkbox>
           </FormItem>
         </template>
         <!-- date end -->
@@ -394,16 +394,16 @@
             <Input placeholder="请输入" v-model="options.width" />
           </FormItem>
            <FormItem  label="步长">
-            <Input-number v-model="options.step" placeholder="请输入" />
+            <InputNumber v-model="options.step" placeholder="请输入" />
           </FormItem>
           <FormItem  label="最小值">
-            <Input-number v-model="options.min" placeholder="请输入" />
+            <InputNumber v-model="options.min" placeholder="请输入" />
           </FormItem>
           <FormItem  label="最大值">
-            <Input-number v-model="options.max" placeholder="请输入"/>
+            <InputNumber v-model="options.max" placeholder="请输入"/>
           </FormItem>
           <FormItem label="默认值"  >
-            <Input-number
+            <InputNumber
               :step="options.step"
               :min="options.min || -Infinity"
               :max="options.max || Infinity"
@@ -412,14 +412,14 @@
            <Divider ></Divider>
           <FormItem   label="标记marks">
             <br>
-            <Option style="width: 100%;" :keyNumber="true" type="keyvalue" v-model="options.marks" />
+            <ValOption style="width: 100%;" :keyNumber="true" type="keyvalue" v-model="options.marks" />
           </FormItem> 
             
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.showInput"  label="显示输入框" />
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox>
+            <Checkbox v-model="options.showInput">显示输入框</Checkbox>
           </FormItem>
         </template>
         <!-- date end -->
@@ -431,13 +431,13 @@
           </FormItem>
           <!-- 上传数量 -->
           <FormItem  label="最大上传数量" >
-            <Input-number :min="1" v-model="options.limit" />
+            <InputNumber :min="1" v-model="options.limit" />
           </FormItem>
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.multiple"  label="多选" />
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox>
+            <Checkbox v-model="options.multiple">多选</Checkbox>
           </FormItem> 
         </template> 
         <!-- 上传文件 end -->
@@ -450,7 +450,7 @@
           </FormItem>
           <!-- 上传数量 -->
           <FormItem  label="最大上传数量" >
-            <Input-number :min="1" v-model="options.limit" />
+            <InputNumber :min="1" v-model="options.limit" />
           </FormItem>
            <Divider ></Divider>
           <!-- 上传图片样式 -->
@@ -463,9 +463,9 @@
           </FormItem>
            <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.multiple"  label="多选" />
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox>
+            <Checkbox v-model="options.multiple">多选</Checkbox>
           </FormItem> 
         </template> 
         <!-- 上传图片 end -->
@@ -498,15 +498,15 @@
             </div>  
 
             <!-- 本地赋值 -->
-            <Option v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
+            <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
              <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />   
-            <Checkbox v-model="options.clearable" label="可清除" />
-            <Checkbox v-model="options.multiple" label="多选" />
-            <Checkbox v-model="options.showSearch" label="可搜索" /> 
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox>  
+            <Checkbox v-model="options.clearable">可清除</Checkbox>
+            <Checkbox v-model="options.multiple">多选</Checkbox>
+            <Checkbox v-model="options.showSearch">可搜索</Checkbox> 
           </FormItem> 
         </template>
         <!-- 级联选择器 end -->
@@ -555,15 +555,15 @@
           <FormItem  >
               <CheckboxGroup v-model="selectItem.options.showItem" >
                 <!-- 获取当前内部已经包含的要素 -->
-                <el-row  v-for="item in selectItem.list" :key="item.model">
-                  <el-col :span="12">
+                <Row  v-for="item in selectItem.list" :key="item.model">
+                  <Col :span="12">
                      <Checkbox :label="item.model" v-if="options.addType == 'dialog'">{{item.label}}</Checkbox>
                      <span v-else> {{item.label}} </span>
-                  </el-col>
-                   <el-col :span="12">
+                  </Col>
+                   <Col :span="12">
                      <Input   placeholder="宽度" v-model="selectItem.options.colWidth[item.model]" />
-                  </el-col> 
-                </el-row> 
+                  </Col> 
+                </Row> 
 
               </CheckboxGroup>
           </FormItem> 
@@ -571,12 +571,12 @@
           <Divider ></Divider>
 
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" /> 
-            <Checkbox v-model="options.showLabel" label="显示Label" />
-             <Checkbox v-model="options.showBorder" label="显示边框" />
-            <Checkbox v-model="options.hideSequence" label="隐藏序号" />
-            <Checkbox v-model="options.copyRow" label="行复制" />
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox>
+            <Checkbox v-model="options.showLabel">显示Label</Checkbox>
+             <Checkbox v-model="options.showBorder">显示边框</Checkbox>
+            <Checkbox v-model="options.hideSequence">隐藏序号</Checkbox>
+            <Checkbox v-model="options.copyRow">行复制</Checkbox>
              
           </FormItem> 
         </template> 
@@ -593,12 +593,12 @@
             <Input placeholder="请输入" v-model="options.inactiveText" /> 
           </FormItem>
           <FormItem  label="默认值">
-            <Switch v-model="options.defaultValue" />
+            <i-switch v-model="options.defaultValue" />
           </FormItem>
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />  
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox> 
           </FormItem> 
         </template> 
         <!-- 开关 switch  end -->
@@ -629,8 +629,8 @@
           </FormItem>
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />   
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox>  
           </FormItem> 
         </template> 
         <!-- 按钮  end -->
@@ -647,7 +647,7 @@
           </FormItem> 
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" /> 
+            <Checkbox v-model="options.hidden">隐藏</Checkbox> 
             <Checkbox v-model="options.showRequiredMark" label="显示必选标记" />
           </FormItem> 
           <Divider ></Divider>
@@ -703,7 +703,7 @@
           </FormItem>
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />  
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>  
           </FormItem> 
         </template> 
         <!-- html  end -->
@@ -734,10 +734,10 @@
         <!-- 栅格布局 start-->
         <template v-if="selectItem.type == 'grid'">   
           <FormItem  label="栅格间距">
-            <Input-number  v-model="selectItem.options.gutter"  placeholder="请输入" />
+            <InputNumber  v-model="selectItem.options.gutter"  placeholder="请输入" />
           </FormItem>
           <FormItem label="列配置项">
-            <Option v-model="selectItem.columns" type="colspan" />
+            <ValOption v-model="selectItem.columns" type="colspan" />
           </FormItem>
         </template> 
         <!-- 栅格布局  end -->
@@ -756,9 +756,9 @@
           </FormItem>
          <Divider ></Divider>
           <FormItem label="操作属性">
-            <Checkbox v-model="options.bordered" label="显示边框" />
-            <Checkbox v-model="options.bright" label="鼠标经过点亮" />
-            <Checkbox v-model="options.small" label="紧凑型" />
+            <Checkbox v-model="options.bordered">显示边框</Checkbox> 
+            <Checkbox v-model="options.bright" >鼠标经过点亮</Checkbox>
+            <Checkbox v-model="options.small" >紧凑型</Checkbox>
           </FormItem>
         </template> 
         <!-- 表格布局  end -->
@@ -784,12 +784,12 @@
           <Divider ></Divider>
 
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.hidden"  label="隐藏" />
-            <Checkbox v-model="options.disabled"  label="禁用" />  
-            <Checkbox v-model="options.bordered" label="显示边框" /> 
-            <Checkbox v-model="options.noAdd" label="无新增" />
-            <Checkbox v-model="options.noRemove" label="无删除" />  
-            <Checkbox v-model="options.noCopy" label="无复制" />  
+            <Checkbox v-model="options.hidden">隐藏</Checkbox>
+            <Checkbox v-model="options.disabled">禁用</Checkbox> 
+            <Checkbox v-model="options.bordered">显示边框</Checkbox> 
+            <Checkbox v-model="options.noAdd" >无新增</Checkbox>
+            <Checkbox v-model="options.noRemove">无删除</Checkbox>  
+            <Checkbox v-model="options.noCopy">无复制</Checkbox>  
           </FormItem> 
         </template> 
         <!-- 容器 end -->
@@ -831,7 +831,7 @@
 
         <!-- ################### 校验   start ############################## -->
         <FormItem  v-if="selectItem.rules  && selectItem.rules.length > 0 " label="校验" >
-          <Checkbox v-model="selectItem.rules[0].required" label="必填" />
+          <Checkbox v-model="selectItem.rules[0].required" > 必填</Checkbox>
           <Input v-model="selectItem.rules[0].message"  placeholder="必填校验提示信息" />
           <ValOption v-model="selectItem.rules" type="rules" :disabled="disabled" />
 
@@ -865,11 +865,8 @@
         <template v-if="!hideModel && selectItem && selectItem.options && selectItem.options.disabled">
            <FormItem label="动态禁用">
             <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 --> 
-            <Switch
-              v-model="selectItem.options.dynamicDisabled"
-              active-text="打开"
-              inactive-text="关闭">
-            </Switch>
+            <i-switch v-model="selectItem.options.dynamicDisabled">
+            </i-switch>
           </FormItem>
           <FormItem label="禁用条件" v-if="selectItem.options.dynamicDisabled">
             <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 -->
@@ -904,22 +901,7 @@ export default {
   data() {
     return {
       options: {},
-      noModel : noModelList,
-      model1:'',
-         cityList: [
-                    {
-                        value: 'beijing',
-                        label: '北京市'
-                    },
-                    {
-                        value: 'shanghai',
-                        label: '上海市'
-                    },
-                    {
-                        value: 'shenzhen',
-                        label: '深圳市'
-                    }
-                    ],
+      noModel : noModelList 
     };
   },
   watch: {
