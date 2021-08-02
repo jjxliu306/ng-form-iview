@@ -376,7 +376,7 @@
             }"/>
           </FormItem>
           <FormItem label="默认值">
-            <el-rate  v-model="options.defaultValue"  :allowHalf="options.allowHalf" :max="options.max"  />
+            <Rate  v-model="options.defaultValue"  :allow-half="options.allowHalf" :count="options.max"  />
           </FormItem>
         
            <Divider ></Divider>
@@ -388,7 +388,7 @@
         </template>
         <!-- date end -->
 
-        <!--  rate start -->
+        <!--  slider start -->
         <template v-if="selectItem.type == 'slider'">
           <FormItem  label="宽度">
             <Input placeholder="请输入" v-model="options.width" />
@@ -422,7 +422,7 @@
             <Checkbox v-model="options.showInput">显示输入框</Checkbox>
           </FormItem>
         </template>
-        <!-- date end -->
+        <!-- slider end -->
 
         <!-- 上传文件 start -->
         <template v-if="selectItem.type == 'uploadFile'">

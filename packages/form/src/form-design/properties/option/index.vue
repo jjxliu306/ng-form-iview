@@ -35,11 +35,9 @@
     <div v-if="type === 'cascader'"  >
       <div  >
         <Tree 
-          :data="value ? value : []"
-          show-checkbox
-          node-key="value"
-          default-expand-all
-          :expand-on-click-node="false">
+          :data="value ? value : []" 
+          node-key="value" 
+          :render="treeRenderContent">
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <span> 
               <Row :gutter="4">
@@ -205,6 +203,45 @@ export default {
         const index = children.findIndex(d => d.value === data.value);
         children.splice(index, 1);
     },
+
+    treeRenderContent (h, { root, node, data }) {
+      return h('div', {
+          style: {
+            display: 'inline-block',
+            width: '100%'
+          },
+        },
+        [
+          h('Row',{
+            props: Object.assign({},  {
+                gutter: 4
+            }) 
+          },
+          [
+            h('Col', {
+                props:    {
+                  span: 9
+                }  
+            },
+            [ 
+               h('Input',{
+                    props:  {
+                      value: data.label,
+                      type: this.keyNumber ? 'number' : 'text',
+                      placeholder: '名称'
+                    }  
+                  
+              })
+            ]
+
+            ),
+          ]
+          )
+        ]
+
+      )  
+    },
+
 
   }
 };

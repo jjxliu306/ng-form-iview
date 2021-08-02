@@ -15,8 +15,7 @@
       :size="formTemplate.config.size"
       :id="randomId"
       :key="randomId"
-    > 
-    {{formTemplate.config}}
+    >  
     <template >
       <buildBlocks
         ref="buildBlocks"

@@ -328,7 +328,7 @@
     <Rate 
       v-model="models[record.model]"
       v-else-if="record.type === 'rate'"
-      :max="record.options.max"
+      :count="record.options.max"
       :disabled="dynamicDisabled"
       :placeholder="record.options.placeholder"
       :allowHalf="record.options.allowHalf"
@@ -381,6 +381,7 @@
       
     />  -->  
     <!-- 级联选择器 -->
+    <!--
     <Cascader 
       v-else-if="record.type === 'cascader'"
       ref="cascader"
@@ -396,6 +397,7 @@
       @on-change="handleChange($event, record.model)"
       
     />  
+  -->
 
      <!-- 开关 -->
     <Switch
