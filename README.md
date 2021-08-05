@@ -2,10 +2,10 @@
 MG-FORM-IVIEW
 
 ![组件一览](https://s3.ax1x.com/2020/12/22/rr6Dw6.png "11.png")
- 
+ <!--
  **在线示例**
  http://jjxliu306.gitee.io/ng-form-iview/
-
+-->
  
 
 
@@ -86,9 +86,8 @@ new Vue({
 ```
 
 **详情可参考项目中 form-cdn.html**
- -->
-</div>
-
+ --> 
+<!--
 ## 安装
 ```
 npm install --save  ng-form-iview
@@ -114,7 +113,7 @@ Vue.use(NgFormIView)
     <ng-form-design  />
 </div>
 ```
- 
+ -->
 ### API 说明
 # 1. 表单绘制组件  ng-form-design 
 

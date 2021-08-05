@@ -389,6 +389,7 @@ export const basicsList = [
       }
     ]
   }, */
+  /*
   {
     type: "cascader", // 表单类型
     label: "级联选择器", // 标题文字  
@@ -438,7 +439,7 @@ export const basicsList = [
       }
     ]
   },
-  
+  */
   {
     type: "switch", // 表单类型
     label: "开关", // 标题文字   

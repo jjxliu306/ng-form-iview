@@ -648,7 +648,7 @@
           <Divider ></Divider>
           <FormItem   label="操作属性" >
             <Checkbox v-model="options.hidden">隐藏</Checkbox> 
-            <Checkbox v-model="options.showRequiredMark" label="显示必选标记" />
+            <Checkbox v-model="options.showRequiredMark">显示必选标记</Checkbox>
           </FormItem> 
           <Divider ></Divider>
           <FormItem   label="动态必选" >
@@ -682,9 +682,9 @@
           </FormItem> 
           <Divider ></Divider>
           <FormItem   label="操作属性" >
-            <Checkbox v-model="options.closable"  label="可关闭" /> 
-            <Checkbox v-model="options.center" label="居中" />
-             <Checkbox v-model="options.showIcon" label="显示图标" />
+            <Checkbox v-model="options.closable">可关闭</Checkbox>
+            <Checkbox v-model="options.center">居中</Checkbox>
+             <Checkbox v-model="options.showIcon" >显示图标</Checkbox>
           </FormItem> 
            <FormItem v-if="options.closable" label="关闭按钮文本">
             <Input  v-model="options.closeText"  placeholder="不需要则不填"/>
