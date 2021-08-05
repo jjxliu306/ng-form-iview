@@ -14,14 +14,13 @@
                       <slot name="formName">表单面板</slot>
                     </span>
                     <span style="float: right;">
-                      <slot name="controlButton">
-                        
+                      <slot name="controlButton"> 
                       </slot>
-                      <Button v-if="clear" type="text" size="medium" icon="el-icon-delete" @click="handleClear">清空</Button>
-                      <Button v-if="preview" type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</Button>
-                       <Button v-if="reder"  type="text" size="medium" icon="el-icon-view" @click="handleRender">渲染</Button>
-                      <Button v-if="imp" type="text" size="medium" icon="el-icon-download" @click="handleImport">导入</Button>
-                      <Button v-if="exp" type="text" size="medium" icon="el-icon-upload2" @click="handleGenerateJson">导出</Button>
+                      <Button v-if="clear" type="text" size="medium" icon="android-delete" @click="handleClear">清空</Button>
+                      <Button v-if="preview" type="text" size="medium" icon="ios-eye" @click="handlePreview">预览</Button>
+                       <Button v-if="reder"  type="text" size="medium" icon="eye" @click="handleRender">渲染</Button>
+                      <Button v-if="imp" type="text" size="medium" icon="ios-cloud-upload-outline" @click="handleImport">导入</Button>
+                      <Button v-if="exp" type="text" size="medium" icon="ios-cloud-download-outline" @click="handleGenerateJson">导出</Button>
                     </span> 
                 </div> 
                 <DesignPanel :data="data" ref="dragPanel" :selectForm="selectForm" @changeSelectItem="changeSelectItem"/> 

@@ -10,13 +10,14 @@ module.exports = {
       cdn: {
         css: [
           'http://unpkg.com/view-design/dist/styles/iview.css'
+             
         ],
         js: [
           "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
           "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
           "https://cdn.jsdelivr.net/npm/vuex@3.1.3/dist/vuex.min.js",
           "http://unpkg.com/view-design/dist/iview.min.js",
-          
+                
           "https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js" 
         ]
  

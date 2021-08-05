@@ -46,7 +46,7 @@ export const basicsList = [
       {
         required: false, // 必须填写
         message: "必填项",
-        trigger: ['blur']
+        trigger: 'blur'
       }
     ]
   },
@@ -70,7 +70,7 @@ export const basicsList = [
       {
         required: false,
         message: "必填项",
-        trigger: ['blur']
+        trigger: 'blur'
       }
     ]
   },
@@ -96,7 +96,8 @@ export const basicsList = [
     rules: [
       {
         required: false,
-        message: "必填项"
+        message: "必填项",
+         trigger: 'blur'
       }
     ]
   },
@@ -133,7 +134,8 @@ export const basicsList = [
     rules: [
       {
         required: false,
-        message: "必填项"
+        message: "必填项",
+         trigger: 'blur'
       }
     ]
   },
@@ -167,7 +169,8 @@ export const basicsList = [
     rules: [
       {
         required: false,
-        message: "必填项"
+        message: "必填项",
+         trigger: 'blur'
       }
     ]
   },

@@ -119,6 +119,7 @@ export default {
       return new Promise((resolve, reject) => { 
 
           this.$refs.form.validate((valid,values)=>{ 
+            console.log('valid' , valid)
             if (!valid) { 
               reject('验证失败');
             } 

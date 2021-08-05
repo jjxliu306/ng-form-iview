@@ -26,9 +26,11 @@
     "
     :label="formConfig.labelWidth > 0 ? record.label : null " 
     :rules="recordRules"
-    :prop="recordRules && recordRules.length > 0 ? record.model : null"
+    :prop="record.model"
     :id="record.model" :name="record.model"
   >   
+
+  recordRules:: {{recordRules}} , {{models[record.model]}}
  
     <BaseItem 
       :models="models"  
@@ -230,13 +232,23 @@ export default {
     recordRules(){
       // 2020-07-29 如果是预览 不需要规则验证
       if(this.isDragPanel || this.renderPreview || !this.record.rules || this.record.rules.length == 0) {
-        return []
+        return null
       }
       let rules =this.record.rules
 
-      // 2020-09-12 判断是否必填 ,非必填得没有值得时候不校验
-
+      // 2020-09-12 判断是否必填 ,非必填得没有值得时候不校验 
       const isRequire = rules[0].required
+
+       // 2021-08-05 lyf iview 需要指定type
+      let type_ = 'string' 
+      if(this.record.type == 'number' || this.record.type == 'rate' || this.record.type == 'slider') {
+        type_ = 'number'
+      } else if(this.record.type == 'checkbox' || this.record.type == 'cascader'
+        || (this.record.type == 'select' && this.record.options.multiple)) {
+        type_ = 'array'
+      } else if(this.record.type == 'date' || this.record.type == 'datePicker') {
+         type_ = 'date'
+      }
 
       // 循环判断
       for(var i = 0 ; i < rules.length ; i++){
@@ -249,17 +261,20 @@ export default {
 
         // 判断trigger
         if(!t.trigger) {
-          t.trigger =  ['change','blur']
+          t.trigger =  'change'
         }
+         
+        t.type = type_
+         
       }
      
       //2020-12-08 lyf 如果是batch类型的话增加一个内部校验的标记
 
       if(this.record.type == 'batch') {
-        rules.push({vtype: 3,trigger:['change','blur'] ,validator: this.validatorFiled ,message: '待完善'  })
+        rules.push({vtype: 3,trigger: 'change' ,validator: this.validatorFiled ,message: '待完善'  })
       }  
 
-      
+       
       return rules 
 
     }

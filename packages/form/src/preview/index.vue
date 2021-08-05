@@ -17,11 +17,11 @@
       <renderPreview ref="renderPreview" v-if="renderVisisble"/> 
     </div> 
     <span slot="footer" class="dialog-footer">
-      <el-button size="mini" @click="visible = false">取 消</el-button>
-      <el-button size="mini" @click="handleGetData">获取数据</el-button> 
-      <el-button size="mini" @click="handleRender">渲染</el-button>
-       <el-button size="mini" @click="handleValidator">验证</el-button>
-      <el-button  size="mini" type="primary" @click="visible = false">确 定</el-button>
+      <Button size="mini" @click="visible = false">取 消</Button>
+      <Button size="mini" @click="handleGetData">获取数据</Button> 
+      <Button size="mini" @click="handleRender">渲染</Button>
+       <Button size="mini" @click="handleValidator">验证</Button>
+      <Button  size="mini" type="primary" @click="visible = false">确 定</Button>
     </span>
  
   </Modal>
@@ -59,6 +59,7 @@ export default {
         });
     },
     handleValidator(){
+      console.log('handleValidator')
        this.$refs.formBuild.getData()
         .then(res => { 
   
