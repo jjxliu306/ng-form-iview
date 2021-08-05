@@ -114,19 +114,19 @@
     <!-- 分割线 --> 
     <Divider
       v-if=" record.type === 'divider' && record.label !== '' && record.options.orientation "
-      :content-position="record.options.orientation" 
-      :direction="record.options.direction ? record.options.direction : 'horizontal'"
+      :orientation="record.options.orientation" 
+      :type="record.options.direction ? record.options.direction : 'horizontal'"
       :size="formConfig.size"
       >
-      {{ record.label }}
+      {{record.options.direction == 'horizontal' ?    record.label : '' }}
     </Divider>
     <Divider v-else-if="record.type === 'divider' && record.label !== ''" 
-    :direction="record.options.direction ? record.options.direction : 'horizontal'" 
+    :type="record.options.direction ? record.options.direction : 'horizontal'" 
        :size="formConfig.size">
-      {{record.label}}
+      {{record.options.direction == 'horizontal' ?    record.label : '' }}
     </Divider>
     <Divider v-else-if="record.type === 'divider' && record.label === ''" 
-    :direction="record.options.direction ? record.options.direction : 'horizontal'" 
+    :type="record.options.direction ? record.options.direction : 'horizontal'" 
        :size="formConfig.size"/>
   </div>
 </template>
@@ -248,6 +248,8 @@ export default {
         type_ = 'array'
       } else if(this.record.type == 'date' || this.record.type == 'datePicker') {
          type_ = 'date'
+      } else if(this.record.type == 'switch') {
+         type_ = 'boolean'
       }
 
       // 循环判断
@@ -357,7 +359,7 @@ export default {
       return ;
 
     const defaultValue = this.record.options.defaultValue
-    if(defaultValue) {
+    if(defaultValue != null) {
       if(this.record.type == 'checkbox'){
         this.checkList = defaultValue
       } else {

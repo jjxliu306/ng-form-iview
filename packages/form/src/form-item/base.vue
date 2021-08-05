@@ -400,7 +400,7 @@
   -->
 
      <!-- 开关 -->
-    <Switch
+    <i-switch
       v-model="models[record.model]"
       v-else-if="record.type === 'switch'"
       :active-text="record.options.activeText"
@@ -889,7 +889,8 @@ export default {
     }
 
     const defaultValue = this.record.options.defaultValue
-    if(defaultValue) {
+    console.log('dddddefaultValue' , defaultValue)
+    if(defaultValue != null) {
       if(this.record.type == 'checkbox' || this.record.type == 'cascader'){
         this.checkList = defaultValue
       } else {
