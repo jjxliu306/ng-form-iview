@@ -674,12 +674,12 @@
               <Radio label="error">error</Radio> 
             </RadioGroup>
           </FormItem> 
-          <FormItem  label="主题">
+         <!--  <FormItem  label="主题">
             <RadioGroup type="button" v-model="options.effect">
               <Radio label="light">light</Radio>
               <Radio label="dark">dark</Radio> 
             </RadioGroup>
-          </FormItem> 
+          </FormItem>  -->
           <Divider ></Divider>
           <FormItem   label="操作属性" >
             <Checkbox v-model="options.closable">可关闭</Checkbox>

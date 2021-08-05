@@ -90,17 +90,20 @@
       ></label>
   </div>
    <!-- 提示 -->
-  <div class="form-label" v-else-if="record.type === 'alert' && dynamicVisibleItem " :style="{ textAlign: record.options.textAlign }" > 
-       <Alert
-        :title="record.options.title"
-        :type="record.options.type"
-        :description="record.options.description"
-        :effect="record.options.effect"
-        :closable="record.options.closable"
-        :center="record.options.center"
-         :close-text="record.options.closeText"
+  <div class="form-label" v-else-if="record.type === 'alert' && dynamicVisibleItem " :style="{ textAlign: (record.options.center ? 'center' : 'left') }" > 
+       <Alert 
+        :type="record.options.type"  
+        :closable="record.options.closable" 
         :size="formConfig.size"
         :show-icon="record.options.showIcon">
+          {{record.options.title}}
+          <span slot="desc" v-if="record.options.description">
+            {{record.options.description}}
+          </span>
+          <span slot="close" v-if="record.options.closeText">
+            {{record.options.closeText}}
+          </span>
+          
       </Alert>
   </div>
   <!-- html -->
