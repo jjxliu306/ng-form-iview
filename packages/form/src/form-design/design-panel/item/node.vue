@@ -17,14 +17,14 @@
       :class="record.key === selectItem.key ? 'active' : 'unactivated'"
       @click.stop="$emit('handleCopy')"
     >
-      <i class="el-icon-document-copy" />
+     <Icon type="ios-copy-outline" />
     </div> 
     <div
       class="delete"
       :class="record.key === selectItem.key ? 'active' : 'unactivated'"
       @click.stop="$emit('handleDetele')"
-    >
-      <i class="el-icon-delete" />
+    ><Icon type="ios-close" /> 
+      
     </div>
   </div>
 </template>

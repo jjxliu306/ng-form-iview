@@ -2,17 +2,17 @@
   动态表格 用于批量填入数据
  -->
 <template>
- <div  :id="record.model" :name="record.model" class="form-table-index">  
-   
-    <el-table
+ <div  :id="record.model" :name="record.model" class="form-table-index">   
+    <Table
       :class="[
         'form-table',
         record.options.customClass ? record.options.customClass : '' 
-      ]" 
+      ]"  
       :style="record.options.customStyle"
       :rowKey="record => record.key" 
       :data="models[record.model]" 
       :border="record.options.showBorder"
+      :columns="columns"
       :scroll="{
         x:
           record.list.length * 190 +
@@ -21,55 +21,27 @@
         y: record.options.scrollY
       }"
     > 
-      <template  v-if="isVisible"> 
-        <el-table-column 
-          v-if="!record.options.hideSequence"
-          label="序号"
-          align="center"
-          type="index"
-          width="50" >  
-        </el-table-column>
-        <template  v-for="(item,index) in record.list">
-          <el-table-column   
-          v-if="record.options.addType != 'dialog' || (record.options.showItem && record.options.showItem.includes(item.model) )"
-          :key="index"
-          :label="item.label"
-          :width="record.options.colWidth && record.options.colWidth[item.model] ? record.options.colWidth[item.model] : undefined"
-          align="center">
-          <template  slot-scope="scope"> 
-            <!-- 这里就要判断类型了 -->   
-            <!-- 2021-03-14 判断新增数据方式，如果是怎加航 这里就不能预览了 -->
-            <TableItem :record="item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][scope.$index]" /> 
-          </template>  
-        </el-table-column>
-        </template> 
-        <el-table-column  
-          label="操作"
-          align="center" 
-          v-if="!renderPreview || record.options.addType == 'dialog'"
-          :width="controlWidth ">
-          <template  slot-scope="scope"> 
-            <el-button type="success"  v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(scope.row)">
+      <template slot-scope="{ row, index }" v-for="col in columns" :slot="col.slot" v-if="col.slot">
+        <TableItem :key="col.model" :record="col.item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][index]" /> 
+      </template>
+      <template slot-scope="{ row, index }" slot="action">
+         <Button type="success" size="mini"  v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-eye" />查看
-            </el-button>
-            <el-button type="primary"  v-if="!renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(scope.row)">
+            </Button>
+            <Button type="primary" size="mini" v-if="!renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-edit" />修改
-            </el-button>
-            <el-button type="primary"  v-if="!renderPreview && record.options.copyRow"  @click="copyDomain(scope.row)">
+            </Button>
+            <Button type="primary" size="mini" v-if="!renderPreview && record.options.copyRow"  @click="copyDomain(row)">
               <i class="el-icon-copy-document" />复制
-            </el-button>
-            <el-button type="danger"   v-if="!renderPreview" @click="removeDomain(scope.$index)">
+            </Button>
+            <Button type="danger"  size="mini" v-if="!renderPreview" @click="removeDomain(index)">
               <i class="el-icon-delete" />删除 
-            </el-button>
-          </template> 
-        </el-table-column> 
+            </Button>
       </template> 
-
-      
-    </el-table>
-    <el-button v-if="!renderPreview" type="dashed" :disabled="disabled" @click="addDomain">
+    </Table>
+    <Button v-if="!renderPreview" size="mini" type="dashed" :disabled="disabled" @click="addDomain">
       <i class="el-icon-circle-plus-outline" />增加
-    </el-button>
+    </Button>
 
     <AddOrUpdate ref="addOrUpdate" v-if="addOrUpdateVisible" :formConfig="config" :formTemplate="templateData" :renderPreview="renderPreview" @formAdd="formAdd"  @formUpdate="formUpdate"/>
 
@@ -128,7 +100,7 @@ export default {
   data() {
     return {
       addOrUpdateVisible: false,
-      isVisible: true 
+      isVisible: true  
     };
   },
   computed: { 
@@ -152,7 +124,47 @@ export default {
       } 
        
       return w 
-    } 
+    },
+    // 外部展示的列
+    columns() {
+
+      // "(item,index) in record.list
+      //record.options.addType != 'dialog' || (record.options.showItem && record.options.showItem.includes(item.model) )
+
+      // :label="item.label"
+      //    :width="record.options.colWidth && record.options.colWidth[item.model] ? record.options.colWidth[item.model] : undefined"
+
+
+
+      const addType = this.record.options.addType
+      const showItem = this.record.options.showItem
+      const colWidth = this.record.options.colWidth
+
+     
+
+      let list_ = this.record.list.filter(t=> addType != 'dialog' || (showItem && showItem.includes(t.model) )).map(t=> {
+        const width_ = colWidth && colWidth[t.model] ? colWidth[t.model] : undefined
+        return {title: t.label , width: width_ , key: t.model , slot: t.model , align: 'center' , item: t}
+      })
+
+
+       // 序号 
+
+      if(!this.record.options.hideSequence) { 
+        list_ = [{type: 'index', width: 50,align: 'center'}].concat(list_)
+      }
+
+      // 补上一个action 
+      // v-if="!renderPreview || record.options.addType == 'dialog'"
+      //    :width="controlWidth "
+      if(!this.renderPreview || addType == 'dialog') {
+        list_.push({title: '操作' , width: this.controlWidth , slot: 'action'})
+      }
+      
+
+      return list_ 
+
+    }
   },
   mounted(){ 
     // 2021-05-10 lyf 只要没有默认值都先给回填一个  这个可以处理初始化么有值，导致后面很多联动没法做，必须要通过v-if刷新 
@@ -170,24 +182,26 @@ export default {
     },
     removeDomain(index) { 
 
-      this.$confirm(`确定删除此数据?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-      }).then(() => {
-        let domains = this.models[this.record.model] 
-        if(domains) { 
-          if (index !== -1) {
-            domains.splice(index, 1);
+      this.$Modal.confirm({
+        title: '确定删除此数据?', 
+        okText: '确定',
+        cancelText: '取消',
+        onOk: () => {
+          let domains = this.models[this.record.model] 
+          if(domains) { 
+            if (index !== -1) {
+              domains.splice(index, 1);
 
-            this.$message({
-              message: '删除成功',
-              type: 'success',
-              duration: 1000 
-            })
-          }
-        }
-      }) 
+            /*  this.$message({
+                message: '删除成功',
+                type: 'success',
+                duration: 1000 
+              })*/
+            }
+          }    
+        } 
+      });
+ 
       
     },
     updateDomain(data) {
@@ -263,11 +277,11 @@ export default {
         return a.seq - b.seq
       });
       this.isVisible = true
-      this.$message({
+     /* this.$message({
         message: '添加成功',
         type: 'success',
         duration: 1000 
-      })
+      })*/
 
       
     },
@@ -284,11 +298,11 @@ export default {
        this.models[this.record.model].sort(function(a, b){
           return a.seq - b.seq
         });
-      this.$message({
+     /* this.$message({
         message: '更新成功',
         type: 'success',
         duration: 1000 
-      }) 
+      }) */
 
     },
     handleInput() {

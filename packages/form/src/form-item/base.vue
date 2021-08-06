@@ -89,7 +89,7 @@
       :maxlength="record.options.maxLength > 0 ? record.options.maxLength : null"
       @on-change="handleChange($event, record.model)"
       v-model="models[record.model]" 
-      :size="formConfig.size"
+      :size="formConfig ? formConfig.size : null"
     >   
       <span v-if="record.options.prepend"  slot="prepend" v-html="transformAppend(record.options.prepend)">
        
@@ -111,7 +111,7 @@
       :rows="record.options.rows"
       :show-word-limit="record.options.maxLength > 0 && record.options.maxLength > 10"
       @on-change="handleChange($event, record.model)"
-        :size="formConfig.size"
+        :size="formConfig ? formConfig.size : null"
     />
 
     <!-- 数字输入框 -->
@@ -143,7 +143,7 @@
           controls-position="right"
           :placeholder="record.options.placeholder"
           @on-change="handleChange($event, record.model)"
-           :size="formConfig.size"
+           :size="formConfig ? formConfig.size : null"
         /> 
         <div class="el-input-group__append el-input-number-group__append " v-if="record.options.append" v-html="transformAppend(record.options.append)">
          
@@ -169,7 +169,7 @@
         multiple
         @on-clear="clearChange"
         @on-change="handleChange($event, record.model ,  true)" 
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
       >
         <template  v-for="item in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
           <Option  
@@ -194,7 +194,7 @@
         :clearable="record.options.clearable" 
         @on-clear="clearChange"
         @on-change="handleChange($event, record.model , true)" 
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
       > 
        <template  v-for="item in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
           <Option  
@@ -215,7 +215,7 @@
       :disabled="dynamicDisabled"
       :placeholder="record.options.placeholder"
       @on-change="handleChange($event, record.model)"
-       :size="formConfig.size"
+       :size="formConfig ? formConfig.size : null"
     >
       <template v-for="checkitem in  ( (record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
          <Checkbox  :label="checkitem[itemProp.value]" :key="checkitem[itemProp.value]" v-if="itemVisible(checkitem)"> 
@@ -231,7 +231,7 @@
       :disabled="dynamicDisabled"
       :placeholder="record.options.placeholder"
       @on-change="handleChange($event, record.model)"
-       :size="formConfig.size"
+       :size="formConfig ? formConfig.size : null"
     > 
       <template v-for="radioitem in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
          <Radio  :label="radioitem[itemProp.value]" :key="radioitem[itemProp.value]" v-if="itemVisible(radioitem)">
@@ -254,7 +254,7 @@
         :end-placeholder="record.options.rangeEndPlaceholder"
         :format="record.options.format"
         :value-format="record.options.format"
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)" >
       </DatePicker>
       <DatePicker 
@@ -267,7 +267,7 @@
         :placeholder="record.options.placeholder"
         :format="record.options.format"
         :value-format="record.options.format"
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)">
       </DatePicker>
 
@@ -288,7 +288,7 @@
         :end-placeholder="record.options.rangeEndPlaceholder"
         :format="record.options.format"
         :value-format="record.options.format"
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)" >
       </DatePicker>
       <DatePicker
@@ -301,7 +301,7 @@
         :placeholder="record.options.placeholder"
         :format="record.options.format"
         :value-format="record.options.format"
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)">
       </DatePicker>
 
@@ -317,7 +317,7 @@
       :disabled="dynamicDisabled"
       :placeholder="record.options.placeholder" 
       :format="record.options.format"
-       :size="formConfig.size"
+       :size="formConfig ? formConfig.size : null"
       :value-format="record.options.format">
     </TimePicker > 
 
@@ -332,7 +332,7 @@
       :disabled="dynamicDisabled"
       :placeholder="record.options.placeholder"
       :allowHalf="record.options.allowHalf"
-       :size="formConfig.size"
+       :size="formConfig ? formConfig.size : null"
       @on-change="handleChange($event, record.model)"
      
     />
@@ -347,7 +347,7 @@
         :show-input="record.options.showInput"
         :step="record.options.step"
         :marks="sliderMarks"
-         :size="formConfig.size"
+         :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)"
           
     />  
@@ -407,7 +407,7 @@
       :inactive-text="record.options.inactiveText"
       :disabled="dynamicDisabled"
       @on-change="handleChange($event, record.model)"
-      :size="formConfig.size"
+      :size="formConfig ? formConfig.size : null"
     />
     <!-- 自定义组件 -->
     <customComponent
@@ -418,7 +418,7 @@
       :formConfig="formConfig"
       :renderPreview="renderPreview"
       @change="handleChange($event, record.model)"
-       :size="formConfig.size"
+       :size="formConfig ? formConfig.size : null"
     /> 
   </div>
 </template>

@@ -57,14 +57,14 @@
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleCopy')"
         >
-          <i class="el-icon-copy-document" />
+          <Icon type="ios-copy-outline" />
         </div>
         <div
           class="delete"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleDetele')"
-        >
-          <i class="el-icon-delete" />
+        ><Icon type="ios-close" /> 
+           
         </div>
       </div>
     </template>
@@ -123,15 +123,15 @@
           class="copy"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleCopy')"
-        >
-          <i class="el-icon-copy-document" />
+        > <Icon type="ios-copy-outline" />
+           
         </div>
         <div
           class="delete"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleDetele')"
         >
-          <i class="el-icon-delete" />
+          <Icon type="ios-close" /> 
         </div>
       </div>
     </template>
@@ -187,15 +187,15 @@
           class="copy"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleCopy')"
-        >
-          <i class="el-icon-copy-document" />
+        ><Icon type="ios-copy-outline" />
+         
         </div>
         <div
           class="delete"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleDetele')"
         >
-          <i class="el-icon-delete" />
+          <Icon type="ios-close" /> 
         </div>
       </div>
     </template>
@@ -272,15 +272,15 @@
           class="copy"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleCopy')"
-        >
-          <i class="el-icon-copy-document" />
+        ><Icon type="ios-copy-outline" />
+          
         </div>
         <div
           class="delete"
           :class="record.key === selectItem.key ? 'active' : 'unactivated'"
           @click.stop="$emit('handleDetele')"
         >
-          <i class="el-icon-delete" />
+          <Icon type="ios-close" /> 
         </div>
       </div>
     </template>

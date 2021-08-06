@@ -1,12 +1,13 @@
 <template>
-  <el-dialog
+  <Modal
     :title="!dataForm._id ? '新增' : '修改'"
     :close-on-click-modal="false"
      :append-to-body="true" 
     :lock-scroll="false"
-    :visible.sync="visible"
+      v-model="visible"  
+
     :id="randomId">  
-   <el-form
+   <Form
       v-if="
         typeof formTemplate.list !== 'undefined' && typeof formTemplate.config !== 'undefined'
       "
@@ -21,7 +22,7 @@
     <template
       v-for="(item,index) in formTemplate.list"  
     >
-      <el-form-item v-if="
+      <FormItem v-if="
       !(item.options.hidden === true) &&
         ([
           'input',
@@ -45,60 +46,27 @@
         :rules="recordRules(item)"
         :prop="item.rules && item.rules.length > 0 ? item.model : null"
         :id="item.model" :name="item.model"
-      >   
-
-
-       <el-tooltip 
-        class="item" 
-        effect="light" 
-        :enterable="false"
-        :open-delay="500"
-        v-if="item.options.tooptip && item.options.tooptip.trim()" 
-        placement="top-start">
-          <div slot="content" class="tooltip-content"> {{item.options.tooptip}}</div>
-          <BaseItem 
+      >    
+        <BaseItem  
             :models="dataForm"  
             :formConfig="formTemplate.config"
-            :renderPreview="renderPreview"
-            
+            :renderPreview="renderPreview" 
             :record="item"
-            :disabled="disabled || item.options.disabled"
-
+            :disabled="disabled || item.options.disabled" 
             /> 
-        </el-tooltip>  
-        <BaseItem 
-          v-else
-            :models="dataForm"  
-            :formConfig="formTemplate.config"
-            :renderPreview="renderPreview"
-            
-            :record="item"
-            :disabled="disabled || item.options.disabled"
-
-            /> 
-      </el-form-item>
-
-      
+      </FormItem> 
     </template>
-     <el-form-item label="排序" prop="seq">
-          <template v-if="renderPreview">
-            {{dataForm.seq}}
-          </template>
-          <template v-else>
-            <el-input-number v-model="dataForm.seq" controls-position="right" :min="0" label="排序号" :disabled="renderPreview"></el-input-number>
-          </template>
-         
-      </el-form-item>
-      
-</el-form>
     
-
-    <div  class="mod-footer">
-      <el-button @click="visible = false">取消</el-button>
-     <el-button :disabled="loading" v-if="!renderPreview" type="primary" @click="dataFormSubmit()">确定</el-button>
+      
+</Form>
+    
+ 
+    <div slot="footer" class="mod-footer">
+      <Button @click="visible = false">取消</Button>
+     <Button :disabled="loading" v-if="!renderPreview" type="primary" @click="dataFormSubmit()">确定</Button>
     </div>
  <!--  </div> -->
-  </el-dialog> 
+  </Modal> 
 </template>
 
 <script>
@@ -276,6 +244,7 @@
             this.dataForm = {_id:null,seq: 0 , ...d}
 
             this.$nextTick(() => {
+              console.log('refs' , this.$refs)
               this.$refs['dataForm'].resetFields()
          
             })

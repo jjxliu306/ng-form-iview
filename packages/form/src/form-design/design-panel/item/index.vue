@@ -83,19 +83,17 @@
         style="top:20px;" 
         :append-to-body="true"  
         >
-         <el-form size="mini" :model="tdStyle" label-width="80px"> 
-        <el-form-item  label="class" >
-          <el-input v-model="tdStyle.class" placeholder="请输入class名称" />
-        </el-form-item>
-        <el-form-item  label="style" >
-          <el-input type="textarea" :rows="3" v-model="tdStyle.style" placeholder="请输入css样式" />
-        </el-form-item>
-
-      </el-form>
-     
+        <Form size="mini" :model="tdStyle" label-width="80px"> 
+          <FormItem  label="class" >
+            <Input v-model="tdStyle.class" placeholder="请输入class名称" />
+          </FormItem>
+          <FormItem  label="style" >
+            <Input type="textarea" :rows="3" v-model="tdStyle.style" placeholder="请输入css样式" />
+          </FormItem> 
+        </Form> 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="styleVisible = false">取 消</el-button> 
-        <el-button type="primary" @click="settingStyle">确 定</el-button>
+        <Button @click="styleVisible = false">取 消</Button> 
+        <Button type="primary" @click="settingStyle">确 定</Button>
       </span>
     </Modal>
      
