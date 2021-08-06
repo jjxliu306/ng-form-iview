@@ -6,7 +6,8 @@ MG-FORM-IVIEW
  **在线示例**
  http://jjxliu306.gitee.io/ng-form-iview/
  
- 
+ **element-ui版本地址**
+ https://gitee.com/jjxliu306/vue-form-design
 
 
 ##示例
