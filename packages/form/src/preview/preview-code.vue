@@ -9,9 +9,9 @@
     style="top:20px;"
     width="850px"
   >
-     <div class="json-box"> 
-      <Input style="min-height:300px;height: 300px;max-height: 290px;overflow: auto;" autosize  readonly ref="myEditor" type="textarea" :value="editorJson"> 
-      </Input> 
+    <div class="json-box"> 
+      <Input style="min-height:300px;height: 300px;max-height: 290px;overflow: auto;" autosize  readonly ref="myEditor" type="textarea" :value="editorJson" /> 
+      
     </div>
     <div class="copy-btn-box"> 
       <Button size="mini" @click="handleExportJson" type="primary">
@@ -35,17 +35,18 @@ export default {
       jsonData: {}
     };
   },
-  watch: {
-    visible(val) {
-      if (val) { 
-        this.editorJson = JSON.stringify(this.jsonData, null, "\t");
-      }
-    }
-  },
+  
   components: {
      
   },
   methods: {
+    init(model){
+      this.visible = true 
+      this.$nextTick(()=>{
+        this.editorJson = JSON.stringify(model, null, "\t");
+      })
+       
+    },
     handleCancel() {
       this.visible = false;
     },

@@ -50,19 +50,8 @@
        
       <renderPreview ref="renderPreview" v-if="renderVisisble"/>   
 
-      <Modal 
-         title="模板数据" 
-        v-model="modelVisible"
-        :append-to-body="true"
-        style="top:20px;"
-        width="850px"
-        >
-        <previewCode :editorJson="modelJson" />
-        <span slot="footer" class="dialog-footer">
-          <el-button size="mini" @click="modelVisible = false">取 消</el-button>
-          <el-button  size="mini" type="primary" @click="modelVisible = false">确 定</el-button>
-        </span>
-      </Modal>         
+      
+      <previewCode ref="model" v-if="modelVisible" />     
        
       <Modal 
          title="模板数据" 
@@ -71,12 +60,11 @@
         style="top:20px;"
         width="850px"
         >
-         <el-input type="textarea" :rows="3" v-model="importText">
-
-        </el-input>
+         <Input type="textarea" :rows="3" v-model="importText"/>
+ 
         <span slot="footer" class="dialog-footer">
-          <el-button size="mini" @click="importVisible = false">取 消</el-button>
-          <el-button size="mini" type="primary" @click="importModel">确 定</el-button>
+          <Button size="mini" @click="importVisible = false">取 消</Button>
+          <Button size="mini" type="primary" @click="importModel">确 定</Button>
         </span>
       </Modal>    
       
@@ -225,13 +213,15 @@ export default {
          
     },
     handleClear () {
-       this.$confirm('清空后无法恢复,请确认操作?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.data.list = []
-        }) 
+       this.$Modal.confirm({
+                    title: '清空后无法恢复,请确认操作?', 
+                    okText: '确定',
+                    cancelText: '取消',
+                    onOk: () => {
+                        this.data.list = []
+                    } 
+                });
+       
      
     },
     // 导入
@@ -276,8 +266,10 @@ export default {
     },
     handleGenerateJson () { 
 
-      this.modelJson =  JSON.stringify(this.data, null, "\t"); //JSON.stringify(this.data)
-      this.modelVisible = true
+      this.modelVisible = true 
+      this.$nextTick(()=>{
+        this.$refs.model.init(this.data)
+      })
  
     }
   }

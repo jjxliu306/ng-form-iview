@@ -29,8 +29,6 @@
     :prop="record.model"
     :id="record.model" :name="record.model"
   >   
-
-  recordRules:: {{recordRules}} , {{models[record.model]}}
  
     <BaseItem 
       :models="models"  

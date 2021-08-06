@@ -877,7 +877,7 @@ export default {
           this.record.type == 'select' && this.record.options.multiple 
         )) {
         if(!(modelValue instanceof Array)){
-          modelValue = [modelValue]
+          modelValue = modelValue.split(',')
           this.$set(this.models , this.record.model , modelValue)
         }
   
@@ -889,7 +889,7 @@ export default {
     }
 
     const defaultValue = this.record.options.defaultValue
-    console.log('dddddefaultValue' , defaultValue)
+ 
     if(defaultValue != null) {
       if(this.record.type == 'checkbox' || this.record.type == 'cascader'){
         this.checkList = defaultValue
