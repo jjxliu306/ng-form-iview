@@ -21,10 +21,10 @@
         y: record.options.scrollY
       }"
     > 
-      <template slot-scope="{ row, index }" v-for="col in columns" :slot="col.slot" v-if="col.slot">
-        <TableItem :key="col.model" :record="col.item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][index]" /> 
+      <template slot-scope="{ row, index }" v-for="col in columns" :slot="col.model" >
+        <TableItem v-if="col.slot" :key="col.model" :record="col.item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][index]" /> 
       </template>
-      <template slot-scope="{ row, index }" slot="action">
+      <template slot-scope="{ row, index }" slot="action" v-if="!renderPreview || record.options.addType == 'dialog'">
          <Button type="success" size="mini"  v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-eye" />查看
             </Button>

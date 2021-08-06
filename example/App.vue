@@ -5,7 +5,7 @@
     </Select>
     <Tabs v-model="activeName"  name="app" style="padding: 20px;" @tab-click="changeTab">
         <TabPane label="表单绘制" name="first" tab="app">
-            <form-design ref="formDesign" :custom-components="customComponents" :config="formConfig">
+            <ng-form-design ref="formDesign" :custom-components="customComponents" :config="formConfig">
                 <template slot="controlButton" >
                     <Button   type="text" size="medium"  @click="initDemo(1)">示例1</Button>
                     <Button   type="text" size="medium"  @click="initDemo(2)">示例2</Button>
@@ -18,14 +18,14 @@
                 <template  slot="formName">
                     <span> form-design 示例 </span>
                 </template> 
-            </form-design> 
+            </ng-form-design> 
         </TabPane>
         <TabPane label="表单查看" name="second" tab="app">
             <Alert
             title="测试表单预览"
             type="warning">
           </Alert>
-            <form-build ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
+            <ng-form-build ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
 
              <Button   type="primary" size="mini"  @click="validator()">验证</Button>
              <Button   type="primary" size="mini"  @click="getData()">获取数据</Button>

@@ -14,7 +14,7 @@
       class="form-build form-design"
       :label-position="formTemplate.config.labelPosition"
       :hide-required-asterisk="formTemplate.config.hideRequiredMark" 
-      :label-width="formTemplate.config.labelWidth + 'px'" 
+      :label-width="formTemplate.config.labelWidth" 
       ref="dataForm" 
       :model="dataForm"  
       size="mini"

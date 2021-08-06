@@ -47,7 +47,7 @@
   <FormItem 
     :id="record.model" :name="record.model"
     v-else-if="(record.type === 'batch' || record.type === 'editor') && dynamicVisibleItem"
-    :label="!record.options.showLabel ? '' : record.label" :label-width="record.options.showLabel ? null : '0px'"
+    :label="!record.options.showLabel ? '' : record.label" :label-width="record.options.showLabel ? null : '0'"
   >
     <!-- 动态表格 -->
     <TableBatch
@@ -76,7 +76,7 @@
       :type="record.options.type" 
       @click="buttonClick"
       v-text="record.label"
-      :size="formConfig.size"
+      :size="formConfig ? formConfig.size : 'mini'"
     ></Button>
   </FormItem>
   

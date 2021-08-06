@@ -561,7 +561,7 @@
                      <span v-else> {{item.label}} </span>
                   </Col>
                    <Col :span="12">
-                     <Input   placeholder="宽度" v-model="selectItem.options.colWidth[item.model]" />
+                     <Input placeholder="宽度" v-model="selectItem.options.colWidth[item.model]" />
                   </Col> 
                 </Row> 
 
