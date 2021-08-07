@@ -1,5 +1,5 @@
-# MG-FORM-IVIEW 致力打造开源最强vue+iview动态表单组件
-MG-FORM-IVIEW
+# NG-FORM-IVIEW 致力打造开源最强vue + iview动态表单组件
+NG-FORM-IVIEW
 
 ![组件一览](https://s3.ax1x.com/2020/12/22/rr6Dw6.png "11.png")
  
