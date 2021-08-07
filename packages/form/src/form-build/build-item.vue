@@ -11,7 +11,7 @@
       :key="index"
       :span="colItem.span || 0"
     >
-      <buildBlocks
+      <ng-form-build-item
         ref="nestedComponents"
         @handleReset="$emit('handleReset')"
         @change="handleChange"
@@ -49,7 +49,7 @@
           :colspan="tdItem.colspan"
           :rowspan="tdItem.rowspan"
         >
-          <buildBlocks
+          <ng-form-build-item
             ref="nestedComponents"
             @handleReset="$emit('handleReset')"
             @change="handleChange"
@@ -88,7 +88,7 @@
         v-for="(item, index) in record.list"  
         :key="index"  
         >
-       <buildBlocks
+       <ng-form-build-item
           ref="nestedComponents"
           @handleReset="$emit('handleReset')"
           @change="handleChange"
@@ -169,7 +169,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import  FormItem  from "../form-item";
 import {dynamicFun} from '../utils'
 export default {
-  name: "buildBlocks",
+  name: "ng-form-build-item",
   data() {
     return {
       menuTop: 0,
