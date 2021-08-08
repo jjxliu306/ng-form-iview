@@ -7,7 +7,7 @@ NG-FORM-IVIEW
  https://jjxliu306.github.io/ng-form-iview/dist
  
  **element-ui版本地址**
- https://gitee.com/jjxliu306/vue-form-design
+ https://gitee.com/jjxliu306/ng-form-element
 
 
 ##示例
