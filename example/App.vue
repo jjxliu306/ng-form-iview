@@ -1,9 +1,6 @@
 <template>
-  <div id="app">
-      <Select v-model="model1" style="width:200px">
-        <Option v-for="item in cityList" :value="item.value" :key="item">{{ item.label }}</Option>
-    </Select>
-    <Tabs v-model="activeName"  name="app" style="padding: 20px;" @tab-click="changeTab">
+  <div id="app"> 
+    <Tabs v-model="activeName"  name="app" style="padding: 20px;" @on-click="changeTab">
         <TabPane label="表单绘制" name="first" tab="app">
             <ng-form-design ref="formDesign" :custom-components="customComponents" :config="formConfig">
                 <template slot="controlButton" >
@@ -16,19 +13,18 @@
                      <Properties :selectItem="selectItem"/>
                 </template> 
                 <template  slot="formName">
-                    <span> form-design 示例 </span>
+                    <span> ng-form-iview 示例 </span>
                 </template> 
             </ng-form-design> 
         </TabPane>
-        <TabPane label="表单查看" name="second" tab="app">
-            <Alert
-            title="测试表单预览"
-            type="warning">
+        <TabPane label="表单查看" name="second" tab="app" >
+          <Alert  type="warning">
+            测试表单预览
           </Alert>
-            <ng-form-build ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
+          <ng-form-build class="form-app-preview" ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
 
-             <Button   type="primary" size="mini"  @click="validator()">验证</Button>
-             <Button   type="primary" size="mini"  @click="getData()">获取数据</Button>
+          <Button  class="preview-button" type="primary" size="mini"  @click="validator()">验证</Button>
+          <Button  class="preview-button" type="primary" size="mini"  @click="getData()">获取数据</Button>
         </TabPane> 
       </Tabs>
 
@@ -44,22 +40,7 @@ export default {
   components: {CustomT , Properties},
   data(){
     return {
-      model1: '' ,
-       cityList: [
-                    {
-                        value: 'beijing',
-                        label: '北京市'
-                    },
-                    {
-                        value: 'shanghai',
-                        label: '上海市'
-                    },
-                    {
-                        value: 'shenzhen',
-                        label: '深圳市'
-                    }
-                    ],
-
+     
       activeName: 'first',
       models: {} ,
       formTemplate: {} ,
@@ -121,9 +102,12 @@ export default {
       })
     },
     changeTab(v) {
-      if(v && v.name == 'second') {
+      console.log('v' , v)
+      if(v && v == 'second') {
        
         this.formTemplate =  this.$refs.formDesign.getModel()
+
+        console.log('formTemplate' , this.formTemplate)
         const list = this.formTemplate.list 
         if(list) {
           const templateModels = list.map(t=>t.model)
@@ -172,4 +156,13 @@ body{
     font-feature-settings: 'tnum';
  
 }
+
+.form-app-preview {
+  height: auto!important;
+}
+
+.preview-button {
+  margin: 10px;
+}
+
 </style>
