@@ -261,6 +261,10 @@ export default {
         if(t.vtype == 1 || t.vtype == 2){ 
           t.validator =  this.validatorFiled 
         } 
+        // 2021-08-12 lyf 针对必填而且是文本输入的组件增加纯空格校验
+        if(t.required && (this.record.type == 'input' || this.record.type == 'textarea') ){
+          t.whitespace = true
+        }
 
         // 判断trigger
         if(!t.trigger) {

@@ -137,6 +137,10 @@
            if(t.vtype == 1 || t.vtype == 2){ 
             t.validator =  this.validatorFiled 
           } 
+          
+          if(t.required && (record.type == 'input' || record.type == 'textarea') ){
+            t.whitespace = true
+          }
 
           // 判断trigger
           if(!t.trigger) {
