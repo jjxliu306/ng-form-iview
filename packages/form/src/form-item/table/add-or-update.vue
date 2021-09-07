@@ -52,7 +52,7 @@
             :formConfig="formTemplate.config"
             :renderPreview="renderPreview" 
             :record="item"
-            :disabled="disabled || item.options.disabled" 
+            :disabled="disabled || (item.options.disabled && !item.options.dynamicDisabled )" 
             /> 
       </FormItem> 
     </template>
