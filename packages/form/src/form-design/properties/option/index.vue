@@ -34,37 +34,11 @@
     <!-- 级联 树状数据 lyf 2020-07-06 -->
     <div v-if="type === 'cascader'"  >
       <div  >
+       
         <Tree 
           :data="value ? value : []" 
           node-key="value" 
-          :render="treeRenderContent">
-          <span class="custom-tree-node" slot-scope="{ node, data }">
-            <span> 
-              <Row :gutter="4">
-                <Col :span="9">
-                  <Input v-model="data.label"  :type="keyNumber ? 'number' : 'text'" placeholder="名称" />
-                </Col>
-                <Col :span="9">
-                  <Input v-model="data.value" placeholder="值"/>
-                </Col>
-                <Col :span="6">
-                  <Button
-                    type="text"
-                    size="mini"
-                    @click="() => append(data)">
-                    <i class="el-icon-circle-plus-outline"></i>
-                  </Button>
-                  <Button
-                    type="text"
-                    size="mini"
-                    @click="() => remove(node, data)">
-                    <i class="el-icon-delete"></i>
-                  </Button>
-                </Col>
-              </Row>
-            </span>
-            
-          </span>
+          :render="treeRenderContent"> 
         </Tree>
       </div>
       <Col v-if="!disabled" :span="24">
@@ -123,8 +97,10 @@
   </div>
 </template>
 <script>
- 
+import NgIcon from './ng-icon'
+import Vue from 'vue'
 export default {
+  components: {NgIcon},
   name: "ChangeOption",
   props: {
     value: {
@@ -145,6 +121,9 @@ export default {
       type: Boolean ,
       default: false
     },
+  },
+  created() {
+    Vue.component('ng-icon',NgIcon)
   },
   methods: {
     handleAdd() {
@@ -205,6 +184,7 @@ export default {
     },
 
     treeRenderContent (h, { root, node, data }) {
+      const this_ = this 
       return h('div', {
           style: {
             display: 'inline-block',
@@ -224,14 +204,79 @@ export default {
                 }  
             },
             [ 
-               h('Input',{
-                    props:  {
-                      value: data.label,
-                      type: this.keyNumber ? 'number' : 'text',
-                      placeholder: '名称'
+               h('Input',{ 
+                    attrs: {
+                       value: data.label, 
+                       placeholder: '名称'
+                    },
+                    on: {
+                      'on-change': (event)=>{
+                        
+                        this.inputContent=event.target.value;
+                       // console.log('this.inputContent' , this.inputContent)
+                        this.$set(data , 'label' , this.inputContent)
+                        // console.log('node' , node)
+
+                        // console.log('data' , data)
+                      }
                     }  
                   
-              })
+              }, data) 
+            ]
+
+            ),
+             h('Col', {
+                props:    {
+                  span: 9
+                }  
+            },
+            [ 
+               h('Input',{
+                    props:  {
+                      value: data.value,
+                      type: this.keyNumber ? 'number' : 'text',
+                      placeholder: '值'
+                    }  ,
+                     on: {
+                      'on-change': (event)=>{
+                         this.inputContent=event.target.value;
+                          this.$set(data , 'value' , this.inputContent)
+                        //this.$set(data , 'value' , v)
+                      }
+                    } 
+                  
+              }) 
+            ]
+
+            ),
+            h('Col', {
+                props:    {
+                  span: 6
+                }  
+            },
+            [ 
+               h('ng-icon',{
+                    props:  {
+                      type: 'add' 
+                    } ,
+                     on: {
+                      click: ()=>{
+                        console.log('add')
+                        this_.append(data)
+                      }
+                    } 
+              }) ,
+               h('ng-icon',{
+                    props:  {
+                      type: 'delete' 
+                    },   
+                    on: {
+                      click: ()=>{
+                        console.log('delete') 
+                        this_.remove(node, data)
+                      }
+                    }
+              }) 
             ]
 
             ),

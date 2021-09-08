@@ -9,14 +9,14 @@ module.exports = {
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
       cdn: {
         css: [
-          'https://unpkg.com/view-design/dist/styles/iview.css'
+          'https://cdn.bootcdn.net/ajax/libs/view-design/4.4.0/styles/iview.min.css'
              
         ],
         js: [
           "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
           "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
           "https://cdn.jsdelivr.net/npm/vuex@3.1.3/dist/vuex.min.js",
-          "https://unpkg.com/view-design/dist/iview.min.js",
+          "https://cdn.bootcdn.net/ajax/libs/view-design/4.4.0/iview.min.js",
                 
           "https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js" 
         ]

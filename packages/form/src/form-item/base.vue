@@ -381,12 +381,12 @@
       
     />  -->  
     <!-- 级联选择器 -->
-    <!--
+ 
     <Cascader 
       v-else-if="record.type === 'cascader'"
       ref="cascader"
       v-model="checkList"
-      :options="(record.options.dynamic == 1 && record.options.remoteFunc ? checkValues : record.options.options)"
+      :data="(record.options.dynamic == 1 && record.options.remoteFunc ? checkValues : record.options.options)"
       :style="`width:${record.options.width}`"
       :placeholder="record.options.placeholder"
       :filterable="record.options.showSearch" 
@@ -397,7 +397,7 @@
       @on-change="handleChange($event, record.model)"
       
     />  
-  -->
+ 
 
      <!-- 开关 -->
     <i-switch
