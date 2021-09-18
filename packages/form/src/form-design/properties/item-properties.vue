@@ -120,8 +120,9 @@
             <RadioGroup  type="button" v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
-            </RadioGroup>
-   
+            </RadioGroup> 
+          </FormItem>
+          <FormItem label-width="0" >  
             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
                 <Input size="mini" v-model="options.remoteFunc">
@@ -198,8 +199,9 @@
             <RadioGroup type="button"  v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
-            </RadioGroup>
-   
+            </RadioGroup> 
+          </FormItem>
+          <FormItem label-width="0" >  
             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
                 <Input size="mini" v-model="options.remoteFunc">
@@ -214,13 +216,10 @@
                 <Input size="mini" v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
-            </div> 
-           
-
+            </div>  
             <!-- 本地赋值 -->
             <ValOption v-if="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
-
            <Divider ></Divider>
           <!-- 联动配置 2021-03-12 lyf -->
           <FormItem label="联动关联">
@@ -258,9 +257,10 @@
             <RadioGroup type="button"  v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
-            </RadioGroup>
-   
-            <!-- 远程赋值配置 --> 
+            </RadioGroup> 
+          </FormItem>
+          <FormItem label-width="0" >  
+             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
                 <Input size="mini" v-model="options.remoteFunc">
                   <template slot="prepend">远端方法</template>
@@ -274,13 +274,10 @@
                 <Input size="mini" v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
-            </div> 
-           
-
+            </div>  
             <!-- 本地赋值 -->
             <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
-
            <Divider ></Divider>
           <!-- 联动配置 2021-03-12 lyf -->
           <FormItem label="联动关联">
@@ -476,8 +473,9 @@
             <RadioGroup  type="button" v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
-            </RadioGroup>
-   
+            </RadioGroup> 
+          </FormItem>
+          <FormItem label-width="0" >  
             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
                 <Input size="mini" v-model="options.remoteFunc">
@@ -495,8 +493,7 @@
                 <Input size="mini" v-model="options.remoteChildren" >
                   <template slot="prepend">下级字段</template>
                 </Input>
-            </div>  
-
+            </div>   
             <!-- 本地赋值 -->
             <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
