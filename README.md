@@ -9,6 +9,8 @@ NG-FORM-IVIEW
  **element-ui版本地址**
  https://gitee.com/jjxliu306/ng-form-element
 
+ **element-plus版本地址**
+ https://gitee.com/jjxliu306/ng-form-elementplus
 
 ##示例
 
@@ -162,7 +164,7 @@ Vue.use(NgFormIView)
     </ng-form-design> 
  ```
 
-# 2. 表单查看/填报组件  ng-form-build 
+# 2. 表单查看/填报组件  ng-form-build
 
 方法:
 
@@ -210,7 +212,7 @@ Vue.use(NgFormIView)
  ```
 
 
-# 3. 自定义组件示例  
+# 3. 自定义组件示例
 
 3.1 自定义一个组件（根据文本中输入的地址展示图片）
 
