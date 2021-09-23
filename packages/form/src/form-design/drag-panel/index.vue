@@ -8,7 +8,7 @@
 		<p slot="title"> 
             组件列表
         </p>
-		<Collapse v-model="actives" accordion  >
+		<Collapse v-model="actives"   >
 		  	<Panel  name="1">
 		  		基础组件
 	            <p slot="content">

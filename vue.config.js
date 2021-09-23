@@ -27,8 +27,8 @@ module.exports = {
   configureWebpack: {
     // 打包忽略文件
     externals: {
-      "iview": "IVIEW",
-      vue: "Vue",
+      "view-design": "ViewDesign",
+      Vue: "vue",
       "vue-router": "VueRouter",
       vuex: "Vuex",
       
