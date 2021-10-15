@@ -23,23 +23,23 @@
             </Col>  
           </Row>
           <Row   >
-            <Input size="mini" v-model="val.model" placeholder="关联字段">
+            <Input  v-model="val.model" placeholder="关联字段">
               <template slot="prepend">关联字段</template>
             </Input>
           </Row>
           <Row :span="21">
             <template v-if="val.vtype == 1">
                表达式:
-              <Input size="mini"   type="textarea" v-model="val.script" placeholder="表达式,eg: $item.value>$.age . 其中$item表示当前数据中具体一条数据,$表示当前整个表单数据" />
+              <Input    type="textarea" v-model="val.script" placeholder="表达式,eg: $item.value>$.age . 其中$item表示当前数据中具体一条数据,$表示当前整个表单数据" />
 
             </template>
            
             <Row v-else-if="val.vtype == 2">
               <Col :span="12">
-                <Input size="mini" v-model="val.queryKey" placeholder="query key" />
+                <Input  v-model="val.queryKey" placeholder="query key" />
               </Col>
                <Col :span="12">
-                <Input size="mini" v-model="val.queryValue" placeholder="query value" />
+                <Input  v-model="val.queryValue" placeholder="query value" />
               </Col>
             </Row> 
           </Row>
@@ -47,7 +47,7 @@
         
       </div>
       <div v-if="!disabled" :span="24">
-        <Button type="primary" size="mini" @click="handleAdd">添加</Button>
+        <Button type="primary" @click="handleAdd">添加</Button>
       </div>
     
      

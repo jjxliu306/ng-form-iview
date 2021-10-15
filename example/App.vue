@@ -23,8 +23,8 @@
           </Alert>
           <ng-form-build class="form-app-preview" ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
 
-          <Button  class="preview-button" type="primary" size="mini"  @click="validator()">验证</Button>
-          <Button  class="preview-button" type="primary" size="mini"  @click="getData()">获取数据</Button>
+          <Button  class="preview-button" type="primary"   @click="validator()">验证</Button>
+          <Button  class="preview-button" type="primary"   @click="getData()">获取数据</Button>
         </TabPane> 
       </Tabs>
 

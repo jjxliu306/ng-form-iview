@@ -4,7 +4,7 @@
 <template>
   <div class="properties-centent kk-checkbox"> 
     <div class="properties-body">
-      <Form label-position="left" size="mini"  >
+      <Form label-position="left"   >
         <FormItem label="标签对齐方式">
           <RadioGroup type="button" v-model="config.labelPosition">
             <Radio label="left">左对齐</Radio>
