@@ -28,9 +28,9 @@
   </Tabs>
  
     <span slot="footer" class="dialog-footer">
-      <Button size="mini" @click="visible = false">取 消</Button> 
-      <Button size="mini" v-if="active == 'third'" type="primary" @click="syncModel" >同 步</Button>
-      <Button size="mini" type="primary" @click="visible = false">确 定</Button>
+      <Button @click="visible = false">取 消</Button> 
+      <Button v-if="active == 'third'" type="primary" @click="syncModel" >同 步</Button>
+      <Button type="primary" @click="visible = false">确 定</Button>
     </span>
  
   </Modal>

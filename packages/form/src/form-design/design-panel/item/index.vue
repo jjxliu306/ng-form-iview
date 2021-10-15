@@ -83,7 +83,7 @@
         style="top:20px;" 
         :append-to-body="true"  
         >
-        <Form size="mini" :model="tdStyle" :label-width="80"> 
+        <Form :model="tdStyle" :label-width="80"> 
           <FormItem  label="class" >
             <Input v-model="tdStyle.class" placeholder="请输入class名称" />
           </FormItem>

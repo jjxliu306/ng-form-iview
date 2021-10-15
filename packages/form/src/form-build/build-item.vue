@@ -105,7 +105,7 @@
 
      </div>
       <!-- 右键里的删除和复制 下方的新增 -->
-      <Button v-if="!renderPreview && !record.options.noAdd" type="dashed" size="mini" :disabled="disabled" @click="addControl">
+      <Button v-if="!renderPreview && !record.options.noAdd" type="dashed" :disabled="disabled" @click="addControl">
         <i class="el-icon-circle-plus-outline" />增加
       </Button>
       <div

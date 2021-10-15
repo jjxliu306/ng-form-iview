@@ -17,11 +17,11 @@
       <renderPreview ref="renderPreview" v-if="renderVisisble"/> 
     </div> 
     <span slot="footer" class="dialog-footer">
-      <Button size="mini" @click="visible = false">取 消</Button>
-      <Button size="mini" @click="handleGetData">获取数据</Button> 
-      <Button size="mini" @click="handleRender">渲染</Button>
-       <Button size="mini" @click="handleValidator">验证</Button>
-      <Button  size="mini" type="primary" @click="visible = false">确 定</Button>
+      <Button @click="visible = false">取 消</Button>
+      <Button @click="handleGetData">获取数据</Button> 
+      <Button @click="handleRender">渲染</Button>
+       <Button @click="handleValidator">验证</Button>
+      <Button  type="primary" @click="visible = false">确 定</Button>
     </span>
  
   </Modal>

@@ -6,7 +6,7 @@
    
     <div class="properties-body"> 
       <p class="hint-box" v-show="!selectItem.key">未选择控件</p>
-      <Form v-show="selectItem.key" size="mini" :disabled="disabled">
+      <Form v-show="selectItem.key" :disabled="disabled">
 
        
         <!-- 公共部分 标签 字段key 数据key start -->
@@ -125,16 +125,16 @@
           <FormItem label-width="0" >  
             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
-                <Input size="mini" v-model="options.remoteFunc">
+                <Input size="small" v-model="options.remoteFunc">
                   <template slot="prepend">远端方法</template>
                 </Input>
-                <Input size="mini" v-model="options.dataPath"  title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
+                <Input size="small" v-model="options.dataPath"  title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
                   <template slot="prepend">列表数据dataPath</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteValue">
+                <Input size="small" v-model="options.remoteValue">
                   <template slot="prepend">值字段</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteLabel">
+                <Input size="small" v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
             </div>  
@@ -204,16 +204,16 @@
           <FormItem label-width="0" >  
             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
-                <Input size="mini" v-model="options.remoteFunc">
+                <Input  v-model="options.remoteFunc">
                   <template slot="prepend">远端方法</template>
                 </Input>
-                <Input size="mini" v-model="options.dataPath"  title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
+                <Input  v-model="options.dataPath"  title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
                   <template slot="prepend">列表数据dataPath</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteValue">
+                <Input  v-model="options.remoteValue">
                   <template slot="prepend">值字段</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteLabel">
+                <Input  v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
             </div>  
@@ -262,16 +262,16 @@
           <FormItem label-width="0" >  
              <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
-                <Input size="mini" v-model="options.remoteFunc">
+                <Input  v-model="options.remoteFunc">
                   <template slot="prepend">远端方法</template>
                 </Input>
-                <Input size="mini" v-model="options.dataPath" title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
+                <Input  v-model="options.dataPath" title="假设当前接口返回的数据结构为:{code:200,data:[{id:1,name:'11'},{id:2,name:'22'}]} , 则当前的dataPath填写: data">
                   <template slot="prepend">列表数据dataPath</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteValue">
+                <Input  v-model="options.remoteValue">
                   <template slot="prepend">值字段</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteLabel">
+                <Input  v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
             </div>  
@@ -478,19 +478,19 @@
           <FormItem label-width="0" >  
             <!-- 远程赋值配置 --> 
             <div v-if="options.dynamic == 1">
-                <Input size="mini" v-model="options.remoteFunc">
+                <Input  v-model="options.remoteFunc">
                   <template slot="prepend">远端方法</template>
                 </Input>
-                <Input size="mini" v-model="options.dataPath">
+                <Input  v-model="options.dataPath">
                   <template slot="prepend">列表数据jsonPath</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteValue">
+                <Input  v-model="options.remoteValue">
                   <template slot="prepend">值字段</template>
                 </Input>
-                <Input size="mini" v-model="options.remoteLabel">
+                <Input  v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
-                <Input size="mini" v-model="options.remoteChildren" >
+                <Input  v-model="options.remoteChildren" >
                   <template slot="prepend">下级字段</template>
                 </Input>
             </div>   

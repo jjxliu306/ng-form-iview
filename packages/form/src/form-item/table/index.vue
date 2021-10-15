@@ -25,21 +25,21 @@
         <TableItem v-if="col.slot" :key="col.model" :record="col.item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][index]" /> 
       </template>
       <template slot-scope="{ row, index }" slot="action" v-if="!renderPreview || record.options.addType == 'dialog'">
-         <Button type="success" size="mini"  v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
+         <Button type="success"   v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-eye" />查看
             </Button>
-            <Button type="primary" size="mini" v-if="!renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
+            <Button type="primary" v-if="!renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-edit" />修改
             </Button>
-            <Button type="primary" size="mini" v-if="!renderPreview && record.options.copyRow"  @click="copyDomain(row)">
+            <Button type="primary"  v-if="!renderPreview && record.options.copyRow"  @click="copyDomain(row)">
               <i class="el-icon-copy-document" />复制
             </Button>
-            <Button type="danger"  size="mini" v-if="!renderPreview" @click="removeDomain(index)">
+            <Button type="danger"  v-if="!renderPreview" @click="removeDomain(index)">
               <i class="el-icon-delete" />删除 
             </Button>
       </template> 
     </Table>
-    <Button v-if="!renderPreview" size="mini" type="dashed" :disabled="disabled" @click="addDomain">
+    <Button v-if="!renderPreview" type="dashed" :disabled="disabled" @click="addDomain">
       <i class="el-icon-circle-plus-outline" />增加
     </Button>
 
