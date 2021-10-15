@@ -17,7 +17,6 @@
       :label-width="formTemplate.config.labelWidth" 
       ref="dataForm" 
       :model="dataForm"  
-      size="mini"
     > 
     <template
       v-for="(item,index) in formTemplate.list"  

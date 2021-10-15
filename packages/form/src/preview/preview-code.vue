@@ -14,13 +14,13 @@
       
     </div>
     <div class="copy-btn-box"> 
-      <Button size="mini" @click="handleExportJson" type="primary">
+      <Button  @click="handleExportJson" type="primary">
         导出代码
       </Button>
     </div>
     <span slot="footer" class="dialog-footer">
-      <Button size="mini" @click="visible = false">取 消</Button>
-      <Button size="mini" type="primary" @click="visible = false">确 定</Button>
+      <Button  @click="visible = false">取 消</Button>
+      <Button  type="primary" @click="visible = false">确 定</Button>
     </span>
   </Modal>
 </template>

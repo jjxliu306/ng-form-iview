@@ -4,9 +4,9 @@
         <TabPane label="表单绘制" name="first" tab="app">
             <ng-form-design ref="formDesign" :custom-components="customComponents" :config="formConfig">
                 <template slot="controlButton" >
-                    <Button   type="text" size="medium"  @click="initDemo(1)">示例1</Button>
-                    <Button   type="text" size="medium"  @click="initDemo(2)">示例2</Button>
-                    <Button   type="text" size="medium"  @click="initDemo(3)">示例3</Button>
+                    <Button   type="text" size="large"  @click="initDemo(1)">示例1</Button>
+                    <Button   type="text" size="large"  @click="initDemo(2)">示例2</Button>
+                    <Button   type="text" size="large"  @click="initDemo(3)">示例3</Button>
                 </template>
                 <!-- 自定义属性配置 -->
                 <template slot="custom-properties" slot-scope="{selectItem}"> 

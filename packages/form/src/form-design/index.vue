@@ -63,8 +63,8 @@
          <Input type="textarea" :rows="3" v-model="importText"/>
  
         <span slot="footer" class="dialog-footer">
-          <Button size="mini" @click="importVisible = false">取 消</Button>
-          <Button size="mini" type="primary" @click="importModel">确 定</Button>
+          <Button @click="importVisible = false">取 消</Button>
+          <Button type="primary" @click="importModel">确 定</Button>
         </span>
       </Modal>    
       
