@@ -1,4 +1,5 @@
- import Vue from 'vue'
+
+import Vue from 'vue'
 import App from './App'   
 // iview通过外部cdn导入
 

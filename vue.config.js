@@ -28,7 +28,7 @@ module.exports = {
     // 打包忽略文件
     externals: {
       "view-design": "ViewDesign",
-      Vue: "vue",
+       vue: "Vue",
       "vue-router": "VueRouter",
       vuex: "Vuex",
       
