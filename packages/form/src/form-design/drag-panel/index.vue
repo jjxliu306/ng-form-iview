@@ -4,11 +4,11 @@
  * description 可拖拽元素的列表 包含基础组件和布局组件
  --> 
 <template>
-	<Card class="box-card form-item ">
+	<Card class="box-card  form-contains">
 		<p slot="title"> 
             组件列表
         </p>
-		<Collapse v-model="actives"   >
+		<Collapse v-model="actives"  accordion >
 		  	<Panel  name="1">
 		  		基础组件
 	            <p slot="content">
@@ -54,7 +54,7 @@ export default {
 	},
 	data(){
 		return {
-			actives:['1','2','3'],
+			actives:['1'],
 			noModel: noModelList,
 		    startType: "",
 		    data: {
@@ -72,8 +72,7 @@ export default {
 		    },
 		    selectItem: {
 		       key: ""
-		    } ,
-		    customComponents: []
+		    }  
 		}
 	},
 	computed: {
@@ -106,21 +105,23 @@ export default {
 	      	return llist
 	    } 
 	},
-	created() { 
-		if(window.customComponents) {
-			this.customComponents = window.customComponents
-
-			// 2021-05-17 lyf 初始化回填默认key和model
-			if(this.customComponents && this.customComponents.length > 0) {
-				this.customComponents.forEach(t=>{
-					if(!t.key) { 
-	        		 	const key = t.type + "_" + new Date().getTime()
-	        		 	t['key'] = key 
-        		 		t['model'] = key
-	        		}
-				})
-			}
-		}
+	inject: {
+	    customComponents: {
+	      from: 'customC',
+	      default: ()=>[]
+	    },
+	},
+	created() {  
+		// 2021-05-17 lyf 初始化回填默认key和model
+		if(this.customComponents && this.customComponents.length > 0) {
+			this.customComponents.forEach(t=>{
+				if(!t.key) { 
+	        		 const key = t.type + "_" + new Date().getTime()
+	        		 t['key'] = key 
+        		 	t['model'] = key
+	        	}
+			})
+		} 
 		 
 	},
 	methods: {

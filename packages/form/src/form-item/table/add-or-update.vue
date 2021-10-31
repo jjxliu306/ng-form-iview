@@ -93,13 +93,19 @@
       }
     },
     computed: {
-     customList() {
-      if (window.customComponents) {
-        return window.customComponents.map(item => item.type);
-      } else {
-        return [];
+      customList() {
+        if (this.customComponents) {
+          return this.customComponents.map(item => item.type);
+        } else {
+          return [];
+        }
       }
-    }
+    },
+    inject: {
+      customComponents: {
+        from: 'customC',
+        default: ()=>[]
+      },
     },
     props: {
       // 表格内部的配置

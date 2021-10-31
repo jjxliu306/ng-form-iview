@@ -1,5 +1,5 @@
 <template> 
-    <Row class="form-design layout" :gutter="20">
+    <Row class="form-design layout" :gutter="20"> 
       <i-col :span="4" class="drag-panel" >
           <slot name="drag"></slot>
           <DragPanel > </DragPanel> 
@@ -184,14 +184,18 @@ export default {
       default: true
     }
   },
-   
+  provide: function () {
+    return {
+     customC: this.customComponents 
+    }
+  }, 
   components: {
     DesignPanel,DragPanel,Properties,Preview,previewCode,renderPreview
   },
   created(){  
-    if( this.customComponents && this.customComponents.length > 0) {
-      window.customComponents = this.customComponents
-    }
+    // if( this.customComponents && this.customComponents.length > 0) {
+    //   window.customComponents = this.customComponents
+    // }
     if(this.config.httpConfig) {
       window.httpConfig = this.config.httpConfig
     }

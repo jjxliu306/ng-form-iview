@@ -1,16 +1,13 @@
 <template>
 	<div>  
-		<el-input
+		<Input
 		  v-if="!preview"
 		  type="textarea"
 		  autosize
 		  placeholder="请输入图片地址"
-		  v-model.trim="models[record.model]" :disabled="disabled">
-		</el-input> 
-		 <el-image
-	      :style="record.options.style ? record.options.style : null"
-	      :src="models[record.model]"
-	      fit="scale-down"></el-image> 
+		  v-model.trim="models[record.model]" :disabled="disabled"/>
+ 
+		 <img :src="models[record.model]" /> 
 	</div> 
 </template>
 <script>

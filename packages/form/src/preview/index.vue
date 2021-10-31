@@ -12,7 +12,7 @@
   > 
 
     <div class="item-main">
-      <FormBuild :formTemplate="jsonData" :models="models" ref="formBuild" />
+      <FormBuild  :custom-components="customComponents"  :formTemplate="jsonData" :models="models" ref="formBuild" />
       <PreviewCode ref="previewCode" />
       <renderPreview ref="renderPreview" v-if="renderVisisble"/> 
     </div> 
@@ -44,6 +44,12 @@ export default {
   },
   components: {
     PreviewCode,FormBuild,renderPreview
+  },
+  inject: {
+    customComponents: {
+      from: 'customC',
+      default: ()=>[]
+    },
   },
   methods: {
     

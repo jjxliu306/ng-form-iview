@@ -192,10 +192,16 @@ export default {
       deep:true
     }
   },
+  inject: {
+    customComponents: {
+      from: 'customC',
+      default: ()=>[]
+    },
+  },
   computed: {
     customList() {
-      if (window.customComponents) {
-        return window.customComponents.map(item => item.type);
+      if (this.customComponents) {
+        return this.customComponents.map(item => item.type);
       } else {
         return [];
       }

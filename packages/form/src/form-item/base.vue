@@ -77,6 +77,7 @@
 
   </div>
   <div v-else class="base-item">  
+
     <!-- 单行文本 -->    
     <Input
      
@@ -425,7 +426,7 @@
 <script> 
 import request from '../utils/request.js'
 //import FileUpload from './file-upload'
-import {dynamicFun} from '../utils' 
+import {dynamicFun,dateFormater} from '../utils' 
 import CustomComponent from "./custom";
 export default {
   name: "form-item-base",
@@ -484,6 +485,12 @@ export default {
   components: {
      /*FileUpload,*/CustomComponent
   }, 
+  inject: {
+    customComponents: {
+      from: 'customC',
+      default: ()=>[]
+    },
+  },
   computed: {
     sliderMarks() {
         
@@ -504,8 +511,8 @@ export default {
     },
     customList() {
      
-      if (window.customComponents) {
-        return window.customComponents.map(item => item.type);
+      if (this.customComponents) {
+        return this.customComponents.map(item => item.type);
       } else {
         return [];
       }
@@ -836,10 +843,6 @@ export default {
       }
     }
   },
-  activated(){
-    
-
-  },
   mounted() { 
      // 2020-07-30 如果有cbColumn 则尝试从data中回填数据  
    
@@ -867,8 +870,8 @@ export default {
     } 
 
     
-    // 如果已经赋值了 则不管默认值了 
-    if(this.models && Object.prototype.hasOwnProperty.call(this.models, this.record.model)) {
+    // 如果已经赋值了 则不管默认值了  
+    if(this.models && Object.prototype.hasOwnProperty.call(this.models, this.record.model) && this.models[this.record.model] ) {
       // 判断数据类型是否正确 
       // 类型为checkbox cascader 但数据非array类型 则强制转array
       let modelValue = this.models[this.record.model]
@@ -883,18 +886,20 @@ export default {
   
         //this.models[this.record.model] = vs
         this.checkList = modelValue 
-      }
-
+      } 
       return ;
     }
 
-    const defaultValue = this.record.options.defaultValue
- 
+    let defaultValue = this.record.options.defaultValue
+    console.log('defaultValue1' , JSON.stringify(defaultValue))
     if(defaultValue != null) {
       if(this.record.type == 'checkbox' || this.record.type == 'cascader'){
         this.checkList = defaultValue
       } else {
-        //this.models[this.record.model] = defaultValue
+        if((this.record.type == 'date' || this.record.type == 'time' || this.record.type == 'datePicker' ) && defaultValue == 'now') {  
+          defaultValue = dateFormater(new Date() ,this.record.options.format) 
+     
+        }  
         this.$set(this.models , this.record.model , defaultValue)
       } 
 
