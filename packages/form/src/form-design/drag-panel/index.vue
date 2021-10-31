@@ -19,6 +19,18 @@
 	                @start="handleStart"/> 
 	            </p> 
 		  	</Panel >
+		  	<!-- 个性化控件 -->
+		  	<Panel  name="4"  v-if="personalArray.length > 0">
+		  		个性化组件
+		  		<p slot="content">
+		  		  	<DragItem
+	                :list="personalArray"
+	                @generateKey="generateKey"
+	                @handleListPush="handleListPush"
+	                @start="handleStart"
+	              />
+		  		</p>
+		  	</Panel> 
 		  	 <!-- 自定义控件 -->
             <Panel  v-if="customComponents.length > 0" name="2" >
             	自定义组件
@@ -46,7 +58,7 @@
 	</Card>
 </template>
 <script>
-import { basicsList,  layoutList , noModelList} from "../config.js";
+import { basicsList,  layoutList ,personalList, noModelList} from "../config.js";
 import DragItem from './item'
 export default {
 	components: {
@@ -79,6 +91,21 @@ export default {
 	    basicsArray() {
 	      	// 计算需要显示的基础字段
 	      	const blist = basicsList
+	      	blist.forEach(t=>{
+	      		t.options.dynamicHide = false
+        		t.options.dynamicHideValue = ''
+        		if(!t.key) { 
+        		 	const key = t.type + "_" + new Date().getTime()
+        		 	t['key'] = key 
+        		 	t['model'] = key
+        		}
+
+	      	}) ;
+	      	return blist
+	    },
+	    personalArray(){
+	    	// 计算需要显示的基础字段
+	      	const blist = personalList
 	      	blist.forEach(t=>{
 	      		t.options.dynamicHide = false
         		t.options.dynamicHideValue = ''

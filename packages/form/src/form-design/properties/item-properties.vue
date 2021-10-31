@@ -759,6 +759,38 @@
           </FormItem>
         </template> 
         <!-- 表格布局  end -->
+         <!-- 区划选择 start -->
+        <template v-if="selectItem.type == 'state'">
+          <FormItem  label="宽度">
+            <Input placeholder="请输入" v-model="options.width" />
+          </FormItem> 
+          <Divider ></Divider> 
+          <FormItem  label="区划层级">
+            <Select v-model="options.maxLevel"  placeholder="请选择区划层级" >
+              <template  v-for="item in [{value:1 , label: '省'},{value:2 , label: '地市'},{value:3 , label: '区县'}]">
+                <Option 
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                  {{item.label}}
+                </Option> 
+              </template> 
+            </Select>
+          </FormItem>
+           
+          <Divider ></Divider>
+
+          <FormItem  label="操作属性" >
+            <Checkbox v-model="options.hidden"  label="隐藏" >隐藏</Checkbox>
+            <Checkbox v-model="options.disabled"  label="禁用">  禁用</Checkbox>
+            <Checkbox v-model="options.oneByOne" label="递进式显示" >递进式显示</Checkbox> 
+            <Checkbox v-model="options.showAllPath" label="回显所有路径" >回显所有路径</Checkbox> 
+          </FormItem> 
+          <FormItem v-if="options.showAllPath" label="路径分隔符">
+             <Input  v-model="options.separator" max-length="10"/> 
+          </FormItem> 
+        </template> 
+        <!-- 区划选择 end --> 
 
          <!-- 容器 start -->
         <template v-if="selectItem.type == 'control'">

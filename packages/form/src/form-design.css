@@ -619,6 +619,11 @@
 .form-design .form-item{ 
   height: 100%;  
 }
+
+.form-design .width-select {
+  max-width: 200px;
+}
+
 .form-design {
   height: 100%;
   width: 100%; 
