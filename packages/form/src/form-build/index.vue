@@ -187,7 +187,7 @@ export default {
               || (n.type == 'select' && n.options.multiple)) {
               // 多选
               this.$set(this.models , n.model , [])
-            } else {
+            }  else if(n.type != 'control') {
               // 字符串
               this.$set(this.models , n.model , null)
             }
