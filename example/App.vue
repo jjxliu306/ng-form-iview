@@ -24,6 +24,7 @@
           <ng-form-build class="form-app-preview" ref="formbuild" :formTemplate="formTemplate" :models="models" :custom-components="customComponents" :config="formConfig"/>
 
           <Button  class="preview-button" type="primary"   @click="validator()">验证</Button>
+          <Button  class="preview-button" type="primary"   @click="reset()">重置</Button>
           <Button  class="preview-button" type="primary"   @click="getData()">获取数据</Button>
         </TabPane> 
       </Tabs>
@@ -120,6 +121,9 @@ export default {
         }
         //this.models = {}
       } 
+    },
+    reset() {
+      this.$refs.formbuild.reset()
     },
     getData() {
       this.$refs.formbuild.getData().then((data)=>{

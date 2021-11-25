@@ -3,8 +3,7 @@
  -->
 <template>
  
-  <div v-if="renderPreview">
-    models::{{models}}
+  <div v-if="renderPreview"> 
     <template v-if=" [
           'input',
           'textarea',
@@ -911,7 +910,6 @@ export default {
     }
 
     let defaultValue = this.record.options.defaultValue
-    console.log('defaultValue1' , JSON.stringify(defaultValue))
     if(defaultValue != null) {
       if(this.record.type == 'checkbox' || this.record.type == 'cascader'){
         this.checkList = defaultValue
