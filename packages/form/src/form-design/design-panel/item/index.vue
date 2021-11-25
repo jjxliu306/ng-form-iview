@@ -130,7 +130,8 @@ export default {
         "treeSelect",
         "switch",
         "text",
-        "html"
+        "html",
+        "control"
       ],
       rightMenuSelectValue: {},
       showRightMenu: false,

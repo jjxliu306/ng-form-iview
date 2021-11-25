@@ -311,10 +311,9 @@
   padding: 5px;
   background: fade(#9867f7, 12%);
   width: 100%;
-  transition: all 0.3s;
-  overflow: hidden;
+  transition: all 0.3s; 
   min-height: 30px;
-  overflow: auto;
+  overflow: hidden;
 }
 .form-design .batch-box .form-item-box,
 .form-design .grid-box .form-item-box,
