@@ -4,6 +4,7 @@
 <template>
  
   <div v-if="renderPreview">
+    models::{{models}}
     <template v-if=" [
           'input',
           'textarea',
