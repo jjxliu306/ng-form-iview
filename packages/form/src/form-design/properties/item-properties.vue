@@ -56,7 +56,7 @@
           <FormItem   label="操作属性" > 
             <Checkbox v-model="options.hidden"   >隐藏</Checkbox>
             <Checkbox v-model="options.disabled"  >禁用</Checkbox> 
-            <Checkbox v-model="options.clearable" >可清除</Checkbox> 
+            <Checkbox v-if="selectItem.type == 'input'" v-model="options.clearable" >可清除</Checkbox> 
           </FormItem>
         </template>
         <!-- input textarea end -->
