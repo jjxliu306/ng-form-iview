@@ -253,6 +253,7 @@
       <!-- 区分时间段选择 和单个时间选择 -->
       <DatePicker 
         v-if="record.options.range"
+        :style="`width:${record.options.width}`" 
         v-model="checkList"
         align="right"
         type="daterange"
@@ -267,6 +268,7 @@
       </DatePicker>
       <DatePicker 
         v-else
+        :style="`width:${record.options.width}`" 
         v-model="models[record.model]"
         align="right"
         type="date"
@@ -287,6 +289,7 @@
       <!-- 区分时间段选择 和单个时间选择 -->
       <DatePicker 
         v-if="record.options.range"
+        :style="`width:${record.options.width}`" 
         v-model="checkList"
         align="right"
         type="datetimerange"
@@ -301,6 +304,7 @@
       </DatePicker>
       <DatePicker
         v-else
+        :style="`width:${record.options.width}`" 
         v-model="models[record.model]"
         align="right"
         type="datetime"
@@ -319,6 +323,7 @@
     <!-- 时间选择 -->
     <TimePicker 
       v-else-if="record.type === 'time'"
+      :style="`width:${record.options.width}`" 
       v-model="models[record.model]"
       @on-change="handleChange($event, record.model)"
       :clearable="record.options.clearable"
@@ -335,6 +340,7 @@
     <!-- 评分 -->
     <Rate 
       v-model="models[record.model]"
+      :style="`width:${record.options.width}`" 
       v-else-if="record.type === 'rate'"
       :count="record.options.max"
       :disabled="dynamicDisabled"
@@ -420,6 +426,7 @@
      <!-- 区划三级联动选择 -->
     <ng-state
       v-else-if="record.type == 'state'"
+      :style="`width:${record.options.width}`" 
       v-model="models[record.model]" 
       :renderPreview="renderPreview"
       :models="models"
