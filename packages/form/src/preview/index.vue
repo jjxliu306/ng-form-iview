@@ -56,16 +56,14 @@ export default {
     handleGetData() {
       this.$refs.formBuild.getData()
         .then(res => { 
-
-          this.$refs.previewCode.jsonData = res;
-          this.$refs.previewCode.visible = true;
+          this.$refs.previewCode.init(res) 
         })
         .catch(err => {
           console.log(err, "获取数据失败");
         });
     },
     handleValidator(){
-      console.log('handleValidator')
+   
        this.$refs.formBuild.getData()
         .then(res => { 
   
