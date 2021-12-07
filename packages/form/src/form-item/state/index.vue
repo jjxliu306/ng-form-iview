@@ -93,63 +93,69 @@ export default {
   	watch:{
   		value(val) {  
       		 	// 找名称
-      		 	const province_ = val.substr(0,2) + '0000'
-  				  const city_  = val.substr(0,4) + '00'
-  				  const district_  = val 
-
-      		 	let address = [] 
-
-      		 	const ps = this.provinces.filter(t=> t.v == province_)
-      		 	if(ps && ps.length > 0) {
-      		 		address.push(ps[0].l)
-      		 	}
-      		 	const cs = this.citys.filter(t=> t.v == city_)
-      		 	if(cs && cs.length > 0) {
-      		 		address.push(cs[0].l)
-      		 	}
-      		 	const ds = this.districts.filter(t=> t.v == district_)
-      		 	if(ds && ds.length > 0) {
-      		 		address.push(ds[0].l)
-      		 	}
-
-            let separator = this.record.options.separator 
-            if(separator == null || separator == undefined) {
-              separator = ''
-            }
-
-            let str_ = ''
-            if(this.showAllPath) {
-              str_ = address.join(separator)
-            } else {
-              str_ = address.length > 0 ? address[address.length - 1] : ''
-            }
-
-      		 	this.$set(this.models , this.record.model + '_label' , str_)
-      		 	
-      		 
+      	this.updateStateLabel(val)
     	}
   	},
   	methods: {
   		validator() {
 
   		},
+       // 更新区划label
+      updateStateLabel(val) { 
+        let address = [] 
+
+        const fs_ = (areas)=> {
+          areas.forEach(t=> {
+            if(t.v == val) {
+              address.push(t.l)
+            } else if(val.indexOf(t.v.replace(/0+$/ , '')) == 0 && t.c && t.c.length > 0) {
+              address.push(t.l)
+              fs_(t.c)
+            }
+          })
+        }
+
+        fs_(AreaData) 
+        let separator = this.record.options.separator 
+        if(separator == null || separator == undefined) {
+          separator = ''
+        }
+
+        let str_ = ''
+        if(this.record.options.showAllPath) {
+          str_ = address.join(separator)
+        } else {
+          str_ = address.length > 0 ? address[address.length - 1] : ''
+        }
+   
+        this.$set(this.models , this.record.model + '_label' , str_)
+            
+      },
   		init() {
-  			this.provinces = this.areas
+  		  this.provinces = this.areas
 
-  			// 判断当前是否有值
-  			const value = this.models[this.record.model]
-  			if(value) {
+        // 判断当前是否有值
+        const value = this.models[this.record.model]
+        if(value) {
 
-  				// 省
-  				this.dataForm.province = value.substr(0,2) + '0000'
-  				this.dataForm.city  = value.substr(0,4) + '00'
-  				this.dataForm.district  = value 
+          // 省
+          this.dataForm.province = value.substr(0,2) + '0000'
+          this.dataForm.city  = value.substr(0,4) + '00'
+          this.dataForm.district  = value 
 
-  				this.changeProvince(this.dataForm.province , 1)
-  				this.changeCity(this.dataForm.city , 1)
-  				this.changeDistrict(this.dataForm.district , 1)
+          this.changeProvince(this.dataForm.province , 1)
+          this.changeCity(this.dataForm.city , 1)
+          this.changeDistrict(this.dataForm.district , 1)
 
-  			}
+          if(!this.models[this.record.model + '_label']) {
+            this.$nextTick(()=> { 
+              this.updateStateLabel(value)
+            })
+            
+          }
+
+        }
+ 
   		},
   		getOrgs (pid) {
 	    	return new Promise((resolve, reject)=>{
