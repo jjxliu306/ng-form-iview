@@ -191,7 +191,6 @@ export default {
 		  	return datas
 		},
   		changeProvince(v , type) {
-        console.log('v' , v , type)
   			// 过滤name
   			if(!type) {
   				this.dataForm.city = ''

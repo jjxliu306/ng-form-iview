@@ -179,9 +179,9 @@
         @on-change="handleChange($event, record.model ,  true)" 
          :size="formConfig ? formConfig.size : null"
       >
-        <template  v-for="item in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
+        <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
           <Option  
-            :key="item[itemProp.value]"
+            :key="item[itemProp.value] + index"
             :label="item[itemProp.label]"
             :value="item[itemProp.value]"
             v-if="itemVisible(item)"
@@ -204,9 +204,9 @@
         @on-change="handleChange($event, record.model , true)" 
          :size="formConfig ? formConfig.size : null"
       > 
-       <template  v-for="item in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
+       <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
           <Option  
-            :key="item[itemProp.value]"
+            :key="item[itemProp.value] + index"
             :label="item[itemProp.label]"
             :value="item[itemProp.value]"
             v-if="itemVisible(item)"
@@ -225,8 +225,8 @@
       @on-change="handleChange($event, record.model)"
        :size="formConfig ? formConfig.size : null"
     >
-      <template v-for="checkitem in  ( (record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
-         <Checkbox  :label="checkitem[itemProp.value]" :key="checkitem[itemProp.value]" v-if="itemVisible(checkitem)"> 
+      <template v-for="(checkitem,index) in  ( (record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
+         <Checkbox  :label="checkitem[itemProp.value]" :key="checkitem[itemProp.value] + index" v-if="itemVisible(checkitem)"> 
         {{checkitem[itemProp.label]}}
       </Checkbox >
       </template> 
@@ -241,8 +241,8 @@
       @on-change="handleChange($event, record.model)"
        :size="formConfig ? formConfig.size : null"
     > 
-      <template v-for="radioitem in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
-         <Radio  :label="radioitem[itemProp.value]" :key="radioitem[itemProp.value]" v-if="itemVisible(radioitem)">
+      <template v-for="(radioitem,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
+         <Radio  :label="radioitem[itemProp.value]" :key="radioitem[itemProp.value] + index" v-if="itemVisible(radioitem)">
          {{radioitem[itemProp.label]}}
         </Radio>
       </template> 
