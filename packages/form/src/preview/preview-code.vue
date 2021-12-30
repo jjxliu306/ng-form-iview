@@ -4,6 +4,7 @@
 <template>
   <Modal
     title="JSON数据" 
+    id="ng-preview-code"
     v-model="visible"
     :append-to-body="true"
     style="top:20px;"

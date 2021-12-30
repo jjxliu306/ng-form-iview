@@ -1,8 +1,7 @@
 <template>
-
-   
   <Modal
     title="预览"
+    id="ng-preview"
     v-model="visible" 
     style="top:20px;"
     :append-to-body="true"
@@ -13,8 +12,7 @@
 
     <div class="item-main">
       <FormBuild  :custom-components="customComponents"  :formTemplate="jsonData" :models="models" ref="formBuild" />
-      <PreviewCode ref="previewCode" />
-      <renderPreview ref="renderPreview" v-if="renderVisisble"/> 
+     
     </div> 
     <span slot="footer" class="dialog-footer">
       <Button @click="visible = false">取 消</Button>
@@ -23,7 +21,8 @@
        <Button @click="handleValidator">验证</Button>
       <Button  type="primary" @click="visible = false">确 定</Button>
     </span>
- 
+    <PreviewCode ref="previewCode" />
+    <renderPreview ref="renderPreview" v-if="renderVisisble"/> 
   </Modal>
 </template>
 <script> 

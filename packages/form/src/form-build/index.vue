@@ -123,17 +123,19 @@ export default {
       });
     },
     getData() {
+       
       // 提交函数，提供父级组件调用
       return new Promise((resolve, reject) => { 
-
-          this.$refs.form.validate((valid,values)=>{ 
-            console.log('valid' , valid)
-            if (!valid) { 
-              reject('验证失败');
-            } 
-            this.clearHiddenValue()
-            resolve(this.models); 
-          })
+        this.clearHiddenValue()
+        resolve(this.models); 
+          // this.$refs.form.validate((valid,values)=>{ 
+          //   console.log('valid' , valid)
+          //   if (!valid) { 
+          //     reject('验证失败');
+          //   } 
+          //   this.clearHiddenValue()
+          //   resolve(this.models); 
+          // })
  
       });
     },

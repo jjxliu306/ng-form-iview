@@ -4,6 +4,7 @@
 <template>
   <Modal
     title="预览"
+    id="ng-preview-render"
     v-model="visible" 
     style="top:20px;" 
     :append-to-body="true" 
@@ -68,9 +69,7 @@ export default {
           this.formTemplate = {}
           this.templdateText =  ''
         }
-
-       
-
+ 
         if(value){
           this.models = value 
           this.valueText =  JSON.stringify(this.models, null, "\t");  
@@ -111,6 +110,7 @@ export default {
      
       this.$refs.buildPreview.getData()
         .then(res => { 
+          console.log('res' , res)
           this.$nextTick(() => {
             this.models = res ;
             this.valueText = JSON.stringify(res, null, "\t"); 

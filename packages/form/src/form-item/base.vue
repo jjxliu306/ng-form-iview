@@ -7,9 +7,9 @@
     <template v-if=" [
           'input',
           'textarea',
-          'date',
+          //'date',
           'time',
-          'datePicker',
+          //'datePicker',
           'number', 
           'rate',
           'switch',
@@ -20,6 +20,14 @@
        <span class="base-item-span" v-if="!loading">{{models[record.model]}} </span>
       <span class="base-item-span" v-if="record.options.append" v-html="transformAppend(record.options.append)"> 
       </span>  
+    </template>
+    <template v-if="record.type == 'date' || record.type == 'datePicker'">
+      <span v-if="record.options.range && models[record.model] instanceof Array">
+        {{models[record.model].join(' ~ ')}}
+      </span>
+      <span v-else>
+         {{models[record.model]}}
+      </span>
     </template>
     <!-- 区划三级联动选择 -->
      <ng-state
@@ -254,15 +262,13 @@
       <DatePicker 
         v-if="record.options.range"
         :style="`width:${record.options.width}`" 
-        v-model="checkList"
+        v-model="models[record.model]"
         align="right"
         type="daterange"
         :clearable="record.options.clearable"
         :disabled="dynamicDisabled"
-        :start-placeholder="record.options.rangeStartPlaceholder"
-        :end-placeholder="record.options.rangeEndPlaceholder"
-        :format="record.options.format"
-        :value-format="record.options.format"
+        :placeholder="record.options.rangeStartPlaceholder + ' ~ ' + record.options.rangeEndPlaceholder"
+        :format="record.options.format" 
          :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)" >
       </DatePicker>
@@ -275,8 +281,7 @@
         :clearable="record.options.clearable"
         :disabled="dynamicDisabled"
         :placeholder="record.options.placeholder"
-        :format="record.options.format"
-        :value-format="record.options.format"
+        :format="record.options.format" 
          :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)">
       </DatePicker>
@@ -290,15 +295,14 @@
       <DatePicker 
         v-if="record.options.range"
         :style="`width:${record.options.width}`" 
-        v-model="checkList"
+        v-model="models[record.model]"
         align="right"
         type="datetimerange"
         :clearable="record.options.clearable"
         :disabled="dynamicDisabled"
-        :start-placeholder="record.options.rangeStartPlaceholder"
-        :end-placeholder="record.options.rangeEndPlaceholder"
+        :placeholder="record.options.rangeStartPlaceholder + ' ~ ' + record.options.rangeEndPlaceholder"
+      
         :format="record.options.format"
-        :value-format="record.options.format"
          :size="formConfig ? formConfig.size : null"
         @on-change="handleChange($event, record.model)" >
       </DatePicker>
@@ -769,6 +773,10 @@ export default {
       Fn(this.models, this.data)
     },
     handleChange(value, key , type) {
+      //console.log('on change value:' , value , key)
+      if(this.record.type == 'date' || this.record.type == 'datePicker') {
+        this.$set(this.models , key , value)
+      }
       // change事件  
       this.$emit("change", value, key); 
 
