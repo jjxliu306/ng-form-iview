@@ -238,8 +238,8 @@
               :options="options.options"
               v-model="options.defaultValue"
             >
-              <Checkbox  v-for="(item,index) in  [].concat(options.options)" :label="checkitem.value" :key="checkitem.value + index"> 
-                {{checkitem.label}}
+              <Checkbox  v-for="(item,index) in  [].concat(options.options)" :label="item.value" :key="item.value + index"> 
+                {{item.label}}
               </Checkbox>
           </CheckboxGroup>
           </FormItem>
@@ -296,8 +296,8 @@
               :options="options.options"
               v-model="options.defaultValue"
             >
-              <Radio  v-for="(item,index) in  [].concat(options.options)" :label="checkitem.value" :key="checkitem.value + index"> 
-                {{checkitem.label}}
+              <Radio  v-for="(item,index) in  [].concat(options.options)" :label="item.value" :key="item.value + index"> 
+                {{item.label}}
               </Radio>
           </RadioGroup>
           </FormItem>
