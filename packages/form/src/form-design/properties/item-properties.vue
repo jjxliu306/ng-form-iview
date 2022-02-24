@@ -31,7 +31,7 @@
           </FormItem>
            
           <FormItem label="默认值" >
-            <Input  v-model="options.defaultValue"
+            <Input  v-model="options.defaultValue"  :type="selectItem.type"
               :placeholder=" typeof options.format === 'undefined' ? '请输入' : options.format"
             />
           </FormItem>  
