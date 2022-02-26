@@ -120,6 +120,7 @@
             <RadioGroup  type="button" v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
+              <Radio :label="2" v-if="hasDict">数据字典</Radio> 
             </RadioGroup> 
           </FormItem>
           <FormItem label-width="0" >  
@@ -138,6 +139,16 @@
                   <template slot="prepend">标签字段</template>
                 </Input> 
             </div>  
+            <div v-else-if="selectItem.options.dynamic == 2">
+              <AutoComplete
+                v-model="selectItem.options.dictType"
+                :data="dictTypes"
+                @on-search="queryDictSearch"
+                placeholder="请输入"
+              >
+                <Option v-for="item_ in dictTypes" :value="item_.type" :key="item_.type">{{ item_.type }}</Option>
+              </AutoComplete>
+            </div>
             <!-- 本地赋值 -->
             <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
@@ -199,6 +210,7 @@
             <RadioGroup type="button"  v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
+              <Radio :label="2" v-if="hasDict">数据字典</Radio> 
             </RadioGroup> 
           </FormItem>
           <FormItem label-width="0" >  
@@ -216,6 +228,16 @@
                 <Input  v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
+            </div>
+            <div v-else-if="selectItem.options.dynamic == 2">
+              <AutoComplete
+                v-model="selectItem.options.dictType"
+                :data="dictTypes"
+                @on-search="queryDictSearch"
+                placeholder="请输入"
+              >
+                <Option v-for="item_ in dictTypes" :value="item_.type" :key="item_.type">{{ item_.type }}</Option>
+              </AutoComplete>
             </div>  
             <!-- 本地赋值 -->
             <ValOption v-if="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
@@ -257,6 +279,7 @@
             <RadioGroup type="button"  v-model="options.dynamic">
               <Radio :label="0">静态数据</Radio>
               <Radio :label="1">动态数据</Radio> 
+              <Radio :label="2" v-if="hasDict">数据字典</Radio> 
             </RadioGroup> 
           </FormItem>
           <FormItem label-width="0" >  
@@ -274,7 +297,17 @@
                 <Input  v-model="options.remoteLabel">
                   <template slot="prepend">标签字段</template>
                 </Input> 
-            </div>  
+            </div> 
+            <div v-else-if="selectItem.options.dynamic == 2">
+              <AutoComplete
+                v-model="selectItem.options.dictType"
+                :data="dictTypes"
+                @on-search="queryDictSearch"
+                placeholder="请输入"
+              >
+                <Option v-for="item_ in dictTypes" :value="item_.type" :key="item_.type">{{ item_.type }}</Option>
+              </AutoComplete>
+            </div>   
             <!-- 本地赋值 -->
             <ValOption v-show="options.dynamic == 0" :type="selectItem.type" v-model="options.options" />
           </FormItem>
@@ -930,7 +963,8 @@ export default {
   data() {
     return {
       options: {},
-      noModel : noModelList 
+      noModel : noModelList ,
+      dictTypes: []
     };
   },
   watch: {
@@ -939,6 +973,43 @@ export default {
         this.$set(val.options , 'colWidth' , {})
       }
       this.options = val.options || {}; 
+
+      this.dictTypes = []
+
+      if(val.type == 'select' || val.type == 'radio' || val.type == 'checkbox') {
+        this.queryDictSearch()
+      }
+    }
+  },
+  methods: {
+     queryDictSearch(queryString) {
+      const dicts = window.ng_dict_ 
+      if(!dicts || dicts.length == 0) {
+        this.dictTypes = []
+        return
+      }
+       
+
+      const ls = {}
+      const types = []
+      dicts.forEach(t=> {
+        const type = t.type 
+        if(!ls[type]) {
+          ls[type] = type 
+
+          types.push(t)
+        } 
+      })
+
+      // 关键字过滤
+      this.dictTypes = queryString ? types.filter(t=> t.type.indexOf(queryString) >= 0) : types
+        
+
+    }
+  },
+  computed: {
+    hasDict() {
+      return window.ng_dict_
     }
   },
   props: {

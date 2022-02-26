@@ -120,6 +120,7 @@ export const basicsList = [
       remoteValue:'' ,
       remoteLabel:'',
       linkage: false,
+       dictType: '' ,// 数据字典类型
       options: [
         // 下拉选择项配置
         {
@@ -153,6 +154,7 @@ export const basicsList = [
       remoteValue:'' ,
       remoteLabel:'',
       linkage: false,
+       dictType: '' ,// 数据字典类型
       options: [
         {
           value: "1",
@@ -188,6 +190,7 @@ export const basicsList = [
       remoteValue:'' ,
       remoteLabel:'',
       linkage: false,
+       dictType: '' ,// 数据字典类型
       options: [
         {
           value: "1",

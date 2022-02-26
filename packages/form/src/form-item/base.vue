@@ -187,7 +187,7 @@
         @on-change="handleChange($event, record.model ,  true)" 
          :size="formConfig ? formConfig.size : null"
       >
-        <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
+        <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) || (record.options.dynamic == 2 && record.options.dictType) ? checkValues : record.options.options)">
           <Option  
             :key="item[itemProp.value] + index"
             :label="item[itemProp.label]"
@@ -212,7 +212,7 @@
         @on-change="handleChange($event, record.model , true)" 
          :size="formConfig ? formConfig.size : null"
       > 
-       <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)">
+       <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) || (record.options.dynamic == 2 && record.options.dictType) ? checkValues : record.options.options)">
           <Option  
             :key="item[itemProp.value] + index"
             :label="item[itemProp.label]"
@@ -233,7 +233,7 @@
       @on-change="handleChange($event, record.model)"
        :size="formConfig ? formConfig.size : null"
     >
-      <template v-for="(checkitem,index) in  ( (record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
+      <template v-for="(checkitem,index) in  ( (record.options.dynamic == 1 && record.options.remoteFunc) || (record.options.dynamic == 2 && record.options.dictType) ? checkValues : record.options.options)" >
          <Checkbox  :label="checkitem[itemProp.value]" :key="checkitem[itemProp.value] + index" v-if="itemVisible(checkitem)"> 
         {{checkitem[itemProp.label]}}
       </Checkbox >
@@ -249,7 +249,7 @@
       @on-change="handleChange($event, record.model)"
        :size="formConfig ? formConfig.size : null"
     > 
-      <template v-for="(radioitem,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) ? checkValues : record.options.options)" >
+      <template v-for="(radioitem,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) || (record.options.dynamic == 2 && record.options.dictType) ? checkValues : record.options.options)" >
          <Radio  :label="radioitem[itemProp.value]" :key="radioitem[itemProp.value] + index" v-if="itemVisible(radioitem)">
          {{radioitem[itemProp.label]}}
         </Radio>
@@ -901,7 +901,17 @@ export default {
       this.itemProp.label = this.record.options.remoteLabel
       this.itemProp.value = this.record.options.remoteValue
       this.itemProp.children = this.record.options.remoteChildren
-    } 
+    } else if(this.record.options.dynamic == 2 && this.record.options.dictType ) {
+
+      // 2022-02-26 lyf  引入数据字典后判断数据字典
+     
+      this.checkValues = window.ng_dict_.filter(t=>t.type == this.record.options.dictType)
+
+      this.itemProp.label = 'label'
+      this.itemProp.value = 'value'
+      this.itemProp.children = 'children'
+
+    }
 
     
     // 如果已经赋值了 则不管默认值了  
