@@ -459,6 +459,23 @@
           <FormItem  label="宽度">
             <Input placeholder="请输入" v-model="options.width" />
           </FormItem>
+          <FormItem  label="上传地址" prop="options.action"  >
+            <Input placeholder="上传地址" v-model="selectItem.options.action" />
+          </FormItem>
+          <!--required error="返回文件url地址不能为空"-->
+          <FormItem  label="上传成功后解析文件url的epl地址" prop="options.responseFileUrl" >
+            <Input placeholder="上传成功后解析文件url的epl地址" v-model="selectItem.options.responseFileUrl" />
+          </FormItem>
+          <FormItem  label="文件类型">
+            <Input placeholder="文件类型" v-model="options.accept" />
+          </FormItem>
+          <FormItem  label="大小限制(Mb)">
+             <InputNumber v-model="options.limitSize" placeholder="大小限制(Mb)" />
+          </FormItem>
+           <Divider >携带信息</Divider>
+          <FormItem>
+             <ValOption type="keyvalue" v-model="options.headers" /> 
+          </FormItem>
           <!-- 上传数量 -->
           <FormItem  label="最大上传数量" >
             <InputNumber :min="1" v-model="options.limit" />
@@ -477,6 +494,20 @@
         <template v-if="selectItem.type == 'uploadImg'">
           <FormItem  label="宽度">
             <Input placeholder="请输入" v-model="options.width" />
+          </FormItem>
+          <FormItem  label="上传地址"  >
+            <Input placeholder="上传地址" v-model="selectItem.options.action" />
+          </FormItem>
+          <!--required error="返回文件url地址不能为空"-->
+          <FormItem  label="上传成功后解析文件url的epl地址" >
+            <Input placeholder="上传成功后解析文件url的epl地址" v-model="selectItem.options.responseFileUrl" />
+          </FormItem> 
+          <FormItem  label="大小限制(Mb)">
+             <InputNumber v-model="options.limitSize" placeholder="大小限制(Mb)" />
+          </FormItem>
+           <Divider >携带信息</Divider>
+          <FormItem>
+             <ValOption type="keyvalue" v-model="options.headers" /> 
           </FormItem>
           <!-- 上传数量 -->
           <FormItem  label="最大上传数量" >
@@ -988,7 +1019,7 @@ export default {
         this.dictTypes = []
         return
       }
-       
+
 
       const ls = {}
       const types = []

@@ -53,25 +53,23 @@
           'uploadFile'
         ].includes(record.type)"> 
 
-      <!-- 上传图片 -->
+   <!-- 上传图片 -->
       <FileUpload
         v-if="record.type == 'uploadImg'"
         :style="`width:${record.options.width}`" 
-        :fileForm="models"
-        :fileKey="record.model"
-        :updateNow="true"
+        v-model="models[record.model]" 
         accept="image/*" 
         :list-type="record.options.listType" 
         :readOnly="true"  
+        :record="record"
       />  
       <!-- 上传文件 --> 
       <FileUpload
         v-else
         :style="`width:${record.options.width}`" 
-        :fileForm="models"
-        :updateNow="true"
-        :fileKey="record.model"  
+        v-model="models[record.model]" 
         :readOnly="true"    
+        :record="record"
       />  
     </template>
      <!-- 自定义组件 -->
@@ -370,34 +368,37 @@
           
     />  
     
-    <!-- 上传图片 
+    <!-- 上传图片 -->
     <FileUpload
       v-else-if="record.type === 'uploadImg'"
       :style="`width:${record.options.width}`"
       :disabled="dynamicDisabled"
-      :fileForm="models"
-      :fileKey="record.model"
+      v-model="models[record.model]"
+      :record="record"
       accept="image/*" 
       :list-type="record.options.listType"
-      :multiple="true"
+      :multiple="record.options.multiple" 
       :action="record.options.action"
       :limit="record.options.limit"
       @change="handleChange($event, record.model)"
       
-    />  -->
-    <!-- 上传文件 
-    <FileUpload
-      v-else-if="record.type === 'uploadFile'"
+    />  
+     <!-- 上传文件  -->
+     <template v-else-if="record.type === 'uploadFile'">
+       
+       <FileUpload 
       :style="`width:${record.options.width}`"
       :disabled="dynamicDisabled"
-      :fileForm="models"
-      :fileKey="record.model" 
-      :multiple="true"
+      v-model="models[record.model]"
+      :multiple="record.options.multiple"
       :action="record.options.action"
-      :limit="record.options.limit"
+      :record="record"
+      :accept="record.options.accept"
+      :limit="record.options.limit" 
       @change="handleChange($event, record.model)"
       
-    />  -->  
+    />   
+     </template>
     <!-- 级联选择器 -->
  
     <Cascader 
@@ -454,7 +455,7 @@
 </template>
 <script> 
 import request from '../utils/request.js'
-//import FileUpload from './file-upload'
+import FileUpload from './upload'
 import {dynamicFun,dateFormater} from '../utils' 
 import CustomComponent from "./custom";
 import NgState from './state'
@@ -513,7 +514,7 @@ export default {
     } 
   },
   components: {
-     /*FileUpload,*/CustomComponent,NgState
+     FileUpload,CustomComponent,NgState
   }, 
   inject: {
     customComponents: {
