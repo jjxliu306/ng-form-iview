@@ -9,7 +9,7 @@
             组件列表
         </p>
 		<Collapse v-model="actives"  accordion >
-		  	<Panel  name="1">
+		  	<Panel  name="1"  v-if="basicItem == true || basicItem.length > 0">
 		  		基础组件
 	            <p slot="content">
 	            	<DragItem 
@@ -20,7 +20,7 @@
 	            </p> 
 		  	</Panel >
 		  	<!-- 个性化控件 -->
-		  	<Panel  name="4"  v-if="personalArray.length > 0">
+		  	<Panel  name="4"  v-if="personalArray.length > 0 && (personalItem == true || personalItem.length > 0)">
 		  		个性化组件
 		  		<p slot="content">
 		  		  	<DragItem
@@ -43,7 +43,7 @@
 	              />
 	            </p>  
             </Panel >
-		  	<Panel    name="3">
+		  	<Panel    name="3" v-if="layoutItem == true || layoutItem.length > 0">
 		  		布局组件
 		  		<p slot="content">
 		  			<DragItem 

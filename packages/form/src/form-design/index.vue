@@ -2,7 +2,7 @@
     <Row class="form-design layout" :gutter="20"> 
       <i-col :span="4" class="drag-panel" >
           <slot name="drag"></slot>
-          <DragPanel > </DragPanel> 
+          <DragPanel :basic-item="basicItem" :personal-item="personalItem" :layout-item="layoutItem"> </DragPanel> 
       </i-col>
       <i-col :span="20">
         <Row class="form-design" :gutter="20"> 
