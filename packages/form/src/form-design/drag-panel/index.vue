@@ -87,10 +87,30 @@ export default {
 		    }  
 		}
 	},
+	props: {
+		 // 基础组件需要展示的列表 或者false全部不展示
+	    basicItem: {
+	      type: [Boolean , Array] 
+	    }, 
+	    // 个性化组件需要展示的列表 或者false全部不展示
+	    personalItem: {
+	      type: [Boolean , Array] 
+	    },
+	     //布局组件需要展示的列表 或者false全部不展示
+	    layoutItem: {
+	      type: [Boolean , Array] 
+	    } 
+	},
 	computed: {
 	    basicsArray() {
+	    	if(this.basicItem == false) {
+	    		return []
+	    	}
 	      	// 计算需要显示的基础字段
-	      	const blist = basicsList
+	      	let blist = basicsList
+	      	if(this.basicItem && this.basicItem instanceof Array && this.basicItem.length > 0) {
+	      		blist = blist.filter(t=> this.basicItem.indexOf(t.type) >= 0)
+	      	}
 	      	blist.forEach(t=>{
 	      		t.options.dynamicHide = false
         		t.options.dynamicHideValue = ''
@@ -104,8 +124,11 @@ export default {
 	      	return blist
 	    },
 	    personalArray(){
-	    	// 计算需要显示的基础字段
-	      	const blist = personalList
+	    	// 计算需要显示的基础字段 
+	      	let blist = personalList
+	      	if(this.personalItem && this.personalItem instanceof Array && this.personalItem.length > 0) {
+	      		blist = blist.filter(t=> this.personalItem.indexOf(t.type) >= 0)
+	      	}
 	      	blist.forEach(t=>{
 	      		t.options.dynamicHide = false
         		t.options.dynamicHideValue = ''
@@ -119,7 +142,10 @@ export default {
 	      	return blist
 	    },
 	    layoutArray(){ 
-	    	const llist = layoutList
+	    	let llist = layoutList
+	    	if(this.layoutItem && this.layoutItem instanceof Array && this.layoutItem.length > 0) {
+	      		llist = llist.filter(t=> this.layoutItem.indexOf(t.type) >= 0)
+	      	}
 	    	llist.forEach(t=>{
 	      		t.options.dynamicVisible = false
         		t.options.dynamicVisibleValue = ''

@@ -182,7 +182,22 @@ export default {
     exp: {
       type: Boolean ,
       default: true
-    }
+    },
+     // 基础组件需要展示的列表 或者false全部不展示
+    basicItem: {
+      type: [Boolean , Array] ,
+      default: true
+    }, 
+    // 个性化组件需要展示的列表 或者false全部不展示
+    personalItem: {
+      type: [Boolean , Array] ,
+      default: true
+    },
+     //布局组件需要展示的列表 或者false全部不展示
+    layoutItem: {
+      type: [Boolean , Array] ,
+      default: true
+    } 
   },
   provide: function () {
     return {
