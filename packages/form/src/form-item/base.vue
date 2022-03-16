@@ -521,6 +521,10 @@ export default {
       from: 'customC',
       default: ()=>[]
     },
+    ngConfig: {
+        from: 'ngConfigC',
+        default: ()=>({})
+    },
   },
   computed: {
     sliderMarks() {
@@ -906,11 +910,15 @@ export default {
 
       // 2022-02-26 lyf  引入数据字典后判断数据字典
      
-      this.checkValues = window.ng_dict_.filter(t=>t.type == this.record.options.dictType)
+      //console.log('ngConfig' , this.ngConfig)
+      if(this.ngConfig && this.ngConfig.dict && this.ngConfig.dict.length > 0) {
+        const fsDict = this.ngConfig.dict.filter(t=>t.type == this.record.options.dictType)
+        this.checkValues = cloneDeep(fsDict)
 
-      this.itemProp.label = 'label'
-      this.itemProp.value = 'value'
-      this.itemProp.children = 'children'
+        this.itemProp.label = 'label'
+        this.itemProp.value = 'value'
+        this.itemProp.children = 'children'
+      }
 
     }
 

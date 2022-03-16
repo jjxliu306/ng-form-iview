@@ -11,7 +11,7 @@
   > 
 
     <div class="item-main">
-      <FormBuild  :custom-components="customComponents"  :formTemplate="jsonData" :models="models" ref="formBuild" />
+      <FormBuild  :custom-components="customComponents"   :config="ngConfig"   :formTemplate="jsonData" :models="models" ref="formBuild" />
      
     </div> 
     <span slot="footer" class="dialog-footer">
@@ -49,6 +49,10 @@ export default {
       from: 'customC',
       default: ()=>[]
     },
+    ngConfig: {
+        from: 'ngConfigC',
+        default: ()=>({})
+    } 
   },
   methods: {
     init(data) {

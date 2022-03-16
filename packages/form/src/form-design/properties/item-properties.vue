@@ -1014,7 +1014,8 @@ export default {
   },
   methods: {
      queryDictSearch(queryString) {
-      const dicts = window.ng_dict_ 
+      const dicts = this.ngConfig && this.ngConfig.dict ? this.ngConfig.dict : null
+   
       if(!dicts || dicts.length == 0) {
         this.dictTypes = []
         return
@@ -1040,8 +1041,14 @@ export default {
   },
   computed: {
     hasDict() {
-      return window.ng_dict_
+      return this.ngConfig && this.ngConfig.dict && this.ngConfig.dict.length > 0
     }
+  },
+  inject: {
+      ngConfig: {
+        from: 'ngConfigC',
+        default: ()=>({})
+      }
   },
   props: {
     selectItem: {
