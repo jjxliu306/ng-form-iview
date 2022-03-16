@@ -20,23 +20,23 @@
           (!record.options.hideSequence ? 60 : 0),
         y: record.options.scrollY
       }"
-    > 
-      <template slot-scope="{ row, index }" v-for="col in columns" :slot="col.model" >
-        <TableItem v-if="col.slot" :key="col.model" :record="col.item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][index]" /> 
+    >  
+      <template slot-scope="{ row, index }" v-for="col in columns.filter(t=>t.slot && t.slot != 'action')" :slot="col.slot" > 
+        <TableItem :key="col.slot" :record="col.item" :renderPreview="renderPreview || record.options.addType == 'dialog'" :domains="models[record.model][index]" />  
       </template>
-      <template slot-scope="{ row, index }" slot="action" v-if="!renderPreview || record.options.addType == 'dialog'">
-         <Button type="success"   v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
+      <template slot-scope="{ row, index }" :slot="'action'" v-if="!renderPreview || record.options.addType == 'dialog'"> 
+        <Button type="success"   v-if="renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-eye" />查看
-            </Button>
-            <Button type="primary" v-if="!renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
+        </Button>
+        <Button type="primary" v-if="!renderPreview && record.options.addType == 'dialog'"  @click="updateDomain(row)">
               <i class="el-icon-edit" />修改
-            </Button>
-            <Button type="primary"  v-if="!renderPreview && record.options.copyRow"  @click="copyDomain(row)">
+        </Button>
+        <Button type="primary"  v-if="!renderPreview && record.options.copyRow"  @click="copyDomain(row)">
               <i class="el-icon-copy-document" />复制
-            </Button>
-            <Button type="danger"  v-if="!renderPreview" @click="removeDomain(index)">
+        </Button>
+        <Button type="danger"  v-if="!renderPreview" @click="removeDomain(index)">
               <i class="el-icon-delete" />删除 
-            </Button>
+        </Button>
       </template> 
     </Table>
     <Button v-if="!renderPreview" type="dashed" :disabled="disabled" @click="addDomain">
@@ -258,7 +258,7 @@ export default {
         }
 
         this.$set(this.models , this.record.model , domains)
-         this.isVisible = true 
+        this.isVisible = true 
       } 
     },
     formAdd(form){
