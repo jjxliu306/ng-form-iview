@@ -454,6 +454,7 @@
   </div>
 </template>
 <script> 
+import cloneDeep from 'lodash/cloneDeep'
 import request from '../utils/request.js'
 import FileUpload from './upload'
 import {dynamicFun,dateFormater} from '../utils' 
@@ -520,6 +521,10 @@ export default {
     customComponents: {
       from: 'customC',
       default: ()=>[]
+    },
+    ngConfig: {
+      from: 'ngConfigC',
+      default: ()=>({})
     },
   },
   computed: {

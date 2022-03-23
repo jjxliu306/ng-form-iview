@@ -1014,7 +1014,7 @@ export default {
   },
   methods: {
      queryDictSearch(queryString) {
-      const dicts = window.ng_dict_ 
+      const dicts = this.ngConfig && this.ngConfig.dict ? this.ngConfig.dict : null
       if(!dicts || dicts.length == 0) {
         this.dictTypes = []
         return
@@ -1033,14 +1033,18 @@ export default {
       })
 
       // 关键字过滤
-      this.dictTypes = queryString ? types.filter(t=> t.type.indexOf(queryString) >= 0) : types
-        
-
+      this.dictTypes = queryString ? types.filter(t=> t.type.indexOf(queryString) >= 0) : types 
     }
+  },
+  inject: {
+    ngConfig: {
+      from: 'ngConfigC',
+      default: ()=>({})
+    },
   },
   computed: {
     hasDict() {
-      return window.ng_dict_
+      return this.ngConfig && this.ngConfig.dict && this.ngConfig.dict.length > 0
     }
   },
   props: {
