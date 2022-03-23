@@ -626,6 +626,8 @@
   max-width: 200px;
 }
 
+
+
 .form-design {
   height: 100%;
   width: 100%; 
@@ -640,3 +642,6 @@
   height: 100%;
 }
  
+.form-design .ng-form-upload .ivu-upload {
+  display: flex;
+} 
