@@ -2,7 +2,7 @@
     <Row class="form-design layout" :gutter="20"> 
       <i-col :span="4" class="drag-panel" >
           <slot name="drag"></slot>
-          <DragPanel :basic-item="basicItem" :personal-item="personalItem" :layout-item="layoutItem"> </DragPanel> 
+          <DragPanel  @handleDragType="handleDragType" :basic-item="basicItem" :personal-item="personalItem" :layout-item="layoutItem"> </DragPanel> 
       </i-col>
       <i-col :span="20">
         <Row class="form-design" :gutter="20"> 
@@ -23,7 +23,7 @@
                       <Button v-if="exp" type="text" size="medium" icon="ios-cloud-download-outline" @click="handleGenerateJson">导出</Button>
                     </span> 
                 </div> 
-                <DesignPanel :data="data" ref="dragPanel" :selectForm="selectForm" @changeSelectItem="changeSelectItem"/> 
+                <DesignPanel :data="data" ref="dragPanel"  :dragType="dragType" :selectForm="selectForm" @changeSelectItem="changeSelectItem"/> 
                
               </Card> 
             </Col>
@@ -95,6 +95,8 @@ export default {
       importVisible: false,
       importText: '' ,
 
+        // 2022-03-23 lyf 增加dargType 当前拖拽的组件类型
+      dragType: '' ,
       renderVisisble: false,
       // 基础配置
       data: {
@@ -260,6 +262,9 @@ export default {
       this.importVisible = false
 
 
+    },
+    handleDragType(dragType){
+      this.dragType = dragType
     },
     initModel(model) { 
       if(model)

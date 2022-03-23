@@ -10,7 +10,7 @@
     </p>
     <Form 
       :label-width="data.config.labelWidth " 
-      class="a-form-box form-build"
+      class="i-form-box form-build"
       :label-position="data.config.labelPosition"
       :hide-required-mark="data.config.hideRequiredMark" 
       ref="form" 
@@ -40,7 +40,7 @@
             :config="data.config"
             :selectItem.sync="selectItem"
             :startType="startType"
-            :insertAllowedType="insertAllowedType"
+            :dragType="dragType"
             :hideModel="hideModel"
             @dragStart="dragStart"
             @handleSelectItem="handleSelectItem"
@@ -111,28 +111,28 @@ export default {
   data() {
     return {
       form: this.$refs.form,
-      insertAllowedType: [
-        "input",
-        "textarea",
-        "number",
+      // insertAllowedType: [
+      //   "input",
+      //   "textarea",
+      //   "number",
         
-        "select",
-         "batch",
-        "checkbox",
-        "radio",
-        "date",
-        "time",
-        "rate",
-        "slider",
-        "uploadFile",
-        "uploadImg",
-        "cascader",
-        "treeSelect",
-        "switch",
-        "text",
-        "html",
-        "control"
-      ],
+      //   "select",
+      //    "batch",
+      //   "checkbox",
+      //   "radio",
+      //   "date",
+      //   "time",
+      //   "rate",
+      //   "slider",
+      //   "uploadFile",
+      //   "uploadImg",
+      //   "cascader",
+      //   "treeSelect",
+      //   "switch",
+      //   "text",
+      //   "html",
+      //   "control"
+      // ],
       rightMenuSelectValue: {},
       showRightMenu: false,
       isMergeCol: false,
@@ -168,6 +168,9 @@ export default {
     hideModel: {
       type: Boolean,
       default: false
+    },
+    dragType: {
+      type: String
     }
   },
   components: {

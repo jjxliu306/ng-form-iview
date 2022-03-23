@@ -16,7 +16,8 @@
 	                :list="basicsArray"
 	                @generateKey="generateKey"
 	                @handleListPush="handleListPush"
-	                @start="handleStart"/> 
+	                @start="handleStart"
+	                @end="handleEnd"/> 
 	            </p> 
 		  	</Panel >
 		  	<!-- 个性化控件 -->
@@ -28,6 +29,7 @@
 	                @generateKey="generateKey"
 	                @handleListPush="handleListPush"
 	                @start="handleStart"
+	                @end="handleEnd"
 	              />
 		  		</p>
 		  	</Panel> 
@@ -40,6 +42,7 @@
 	                @generateKey="generateKey"
 	                @handleListPush="handleListPush"
 	                @start="handleStart"
+	                @end="handleEnd"
 	              />
 	            </p>  
             </Panel >
@@ -50,7 +53,8 @@
 	                :list="layoutArray"
 	                @generateKey="generateKey"
 	                @handleListPush="handleListPush"
-	                @start="handleStart"/>
+	                @start="handleStart"
+	                @end="handleEnd"/>
 	            </p>
 		  	</Panel >
 
@@ -226,10 +230,14 @@ export default {
 	    },
 	    handleStart(list,index) {
 	    	this.generateKey(list,index)
-	      const type = list[index].type
-	      this.startType = type;
+	      	const type = list[index].type
+	      	this.startType = type;
 
 	    },
+	    handleEnd(){
+	    	this.startType = null
+	    	this.$emit('handleDragType' , null)
+	    }
 	}
 }
 
