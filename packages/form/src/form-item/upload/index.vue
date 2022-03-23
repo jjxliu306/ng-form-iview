@@ -1,7 +1,7 @@
 <template>
 <div> 
 	<Upload
-	  class="upload-demo"
+	  class="ng-form-upload"
 	  :action="action"
 	   
 	  :max-size="maxSize"
@@ -19,9 +19,16 @@
 	  :on-preview="handlePreview"
 	  :auto-upload="autoUpload"
 	  :default-file-list="fileList">
-	   <Button v-if="listType != 'picture-card'" size="small" type="primary">选取文件</Button>
+	<!--    <Button v-if="listType != 'picture-card'" size="small" type="primary">选取文件</Button>
 	   <i v-else class="el-icon-plus"></i>
 	  <div v-if="tip != undefined" slot="tip" class="el-upload__tip">请选择图片，且不超过500kb</div>
+ -->
+
+	    <template v-if="!renderPreview"> 
+	  	 <Button v-if="listType != 'picture-card'" size="small" type="primary">选取文件</Button>
+	   	<i v-else class="el-icon-plus"></i>
+	  	<div v-if="tip != undefined" slot="tip" class="el-upload__tip">请选择图片，且不超过500kb</div>
+	  </template> 
 	</Upload>
 </div>
 </template>
@@ -84,6 +91,10 @@ export default {
 	    },
 	    record: {
 	    	type: Object
+	    },
+	    renderPreview: {
+	    	type: Boolean,
+	    	default: false
 	    }
 	},
 	watch: {
