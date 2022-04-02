@@ -98,6 +98,7 @@
           :models.sync="mdata"   
           :record="item"
           :formConfig="formConfig" 
+          :prop-prepend="record.model + '.' + idx + '.'"
         />
       </div> 
          
@@ -143,7 +144,7 @@
           :key="record.key"
           :record="record"
           :formConfig="formConfig"
-         
+          :prop-prepend="propPrepend"
         />
       </Tooltip> 
      
@@ -159,7 +160,7 @@
         :key="record.key"
         :record="record"
         :formConfig="formConfig"
-       
+        :prop-prepend="propPrepend"
       />
       
    
@@ -194,6 +195,10 @@ export default {
       })
       //required: true
     }, 
+    propPrepend: {
+      // form-item的 prop前缀 默认不需要
+      type: String
+    },
     disabled: {
       type: Boolean,
       default: false

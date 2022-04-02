@@ -27,7 +27,7 @@
     "
     :label="formConfig.labelWidth > 0 ? record.label : null " 
     :rules="recordRules"
-    :prop="record.model"
+    :prop="recordProps"
     :id="record.model" :name="record.model"
   >   
  
@@ -160,6 +160,10 @@ export default {
       })
      // required: true
     },
+    propPrepend: {
+      // form-item的 prop前缀 默认不需要
+      type: String
+    },
     // form-item 宽度配置
     models: {
       type: Object,
@@ -206,6 +210,17 @@ export default {
       } else {
         return [];
       }
+    },
+     // 校验的prop值 动态计算
+    recordProps() {
+      if(this.recordRules && this.recordRules.length > 0) {
+        if(this.propPrepend) {
+          return this.propPrepend + this.record.model
+        } else {
+          return this.record.model
+        }
+      }
+      return null
     },
     showRequiredMark(){
       //##############
