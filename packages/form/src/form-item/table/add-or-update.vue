@@ -16,7 +16,7 @@
       :hide-required-asterisk="formTemplate.config.hideRequiredMark"  
       ref="dataForm" 
       :model="dataForm"  
-      :label-width="(item.options.labelWidth >= 0 ? item.options.labelWidth : formTemplate.config.labelWidth) + 'px'"
+      :label-width="(item.options.labelWidth >= 0 ? item.options.labelWidth : formTemplate.config.labelWidth) "
     > 
     <template
       v-for="(item,index) in formTemplate.list"  
