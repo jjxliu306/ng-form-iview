@@ -79,7 +79,7 @@ export default {
   },
   provide: function () {
     return {
-     customC: this.customComponents,
+     customC: this.customComponents ,
      ngConfigC: this.config
     }
   }, 
@@ -222,7 +222,21 @@ export default {
     if(this.config.httpConfig && !window.httpConfig) {
       window.httpConfig = this.config.httpConfig
     }
+<<<<<<< .mine
  
+
+
+
+
+
+=======
+
+     // 2022-02-26 lyf 从config中获取数据字典 dict
+    // if(this.config.dict && this.config.dict.length > 0 && !window.ng_dict_) {
+    //   window.ng_dict_ = this.config.dict  
+    // }
+
+>>>>>>> .theirs
     this.initModelKey()
      
   }

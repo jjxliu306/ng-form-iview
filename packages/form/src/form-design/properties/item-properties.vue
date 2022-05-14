@@ -1047,6 +1047,12 @@ export default {
       return this.ngConfig && this.ngConfig.dict && this.ngConfig.dict.length > 0
     }
   },
+  inject: {
+      ngConfig: {
+        from: 'ngConfigC',
+        default: ()=>({})
+      }
+  },
   props: {
     selectItem: {
       type: Object,
