@@ -17,6 +17,9 @@
         <FormItem  label="数据字段" v-if="!hideModel && !noModel.includes(selectItem.type)" >
           <Input v-model="selectItem.model" placeholder="请输入" :disabled="(selectItem.item != undefined && selectItem.item.id != undefined) "/>
         </FormItem>
+        <FormItem label="标签宽度" v-if="!hideModel && !noModel.includes(selectItem.type)">
+          <InputNumber v-model="options.labelWidth" title="-1表示跟随整体表达配置的宽度"></InputNumber>
+        </FormItem>
          <Divider ></Divider>
         <!-- 公共部分 标签 字段key 数据key end -->
 
@@ -1009,6 +1012,11 @@ export default {
 
       if(val.type == 'select' || val.type == 'radio' || val.type == 'checkbox') {
         this.queryDictSearch()
+      }
+
+       // 判断 labelWidth 
+      if(!this.hideModel && !Object.prototype.hasOwnProperty.call(this.options, 'labelWidth')){
+        this.$set(this.options , 'labelWidth' , -1)
       }
     }
   },

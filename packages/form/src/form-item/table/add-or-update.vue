@@ -13,10 +13,10 @@
       "
       class="form-build form-design"
       :label-position="formTemplate.config.labelPosition"
-      :hide-required-asterisk="formTemplate.config.hideRequiredMark" 
-      :label-width="formTemplate.config.labelWidth" 
+      :hide-required-asterisk="formTemplate.config.hideRequiredMark"  
       ref="dataForm" 
       :model="dataForm"  
+      :label-width="(item.options.labelWidth >= 0 ? item.options.labelWidth : formTemplate.config.labelWidth) + 'px'"
     > 
     <template
       v-for="(item,index) in formTemplate.list"  

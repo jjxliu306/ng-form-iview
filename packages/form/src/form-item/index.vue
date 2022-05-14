@@ -29,6 +29,8 @@
     :rules="recordRules"
     :prop="recordProps"
     :id="record.model" :name="record.model"
+    :label-width="(record.options.labelWidth >= 0 ? record.options.labelWidth : formConfig.labelWidth) + 'px'"
+
   >   
  
     <BaseItem 
@@ -48,7 +50,8 @@
   <FormItem 
     :id="record.model" :name="record.model"
     v-else-if="(record.type === 'batch' || record.type === 'editor') && dynamicVisibleItem"
-    :label="!record.options.showLabel ? '' : record.label" :label-width="record.options.showLabel ? null : '0'"
+    :label="!record.options.showLabel ? '' : record.label" 
+    :label-width="record.options.showLabel ? ((record.options.labelWidth >= 0 ? record.options.labelWidth : formConfig.labelWidth) + 'px') : '0px'"
   >
     <!-- 动态表格 -->
     <TableBatch
@@ -71,6 +74,7 @@
   <FormItem
     v-else-if="record.type === 'button' && dynamicVisibleItem" 
     :style="{ 'textAlign': record.options.textAlign }"
+    :label-width="(record.options.labelWidth >= 0 ? record.options.labelWidth : formConfig.labelWidth) + 'px'"
   > 
     <Button
       :disabled="disabled || record.options.disabled" 
