@@ -102,6 +102,7 @@
       :clearable="record.options.clearable"
       :maxlength="record.options.maxLength > 0 ? record.options.maxLength : null"
       @on-change="handleChange($event, record.model)"
+      @on-focus="handleFocus($event , record.model)"
       v-model="models[record.model]" 
       :size="formConfig ? formConfig.size : null"
     >   
@@ -125,6 +126,7 @@
       :rows="record.options.rows"
       :show-word-limit="record.options.maxLength > 0 && record.options.maxLength > 10"
       @on-change="handleChange($event, record.model)"
+      @on-focus="handleFocus($event , record.model)"
         :size="formConfig ? formConfig.size : null"
     />
 
@@ -157,6 +159,7 @@
           controls-position="right"
           :placeholder="record.options.placeholder"
           @on-change="handleChange($event, record.model)"
+          @on-focus="handleFocus($event , record.model)"
            :size="formConfig ? formConfig.size : null"
         /> 
         <div class="el-input-group__append el-input-number-group__append " v-if="record.options.append" v-html="transformAppend(record.options.append)">
@@ -183,6 +186,7 @@
         multiple
         @on-clear="clearChange"
         @on-change="handleChange($event, record.model ,  true)" 
+        @on-focus="handleFocus($event , record.model)"
          :size="formConfig ? formConfig.size : null"
       >
         <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) || (record.options.dynamic == 2 && record.options.dictType) ? checkValues : record.options.options)">
@@ -208,6 +212,7 @@
         :clearable="record.options.clearable" 
         @on-clear="clearChange"
         @on-change="handleChange($event, record.model , true)" 
+        @on-focus="handleFocus($event , record.model)"
          :size="formConfig ? formConfig.size : null"
       > 
        <template  v-for="(item,index) in ((record.options.dynamic == 1 && record.options.remoteFunc) || (record.options.dynamic == 2 && record.options.dictType) ? checkValues : record.options.options)">
@@ -268,7 +273,8 @@
         :placeholder="record.options.rangeStartPlaceholder + ' ~ ' + record.options.rangeEndPlaceholder"
         :format="record.options.format" 
          :size="formConfig ? formConfig.size : null"
-        @on-change="handleChange($event, record.model)" >
+        @on-change="handleChange($event, record.model)"
+        @on-focus="handleFocus($event , record.model)" >
       </DatePicker>
       <DatePicker 
         v-else
@@ -281,7 +287,8 @@
         :placeholder="record.options.placeholder"
         :format="record.options.format" 
          :size="formConfig ? formConfig.size : null"
-        @on-change="handleChange($event, record.model)">
+        @on-change="handleChange($event, record.model)"
+        @on-focus="handleFocus($event , record.model)">
       </DatePicker>
 
     </template>
@@ -302,7 +309,8 @@
       
         :format="record.options.format"
          :size="formConfig ? formConfig.size : null"
-        @on-change="handleChange($event, record.model)" >
+        @on-change="handleChange($event, record.model)" 
+        @on-focus="handleFocus($event , record.model)">
       </DatePicker>
       <DatePicker
         v-else
@@ -316,7 +324,8 @@
         :format="record.options.format"
         :value-format="record.options.format"
          :size="formConfig ? formConfig.size : null"
-        @on-change="handleChange($event, record.model)">
+        @on-change="handleChange($event, record.model)"
+        @on-focus="handleFocus($event , record.model)">
       </DatePicker>
 
     </template>
@@ -333,7 +342,8 @@
       :placeholder="record.options.placeholder" 
       :format="record.options.format"
        :size="formConfig ? formConfig.size : null"
-      :value-format="record.options.format">
+      :value-format="record.options.format"
+      @on-focus="handleFocus($event , record.model)">
     </TimePicker > 
 
 
@@ -449,6 +459,7 @@
       :formConfig="formConfig"
       :renderPreview="renderPreview"
       @change="handleChange($event, record.model)"
+      @on-focus="handleFocus($event , record.model)"
        :size="formConfig ? formConfig.size : null"
     />  
   </div>
@@ -727,6 +738,15 @@ export default {
           return fvalue 
       } 
       return append 
+    },
+      // 获取焦点后的事件
+    handleFocus(event , model) {
+      // 判断是否有监听
+      const focusEventScript = this.record.options.focusEvent
+
+      if(!focusEventScript) return 
+
+      dynamicFun(focusEventScript,this.models) 
     },
     remoteMethod(query){
       let queryParam = this.record.options.onlineParams

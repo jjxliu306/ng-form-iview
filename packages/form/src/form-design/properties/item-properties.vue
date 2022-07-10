@@ -936,6 +936,13 @@
         <!-- ################### 校验   end ############################## -->
 
        
+         <!-- 获取焦点事件  后续这块单独拉一个事件列表 包含获取、失去焦点等其他 -->
+        <template v-if="focusType.includes(selectItem.type) || Object.prototype.hasOwnProperty.call(options, 'focusEvent')" >
+          <Divider>事件</Divider>
+          <FormItem  label="获取焦点事件">
+            <Input type="textarea" v-model="options.focusEvent"  placeholder="获取焦点后事件,eg: $.address = $.city + $.location" /> 
+          </FormItem>
+        </template>
 
         <template v-if="!hideModel && selectItem && selectItem.options">
            <FormItem label="动态显示">
@@ -998,6 +1005,7 @@ export default {
     return {
       options: {},
       noModel : noModelList ,
+      focusType: ['input' , 'textarea' , 'number' , 'select' , 'date' , 'time' , 'datePicker'] ,
       dictTypes: []
     };
   },
@@ -1012,6 +1020,11 @@ export default {
 
       if(val.type == 'select' || val.type == 'radio' || val.type == 'checkbox') {
         this.queryDictSearch()
+      }
+
+       // 获取焦点事件
+      if(this.focusType.includes(val.type)) {
+        this.$set(val.options , 'focusEvent' , '')
       }
 
        // 判断 labelWidth 
