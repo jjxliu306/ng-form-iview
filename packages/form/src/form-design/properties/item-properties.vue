@@ -944,6 +944,23 @@
           </FormItem>
         </template>
 
+          <!-- 联动配置 2022-07-10 lyf -->
+        <FormItem label="监听组件"> 
+            <i-switch    v-model="options.listenModel">
+                <span slot="open">是</span>
+                <span slot="close">否</span>
+            </i-switch>
+        </FormItem>
+        <template v-if="options.listenModel"> 
+          <FormItem label="监听组件model">
+            <Input v-model.trim="options.listenModelData"  placeholder="多个使用,分割" /> 
+          </FormItem>
+          <FormItem label="触发表达式">
+            <Input size="mini"   type="textarea" v-model="options.listenModelScript" placeholder="表达式,eg: $.address = $.city + $.location" />
+          </FormItem> 
+        </template>
+        <Divider></Divider>
+
         <template v-if="!hideModel && selectItem && selectItem.options">
            <FormItem label="动态显示">
             <!-- 每个元素都有隐藏条件 根据渲染数据的值来改变 --> 
@@ -1023,8 +1040,15 @@ export default {
       }
 
        // 获取焦点事件
-      if(this.focusType.includes(val.type)) {
+      if(this.focusType.includes(val.type) && !Object.prototype.hasOwnProperty.call(val.options, 'focusEvent')) {
         this.$set(val.options , 'focusEvent' , '')
+      }
+
+        // 监听组件
+      if(!Object.prototype.hasOwnProperty.call(val.options, 'listenModel')) {
+        this.$set(val.options , 'listenModel' , false)
+        this.$set(val.options , 'listenModelData' , '')
+        this.$set(val.options , 'listenModelScript' , '')
       }
 
        // 判断 labelWidth 
